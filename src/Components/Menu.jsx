@@ -6,10 +6,10 @@ export default function Home() {
   console.log(location);
   return (
     <>
-      <div className="absolute bottom-0 md:top-1/4 md:w-fit md:right-2  ">
+      <div className="absolute bottom-0 md:top-1/3 md:w-fit md:right-2 z-20 ">
         <div
           className="flex  justify-around font-customFont 
-      text-white px-3 py-4 w-screen text-3xl bg-secondary1 md:flex-col  md:w-max md:space-y-8  md:rounded-full md:border border-secondary2 md:backdrop-blur-sm  md:bg-transparent"
+      text-white px-3 py-4 w-screen text-3xl bg-secondary1 md:flex-col  md:w-max md:space-y-8  md:rounded-full md:border ring-2  ring-secondary2 md:backdrop-blur-sm  md:bg-transparent"
         >
           {NavElements.map(elem => {
             return (
@@ -17,8 +17,8 @@ export default function Home() {
                 <Link
                   className={`${
                     location.pathname === elem.path
-                      ? 'text-primary1'
-                      : 'text-primary2'
+                      ? 'text-primary1 hover:text-primary1'
+                      : 'text-secondary2 hover:text-primary1'
                   }`}
                   to={elem.path}
                 >

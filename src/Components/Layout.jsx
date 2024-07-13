@@ -9,8 +9,10 @@ import PageNotFound from './PageNotFound';
 import Menu from './Menu';
 import Fragement from './Fragement'
 export default function Layout() {
+ 
   return (
-    <div className="bg-bg-img w-screen h-screen bg-no-repeat bg-cover">
+    <div className="relative  w-screen bg-bg-img h-screen bg-no-repeat bg-cover flex flex-col justify-center items-center">
+      {/* <Fragement posy="0" posx="0" /> */}
       <Header />
       <Router>
         <Menu />
