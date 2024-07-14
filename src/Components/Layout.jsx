@@ -7,12 +7,10 @@ import Skills from './Skills';
 import Projects from './Projects';
 import PageNotFound from './PageNotFound';
 import Menu from './Menu';
-import Fragement from './Fragement'
 export default function Layout() {
  
   return (
-    <div className="relative  w-screen bg-bg-img h-screen bg-no-repeat bg-cover flex flex-col justify-center items-center">
-      {/* <Fragement posy="0" posx="0" /> */}
+    <div className="container relative w-screen bg-bg-img h-screen flex justify-between flex-col  md:flex-row items-center bg-black pt-8 ">
       <Header />
       <Router>
         <Menu />

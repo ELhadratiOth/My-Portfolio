@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 export default function Title() {
-  const words = ['DATA ENGINEER', 'FRONT-END DEV', 'MACHINE LEARNING'];
+  const words = ['DATA ENGINEER.', 'FRONT-END DEV.', 'MACHINE LEARNING.'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [displayText, setDisplayText] = useState('');
@@ -71,9 +71,9 @@ export default function Title() {
   }, []);
 
   return (
-    <div className="text-center md:text-left  w-5/6 md:mr-72  md:w-1/2 lg:1/3 ">
+    <div className="text-center md:text-left  w-5/6 md:mr-72  md:w-1/2">
       <h1>
-        <span className="font-bold text-3xl md:text-4xl font-customFont text-white">
+        <span className="font-bold text-3xl md:text-4xl font-customFont text-white transition-all duration-500">
           {displayText}
           <span className="text-rose-500">{blink ? '|' : ' '}</span>
         </span>

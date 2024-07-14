@@ -6,7 +6,7 @@ export default function Home() {
   console.log(location);
   return (
     <>
-      <div className="absolute bottom-0 md:top-1/3 md:w-fit md:right-2 z-20 ">
+      <div className="fixed bottom-0 md:top-1/3 md:w-fit md:right-10 z-20 ">
         <div
           className="flex  justify-around font-customFont 
       text-white px-3 py-4 w-screen text-3xl bg-secondary1 md:flex-col  md:w-max md:space-y-8  md:rounded-full md:border ring-2  ring-secondary2 md:backdrop-blur-sm  md:bg-transparent"
