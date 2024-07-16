@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Title() {
+const Title = () => {
   const words = ['DATA ENGINEER.', 'FRONT-END DEV.', 'MACHINE LEARNING.'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
@@ -9,9 +9,9 @@ export default function Title() {
   const [blink, setBlink] = useState(true);
   const [timeoutActive, setTimeoutActive] = useState(false);
 
-  const typeSpeed = 500;
-  const deleteSpeed = 100;
-  const displayDelay = 2000;
+  const typeSpeed = 100;
+  const deleteSpeed = 200;
+  const displayDelay = 1000; 
 
   const getRandomChar = () => {
     const ALPHA = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -63,7 +63,14 @@ export default function Title() {
       );
       return () => clearTimeout(timeoutId);
     }
-  }, [typedText, isDeleting, currentWordIndex, timeoutActive]);
+  }, [
+    typedText,
+    isDeleting,
+    currentWordIndex,
+    timeoutActive,
+    words,
+    getRandomChars,
+  ]);
 
   useEffect(() => {
     const cursorBlink = setInterval(() => setBlink(prev => !prev), 500);
@@ -71,19 +78,21 @@ export default function Title() {
   }, []);
 
   return (
-    <div className="text-center md:text-left  w-5/6 md:mr-72  md:w-1/2">
+    <div className="w-full text-start pt-12">
       <h1>
-        <span className="font-bold text-3xl md:text-4xl font-customFont text-white transition-all duration-500">
+        <span className="text-me  lg:text-5xl xl:text-6xl font-customFont text-primary1 font-semibold transition-all duration-500">
           {displayText}
-          <span className="text-rose-500">{blink ? '|' : ' '}</span>
+          <span className="text-red-600">{blink ? '|' : '\u00A0'}</span>
         </span>
       </h1>
-      <h2 className="md:text-4xl text-xl uppercase font-semibold tracking-wide mt-2">
-        hey ,it&apos;s
-        <span className="font-semibold text-teal-300  tracking-normal ml-2">
+      <h2 className="lg:text-5xl xl:text-6xl text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500">
+        hey, it&apos;s
+        <span className="font-semibold text-primary1 tracking-normal ml-2">
           OTHMAN
         </span>
       </h2>
     </div>
   );
-}
+};
+
+export default Title;

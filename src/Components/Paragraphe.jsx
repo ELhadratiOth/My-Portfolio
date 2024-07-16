@@ -1,23 +1,46 @@
 /* eslint-disable react/prop-types */
-export default function Paragraphe({partie}) {
-          if (partie == 0)
-                    return (
-                              <div>
-     
-                              </div>
-                    );
-          else if (partie == 1)
-                    return (
-                              <div> </div>);
-          else
-                    return (
-                      <div className="flex items-center md:justify-center text-center md:text-left font-customFont w-5/6 md:w-1/3 md:-ml-32 lg:-ml-64 lg:1/3 md:mr-72  text-1xl">
-                        <p className="flex-1 text-center md:text-left">
-                          I&apos;m currently a first-year engineering student
-                          specializing in Data Engineering at the National
-                          School of Applied Sciences in Al Hoceima (ENSAH).
-                        </p>
-                      </div>
-                    );
-          
+import {motion} from 'framer-motion'
+export default function Paragraphe({ partie }) {
+  if (partie == 0)
+    return (
+      <motion.div
+        className="text-start self-start w-4/5 font-customFont text-1xl text-purple-100"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: 'easeInOut' }}
+      >
+        I am dedicated to harnessing technology to enhance people&apos;s lives
+        and make that vision a reality.
+      </motion.div>
+    );
+  else if (partie == 1) return (
+    <motion.div
+      className="text-start self-start w-4/6 font-customFont text-1xl text-purple-100"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, ease: 'easeInOut' }}
+    >
+      I&apos;m a first-year engineering student at The National School of
+      Applied Sciences in Al Hoceima (ENSAH), specializing in Data Engineering.<br></br>
+      I have a deep passion for Data Engineering and Web Development,
+      driven by my keen attention to detail and dedication to ensuring polished,
+      precise code. My main motivation as a programmer is to make a positive
+      impact by leveraging technology to help people.
+    </motion.div>
+  );
+  else
+    return (
+      <motion.div
+        className="text-start md:text-left font-customFont text-1xl"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: 'easeInOut' }}
+      >
+        <p>
+          I&apos;m currently a first-year engineering student specializing in
+          Data Engineering at the National School of Applied Sciences in Al
+          Hoceima (ENSAH).
+        </p>
+      </motion.div>
+    );
 }
