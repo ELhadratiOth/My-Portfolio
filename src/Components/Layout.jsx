@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import Home from './Home';
 import About from './About';
 import ContactMe from './Contactme';
-import Skills from './Skills';
+import Specialities from './Specialities';
 import Projects from './Projects';
 import PageNotFound from './PageNotFound';
 import Menu from './Menu';
@@ -19,7 +19,7 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/skills" element={<Skills />} />
+          <Route path="/specialities" element={<Specialities />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contactme" element={<ContactMe />} />
           <Route path="*" element={<PageNotFound />} />

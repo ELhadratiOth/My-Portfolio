@@ -1,5 +1,6 @@
 import Paragraphe from './Paragraphe';
 import SecName from './SecName';
+import Skills from './Skills';
 import { motion } from 'framer-motion';
 import {  FaRegUserCircle } from 'react-icons/fa';
 
@@ -25,7 +26,7 @@ export default function About() {
       initial="hidden"
       animate="show"
       variants={staggerContainer}
-      className="cursor-custom relative flex flex-col space-y-16 items-center md:w-3/5 pl-10 md:pl-0 w-full h-full md:h-screen md:pt-32"
+      className="cursor-custom relative flex flex-col space-y-4 items-center md:w-3/5 pl-10 md:pl-0 w-full h-full md:h-screen md:pt-24"
     >
       <SecName secName="About">
         <FaRegUserCircle />
@@ -33,15 +34,15 @@ export default function About() {
 
       <motion.div
         variants={staggerItem}
-        className="space-y-5 self-start flex justify-center flex-col items-start"
+        className="space-y-3 self-start flex justify-center flex-col items-start  ml-6"
       >
         <div className="lg:text-5xl xl:text-6xl text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500">
-          A little <span className='text-primary3'>about me</span>
+          A little <span className="text-primary3">about me</span>
         </div>
         <Paragraphe partie="1" />
       </motion.div>
 
-
+      <Skills />
     </motion.div>
   );
 }

@@ -8,8 +8,8 @@ export const NavElements = [
   { id: 2, name: 'about', path: '/about', icon: <FaRegUserCircle /> },
   {
     id: 3,
-    name: 'skills',
-    path: '/skills',
+    name: 'service',
+    path: '/service',
     icon: <SiHyperskill />,
   },
   { id: 4, name: 'projects', path: '/projects', icon: <GrProjects /> },

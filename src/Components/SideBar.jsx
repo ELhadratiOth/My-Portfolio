@@ -1,7 +1,7 @@
 import myLogo from '../assets/MyLogo.png';
 import SocialMedias from './SocialMedias';
 import { motion } from 'framer-motion';
-
+import {useLocation} from 'react-router-dom'
 const beforeAnimation = {
   hidden: {
     top: '1em',
@@ -20,9 +20,13 @@ const beforeAnimation = {
 };
 
 const Header = () => {
+    const location = useLocation();
+
   return (
     <motion.div
-      className="cursor-custom border mt-28 border-slate-300 md:w-1/3 xl:w-1/5 flex flex-col justify-between space-y-5 items-center md:m-auto pb-3 rounded-3xl py-5 shadow-shad p-10 md:px-3 mb-16"
+      className={`cursor-custom border mt-28 border-slate-300 md:w-1/3 xl:w-1/5 flex flex-col justify-between space-y-5 items-center md:m-auto pb-3 rounded-3xl py-5 shadow-shad p-10 md:px-3 mb-16 ${
+        location.pathname == 'service' && 'fixed'
+      }`}
       initial={{ x: '-100vw', opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{
@@ -57,7 +61,7 @@ const Header = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1.5 }}
       >
-        &copy; 2023 Othman El Hadrati All&nbsp;Rights&nbsp;Reserved
+        &copy; 2024 Othman El Hadrati All&nbsp;Rights&nbsp;Reserved
       </motion.div>
 
       <div className="relative flex items-start space-x-5 text-2xl">

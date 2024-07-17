@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 const Title = () => {
-  const words = ['DATA ENGINEER.', 'FRONT-END DEV.', 'MACHINE LEARNING.'];
+  const WORDS = ['DATA ENGINEER.', 'FRONT-END DEV.', 'MACHINE LEARNING.'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [displayText, setDisplayText] = useState('');
@@ -24,7 +24,7 @@ const Title = () => {
 
   useEffect(() => {
     const handleType = () => {
-      const currentWord = words[currentWordIndex];
+      const currentWord = WORDS[currentWordIndex];
       const currentLength = typedText.length;
 
       if (isDeleting) {
@@ -33,7 +33,7 @@ const Title = () => {
           setDisplayText(currentWord.substring(0, currentLength - 1));
         } else {
           setIsDeleting(false);
-          setCurrentWordIndex(prevIndex => (prevIndex + 1) % words.length);
+          setCurrentWordIndex(prevIndex => (prevIndex + 1) % WORDS.length);
         }
       } else {
         if (currentLength < currentWord.length) {
@@ -68,7 +68,7 @@ const Title = () => {
     isDeleting,
     currentWordIndex,
     timeoutActive,
-    words,
+    WORDS,
     getRandomChars,
   ]);
 
@@ -82,7 +82,7 @@ const Title = () => {
       <h1>
         <span className="text-me  lg:text-5xl xl:text-6xl font-customFont text-primary1 font-semibold transition-all duration-500">
           {displayText}
-          <span className="text-red-600">{blink ? '|' : '\u00A0'}</span>
+          <span className="text-red-600 inline-flex overflow-hidden ">{blink ? '|' : '\u00A0'}</span>
         </span>
       </h1>
       <h2 className="lg:text-5xl xl:text-6xl text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500">
