@@ -14,7 +14,8 @@ const staggerContainer = {
   },
 };
 
-export default function Projects() {
+
+export default function Service() {
   return (
     <motion.div
       initial="hidden"

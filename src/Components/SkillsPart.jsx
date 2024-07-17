@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 
 const SkillCategory = ({ category, skills }) => (
   <motion.div className="flex flex-col space-y-2">
-    <p className="flex text-white font-semibold text-lg ">
+    <div className="flex text-white font-semibold text-lg ">
       {category} -
       <div className="ml-2  text-purple-100 space-x-3 flex items-center text-3xl">
         {skills.map((skill, index) => (
@@ -39,7 +39,7 @@ const SkillCategory = ({ category, skills }) => (
           </motion.div>
         ))}
       </div>
-    </p>
+    </div>
   </motion.div>
 );
 

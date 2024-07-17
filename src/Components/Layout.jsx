@@ -3,7 +3,7 @@ import SideBar from './SideBar';
 import Home from './Home';
 import About from './About';
 import ContactMe from './Contactme';
-import Specialities from './Specialities';
+import Service from './Service';
 import Projects from './Projects';
 import PageNotFound from './PageNotFound';
 import Menu from './Menu';
@@ -11,7 +11,7 @@ import Header from './Header'
 
 export default function Layout() {
   return (
-    <div className="relative w-full bg-bg-img h-full flex justify-between flex-col md:flex-row items-center bg-black pb-24 md:pb-0 overflow-hidden cursor-custom">
+    <div className="relative w-full bg-bg-img h-full flex justify-end flex-col md:flex-row items-center bg-black pb-24 md:pb-0 overflow-hidden cursor-custom">
       <Header />
       <SideBar />
       <Router>
@@ -19,7 +19,7 @@ export default function Layout() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
-          <Route path="/specialities" element={<Specialities />} />
+          <Route path="/service" element={<Service />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contactme" element={<ContactMe />} />
           <Route path="*" element={<PageNotFound />} />

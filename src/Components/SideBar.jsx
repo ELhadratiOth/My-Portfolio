@@ -1,7 +1,7 @@
 import myLogo from '../assets/MyLogo.png';
 import SocialMedias from './SocialMedias';
 import { motion } from 'framer-motion';
-import {useLocation} from 'react-router-dom'
+
 const beforeAnimation = {
   hidden: {
     top: '1em',
@@ -20,13 +20,11 @@ const beforeAnimation = {
 };
 
 const Header = () => {
-    const location = useLocation();
+
 
   return (
     <motion.div
-      className={`cursor-custom border mt-28 border-slate-300 md:w-1/3 xl:w-1/5 flex flex-col justify-between space-y-5 items-center md:m-auto pb-3 rounded-3xl py-5 shadow-shad p-10 md:px-3 mb-16 ${
-        location.pathname == 'service' && 'fixed'
-      }`}
+      className="cursor-custom ring-2 ring-white border-slate-300 md:w-1/3 xl:w-1/5 flex flex-col justify-between space-y-5 items-center md:m-auto pb-3 rounded-3xl pt-5 shadow-shad px-12 md:px-3 mb-16 md:fixed md:top-36  md:left-10 lg:left-28"
       initial={{ x: '-100vw', opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{
@@ -42,7 +40,7 @@ const Header = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        <img src={myLogo} width={200} alt="Logo" />
+        <img src={myLogo} className='w-48' alt="Logo" />
       </motion.div>
 
       <motion.div
@@ -51,7 +49,7 @@ const Header = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
       >
-        Email: <span>OthmanEelhadrati@gmail.com</span> <br />
+        Email: <span className='md:text-lg'>OthmanEelhadrati@gmail.com</span> <br />
         Based in Kenitra, Morocco
       </motion.div>
 
