@@ -26,17 +26,17 @@ export default function About() {
       initial="hidden"
       animate="show"
       variants={staggerContainer}
-      className="cursor-custom relative flex flex-col space-y-4 items-center md:w-3/5 pl-10 md:pl-0 w-full h-full md:h-screen md:pt-24"
+      className="cursor-custom relative flex flex-col space-y-4 items-center md:w-3/5 w-full h-full md:h-screen md:pt-24 ml-20"
     >
-      <SecName secName="About">
+      <SecName secName="About" >
         <FaRegUserCircle />
       </SecName>
 
       <motion.div
         variants={staggerItem}
-        className="space-y-3 self-start flex justify-center flex-col items-start  ml-6"
+        className="space-y-3 self-start flex justify-center flex-col items-start "
       >
-        <div className="lg:text-5xl xl:text-6xl text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500">
+        <div className="lg:text-5xl xl:text-6xl md:text-4xl  text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500">
           A little <span className="text-primary3">about me</span>
         </div>
         <Paragraphe partie="1" />

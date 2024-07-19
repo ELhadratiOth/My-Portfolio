@@ -47,10 +47,10 @@ export default function ServiceCompo() {
         <div className="font-bold text-xl group-hover:scale-105 group-hover:ml-2 group-hover:ml-t  transition-all">
           {service.serviceName}
         </div>
-        <div className="text-sm text-purple-100 group-hover:scale-105 group-hover:ml-2 group-hover:ml-t  transition-all duration-300">
+        <div className="text-sm  md:w-11/12 text-purple-100 group-hover:scale-105 group-hover:ml-2 group-hover:ml-t  transition-all duration-300">
           {service.description}
         </div>
-        <div className="absolute  top-3 right-5 text-xl text-primary1">
+        <div className="absolute  top-3 right-5 text-xl text-primary1 shadow-shad group-hover:shadow-primary3">
           {service.icone}{' '}
         </div>
       </motion.div>

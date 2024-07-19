@@ -8,9 +8,10 @@ import { useState } from 'react';
 const Categories = ['Skills', 'Certificates'];
 
 const staggerContainer = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, y: 100 },
   show: {
     opacity: 1,
+    y: 0,
     transition: {
       staggerChildren: 0.2,
     },
@@ -28,13 +29,13 @@ export default function Skills() {
   const Compo = () => {
     if (active === 'Skills') {
       return (
-        <motion.div variants={staggerItem} initial="hidden" animate="show">
+        <motion.div>
           <SkillsPart />
         </motion.div>
       );
     } else if (active === 'Certificates') {
       return (
-        <motion.div variants={staggerItem} initial="hidden" animate="show">
+        <motion.div>
           <Certificats />
         </motion.div>
       );
@@ -44,13 +45,8 @@ export default function Skills() {
   };
 
   return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      variants={staggerContainer}
-      className="cursor-custom pt-8 self-start flex flex-col space-y-8 items-center md:w-3/5 pl-10 md:pl-0 w-full h-full md:h-screen"
-    >
-      {/* Section Name with Icon */}
+    <div className="cursor-custom pt-8 self-start flex flex-col space-y-8 items-center md:w-3/5 md:pl-0 w-full h-full md:h-screen">
+      {/* Section Name with Icon - No motion effect */}
       <SecName secName="Skills & Certificates">
         <div className="flex items-center">
           <SiHyperskill />
@@ -59,13 +55,16 @@ export default function Skills() {
 
       {/* Category Selection */}
       <motion.div
-        variants={staggerItem}
-        className="text-white space-y-4 self-start flex justify-center flex-col items-start ml-6"
+        initial="hidden"
+        animate="show"
+        variants={staggerContainer}
+        className="text-white space-y-4 self-start flex justify-center flex-col items-start"
       >
         <div className="flex justify-start space-x-16">
           {Categories.map(category => (
             <motion.div
               key={category}
+              variants={staggerItem}
               className={`relative text-2xl transition-colors duration-300 ${
                 active === category ? 'font-bold text-red-700' : 'text-white'
               }`}
@@ -84,6 +83,6 @@ export default function Skills() {
         </div>
         <Compo />
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

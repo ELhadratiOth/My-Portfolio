@@ -15,16 +15,16 @@ export default function Paragraphe({ partie }) {
     );
   else if (partie == 1) return (
     <motion.div
-      className="text-start self-start w-5/6 font-customFont text-1xl text-purple-100 "
+      className="text-start w-5/6 font-customFont text-base md:text-base text-purple-100  "
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1, ease: 'easeInOut' }}
     >
       I&apos;m a first-year engineering student at The National School of
-      Applied Sciences in Al Hoceima (ENSAH), specializing in Data Engineering.
-      With a passion for both Data Engineering and Web Development, I focus on
-      crafting polished, precise code. My main drive as a programmer is to use
-      technology to create positive impacts for people.
+      Applied Sciences in Al Hoceima (<strong>ENSAH</strong>) , specializing in
+      Data Engineering. With a passion for both Data Engineering and Web
+      Development, I focus on crafting polished, precise code. My main drive as
+      a programmer is to use technology to create positive impacts for people.
     </motion.div>
   );
   else

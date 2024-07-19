@@ -6,7 +6,7 @@ const Header = () => {
 
           const Me = () => 'El Hadrati Othman'.split(''); 
   return (
-    <div className="fixed  top-0 left-0 h-14 md:h-20 w-full flex justify-center items-center md:justify-start z-20 border-b-2 border-primary3 backdrop-blur-lg shadow-shad shadow-primary3 md:border-0 md:shadow-none">
+    <div className="fixed z-40  top-0 left-0 h-14 md:h-20 w-full flex justify-center items-center md:justify-start border-b-2 border-primary3 backdrop-blur-lg shadow-shad shadow-primary3 md:border-0 md:shadow-none">
       <div className="flex justify-center items-center">
         <motion.h2
           initial={{ opacity: 0, y: -100 }}

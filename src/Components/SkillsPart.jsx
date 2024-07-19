@@ -9,14 +9,19 @@ import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
 import { motion } from 'framer-motion';
 
 const SkillCategory = ({ category, skills }) => (
-  <motion.div className="flex flex-col space-y-2">
-    <div className="flex text-white font-semibold text-lg ">
-      {category} -
-      <div className="ml-2  text-purple-100 space-x-3 flex items-center text-3xl">
+  <motion.div
+    className="flex flex-col justify-center items-start space-y-2"
+    initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+  >
+    <div className="flex flex-col  justify-center md:w-3/3 md:w-max md:flex-row  space-y-2 mb-3 md:mb-0 text-white font-semibold ">
+      <div className=" md:text-lg  md:pt-1 md:mr-1 ">{category} : </div>
+      <div className="text-purple-100 space-x-9 space-y-2 md:space-y-0 md:space-x-3 flex items-center text-3xl w-max">
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            className="relative flex flex-col items-center space-y-1 hover:text-primary4 transition-colors duration-300"
+            className="relative flex flex-col items-center  hover:text-primary4 transition-colors duration-300"
             whileHover={{ scale: 1.1 }}
           >
             <skill.icon />

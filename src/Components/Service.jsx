@@ -17,22 +17,22 @@ const staggerContainer = {
 
 export default function Service() {
   return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      variants={staggerContainer}
-      className="cursor-custom relative flex flex-col space-y-12 items-center md:w-3/5 px-10  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 "
-    >
-      <SecName secName="service" service="true">
-        <SiHyperskill />
-      </SecName>
+    <div className="cursor-custom relative flex flex-col space-y-12 items-center md:w-3/5 px-11  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 ">
+      <div className="self-start -mt-9 flex justify-start ">
+        <SecName secName="service" service="true">
+          <SiHyperskill />
+        </SecName>
+      </div>
+
       <motion.div
         className="text-white self-start text-4xl uppercase "
+        initial="hidden"
+        animate="show"
         variants={staggerContainer}
       >
         My <span className="inline-block text-primary1">Specialities</span>
       </motion.div>
       <ServiceCompo />
-    </motion.div>
+    </div>
   );
 }

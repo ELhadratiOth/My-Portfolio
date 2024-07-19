@@ -13,7 +13,7 @@ const dataCerifs = [
   },
   {
     id: 2,
-    nameCertif: 'Java Programming: Solving Problems with Software',
+    nameCertif: 'Java Programming: Solving Problems',
     link: 'https://www.coursera.org/account/accomplishments/verify/THZP9WU2S58X',
     date: '2024',
     provider: 'Duke University - Coursera',
@@ -29,7 +29,7 @@ const dataCerifs = [
   {
     id: 4,
 
-    nameCertif: 'Hands-on Introduction to Linux Commands and Shell Scripting',
+    nameCertif: 'Introduction to Linux Commands and Shell Scripting',
     link: 'https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA',
     date: '2024',
     provider: 'IBM - Coursera',
@@ -53,18 +53,30 @@ const dataCerifs = [
 ];
 
 const Certificate = ({ nameCertif, link, date, provider }) => (
-  <motion.div className="flex flex-col space-y-2 w-max text-purple-100">
-    <p className="flex  text-purple-100">
-      <span className="font-bold">{nameCertif} </span>- {provider} - {date}
-      <a
-        title="Check it"
-        className="text-primary3 ml-3 text-xl transition-colors duration-300 hover:text-primary5"
-        href={link}
-        target="_blank"
-      >
-        <FaExternalLinkAlt />{' '}
-      </a>
-    </p>
+  <motion.div
+    className="flex flex-col md:space-y-2  w-max text-purple-100"
+    initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
+    whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+  >
+    <div className="flex flex-col lg:flex-row space-y-1 lg:space-y-0 mb-3 lg:mb-0 text-purple-100">
+      <div className="font-semibold mr-1 ">{nameCertif} : </div>
+      <div className="flex  md:justify-center items-center">
+        <div>
+          {' '}
+          {provider} - {date}
+        </div>
+
+        <a
+          title="Check it"
+          className="inline-block text-primary3 ml-3 text-xl transition-colors duration-300 hover:text-primary5"
+          href={link}
+          target="_blank"
+        >
+          <FaExternalLinkAlt />{' '}
+        </a>
+      </div>
+    </div>
   </motion.div>
 );
 

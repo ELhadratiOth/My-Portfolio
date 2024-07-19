@@ -14,18 +14,15 @@ const beforeAnimation = {
       duration: 1.5,
       ease: 'easeInOut',
       times: [0.1, 0.5, 1],
-     
     },
   },
 };
 
 const Header = () => {
-
-
   return (
     <motion.div
-      className="cursor-custom ring-2 ring-white border-slate-300 md:w-1/3 xl:w-1/5 flex flex-col justify-between space-y-5 items-center md:m-auto pb-3 rounded-3xl pt-5 shadow-shad px-12 md:px-3 mb-16 md:fixed md:top-36  md:left-10 lg:left-28"
-      initial={{ x: '-100vw', opacity: 0 }}
+      className="cursor-custom ring-2 ring-white border-slate-300 flex flex-col justify-between space-y-5 items-center rounded-3xl shadow-shad md:fixed  px-9 py-4 mt-24 mb-8 md:top-20 md:left-5 md:px-3 md:w-2/6  lg:ring-red-700 lg:w-1/4 lg:left-28  xl:ring-blue-700  xl:w-1/4 xl:left-28 xl:py-6"
+      initial={{ x: -400, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{
         duration: 1,
@@ -35,12 +32,11 @@ const Header = () => {
       }}
     >
       <motion.div
-        className="z-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 0.5 }}
       >
-        <img src={myLogo} className='w-48' alt="Logo" />
+        <img src={myLogo} className="w-48" alt="Logo" />
       </motion.div>
 
       <motion.div
@@ -49,10 +45,12 @@ const Header = () => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
       >
-        Email: <span className='md:text-lg'>OthmanEelhadrati@gmail.com</span> <br />
+        Email: <span className="md:text-lg">OthmanEelhadrati@gmail.com</span>{' '}
+        <br />
         Based in Kenitra, Morocco
       </motion.div>
 
+      
       <motion.div
         className="text-slate-300 text-center"
         initial={{ opacity: 0 }}
