@@ -16,7 +16,7 @@ const SkillCategory = ({ category, skills }) => (
     transition={{ duration: 0.7, delay: 0.2 }}
   >
     <div className="flex flex-col  justify-center md:w-3/3 md:w-max md:flex-row  space-y-2 mb-3 md:mb-0 text-white font-semibold ">
-      <div className=" md:text-lg  md:pt-1 md:mr-1 ">{category} : </div>
+      <div className=" md:text-lg  md:pt-2 md:mr-1 ">{category} : </div>
       <div className="text-purple-100 space-x-9 space-y-2 md:space-y-0 md:space-x-3 flex items-center text-3xl w-max">
         {skills.map((skill, index) => (
           <motion.div

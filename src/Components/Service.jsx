@@ -17,7 +17,7 @@ const staggerContainer = {
 
 export default function Service() {
   return (
-    <div className="cursor-custom relative flex flex-col space-y-12 items-center md:w-3/5 px-11  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 ">
+    <div className="cursor-custom relative flex flex-col space-y-14 mt-16 items-center md:w-3/5 px-11  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 ">
       <div className="self-start -mt-9 flex justify-start ">
         <SecName secName="service" service="true">
           <SiHyperskill />

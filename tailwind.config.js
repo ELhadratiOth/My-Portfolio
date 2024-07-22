@@ -20,6 +20,7 @@ export default {
       },
       backgroundImage: {
         'bg-img': 'white',
+        'bg-bg':'url("./src/assets/imgP1.png")',
         'bg-gadient':
           'radial-gradient(circle at center center, rgb(80, 32, 84),rgb(62, 35, 81),rgb(44, 38, 79),rgb(26, 40, 76),rgb(8, 43, 73))',
       },

@@ -27,7 +27,7 @@ export default function Home() {
       initial="hidden"
       animate="show"
       variants={staggerContainer}
-      className="cursor-custom relative flex flex-col space-y-10 items-center md:w-3/5 pl-10 md:pl-0 w-full h-full md:h-screen md:pt-32"
+      className="cursor-custom relative flex flex-col space-y-10 items-center md:w-3/5 pl-10 mt-16 md:pl-0 w-full h-full md:h-screen md:pt-32"
     >
       <div className="self-start -mt-9 flex justify-start ">
         <SecName secName="Introduce">

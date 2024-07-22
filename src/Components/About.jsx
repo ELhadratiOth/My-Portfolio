@@ -26,7 +26,7 @@ export default function About() {
       initial="hidden"
       animate="show"
       variants={staggerContainer}
-      className="cursor-custom relative flex flex-col space-y-4 items-center md:w-3/5 w-full h-full md:h-screen md:pt-24 ml-20"
+      className="cursor-custom relative flex flex-col space-y-4 items-center md:w-3/5 w-full h-full md:h-screen mt-16 md:pt-24 ml-20"
     >
       <SecName secName="About" >
         <FaRegUserCircle />
