@@ -4,7 +4,7 @@ export default function Paragraphe({ partie }) {
   if (partie == 0)
     return (
       <motion.div
-        className="text-start self-start w-4/5 font-customFont text-1xl text-purple-100"
+        className="text-start self-start w-4/5 font-customFont text-1xl text-purple-100 backdrop-blur-[3px]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: 'easeInOut' }}
@@ -15,7 +15,7 @@ export default function Paragraphe({ partie }) {
     );
   else if (partie == 1) return (
     <motion.div
-      className="text-start w-5/6 font-customFont text-base md:text-base text-purple-100  "
+      className="text-start w-5/6 font-customFont text-base md:text-base text-purple-100  backdrop-blur-[3px]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1, ease: 'easeInOut' }}
@@ -30,7 +30,7 @@ export default function Paragraphe({ partie }) {
   else
     return (
       <motion.div
-        className="text-start md:text-left font-customFont text-1xl"
+        className="text-start md:text-left font-customFont text-1xl backdrop-blur-[3px]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}

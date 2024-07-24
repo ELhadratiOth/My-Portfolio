@@ -22,7 +22,7 @@ export default function Resume() {
 
   return (
     <motion.div
-      className="w-full mt-32"
+      className="w-full md:-32"
       ref={scope}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}

@@ -78,14 +78,16 @@ const Title = () => {
   }, []);
 
   return (
-    <div className="w-full text-start pt-12">
+    <div className="w-full text-start pt-12 ">
       <h1>
-        <span className="text-me  lg:text-5xl xl:text-6xl font-customFont text-primary1 font-semibold transition-all duration-500">
+        <span className="text-me  lg:text-5xl xl:text-6xl font-customFont text-primary1 font-semibold transition-all duration-500 backdrop-blur-[3px]">
           {displayText}
-          <span className="text-red-600 inline-flex overflow-hidden ">{blink ? '|' : '\u00A0'}</span>
+          <span className="text-red-600 inline-flex overflow-hidden ">
+            {blink ? '|' : '\u00A0'}
+          </span>
         </span>
       </h1>
-      <h2 className="lg:text-5xl xl:text-6xl text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500">
+      <h2 className="lg:text-5xl xl:text-6xl text-me uppercase font-semibold tracking-wide mt-2 text-purple-100 transition-all duration-500 backdrop-blur-[3px]">
         hey, it&apos;s
         <span className="font-semibold text-primary1 tracking-normal ml-2">
           OTHMAN

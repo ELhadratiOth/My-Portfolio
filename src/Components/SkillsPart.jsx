@@ -16,17 +16,21 @@ const SkillCategory = ({ category, skills }) => (
     transition={{ duration: 0.7, delay: 0.2 }}
   >
     <div className="flex flex-col  justify-center md:w-3/3 md:w-max md:flex-row  space-y-2 mb-3 md:mb-0 text-white font-semibold ">
-      <div className=" md:text-lg  md:pt-2 md:mr-1 ">{category} : </div>
-      <div className="text-purple-100 space-x-9 space-y-2 md:space-y-0 md:space-x-3 flex items-center text-3xl w-max">
+      <div className=" md:text-lg  md:pt-2 md:mr-2 ">{category} : </div>
+      <div className="text-purple-100 space-x-9 md:space-y-0 md:space-x-5 flex items-center text-3xl w-max">
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            className="relative flex flex-col items-center  hover:text-primary4 transition-colors duration-300"
-            whileHover={{ scale: 1.1 }}
+            className="relative flex flex-col items-center  hover:text-primary1 transition-colors duration-300 "
+            whileHover={{
+              scale: 1.1,
+              textShadow: '1px 2px 9px rgba(111, 105, 253, 1)',
+            }}
           >
             <skill.icon />
+
             <motion.div
-              className="absolute font-bold -top-3 w-5 h-9 flex justify-start flex-col items-center "
+              className="absolute font-bold -top-1 w-7 h-9 flex justify-start flex-col items-center  "
               initial={{ opacity: 0, y: 0 }}
               whileHover={{ opacity: 1, y: -19, height: 53 }}
               transition={{
@@ -36,10 +40,10 @@ const SkillCategory = ({ category, skills }) => (
                 stiffness: 200,
               }}
             >
-              <div className="px-3 w-max h-6 rounded-md bg-white text-sm text-primary4 shadow-sm shadow-black">
+              <div className="px-3 w-max h-6 rounded-md bg-white text-sm text-primary4 shadow-lg shadow-black ">
                 {skill.name}
               </div>
-              <div className="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-white"></div>
+              <div className="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 "></div>
             </motion.div>
           </motion.div>
         ))}

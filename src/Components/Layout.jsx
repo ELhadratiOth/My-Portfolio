@@ -2,29 +2,67 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SideBar from './SideBar';
 import Home from './Home';
 import About from './About';
-import ContactMe from './Contactme';
 import Service from './Service';
-import Projects from './Projects';
 import PageNotFound from './PageNotFound';
 import Menu from './Menu';
-import Header from './Header'
+import Header from './Header';
+import 'ldrs/helix';
+import { useState, useEffect, Suspense, lazy } from 'react';
+import Loader from './Loader';
+import BackGround from './BackGround';
+import Fragment1 from '../assets/pngegg.png'
+const ContactMe = lazy(() => import('./Contactme'));
+const Projects = lazy(() => import('./Projects'));
 
 export default function Layout() {
+  const [loader, setLoader] = useState(false);
+
+  useEffect(() => {
+    setLoader(true);
+    setTimeout(() => setLoader(false), 2000);
+  }, []);
+
   return (
-    <div className="relative w-full bg-bg-img h-full flex justify-end flex-col md:flex-row items-center bg-black pb-24 md:pb-0 overflow-hidden cursor-custom">
-      <Header />
-      <SideBar />
-      <Router>
-        <Menu />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/service" element={<Service />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/contactme" element={<ContactMe />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </Router>
-    </div>
+    <>
+      <div className="fixed -z-30 w-screen  h-screen  bg-bg-img2 flex bg-no-repeat bg-center bg-cover justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
+        <BackGround />
+      </div>
+      {loader ? (
+        <Loader />
+      ) : (
+        <>
+            <img  className='fixed -right-24 md:right-0 top-0 h-full w-auto ' src={Fragment1} alt="error" />
+          <div className="relative w-full h-full flex justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
+            <Router>
+              <Header />
+              <SideBar />
+              <Menu />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/service" element={<Service />} />
+                <Route
+                  path="/projects"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Projects />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="/contactme"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <ContactMe />
+                    </Suspense>
+                  }
+                />
+                <Route path="*" element={<PageNotFound />} />
+              </Routes>
+            </Router>
+          </div>
+        </>
+      )}
+    </>
   );
 }

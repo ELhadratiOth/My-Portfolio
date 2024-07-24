@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
-import FloatingNotif from './FloatingNotif'; 
+import FloatingNotif from './FloatingNotif';
 
 import { PiWarningCircleFill } from 'react-icons/pi';
 import { FiX } from 'react-icons/fi';
@@ -26,6 +25,14 @@ const Form = () => {
   const [userSub, setUserSub] = useState(false);
   const [capVal, setCapVal] = useState(null);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [send, setSend] = useState('Send Message!');
+
+  const [focus, setFocus] = useState({
+    username: false,
+    email: false,
+    subject: false,
+    message: false,
+  });
 
   const Notification = () => {
     useEffect(() => {
@@ -97,6 +104,20 @@ const Form = () => {
     }
   };
 
+  const handleFocus = field => {
+    setFocus({
+      ...focus,
+      [field]: true,
+    });
+  };
+
+  const handleBlur = field => {
+    setFocus({
+      ...focus,
+      [field]: false,
+    });
+  };
+
   const sub = e => {
     e.preventDefault();
     if (
@@ -110,6 +131,8 @@ const Form = () => {
       userText.trim() !== '' &&
       capVal != null
     ) {
+      setSend('Sending...');
+      setTimeout(() => setSend('Send Message!'), 1000);
       emailjs
         .sendForm(
           String(import.meta.env.VITE_REACT_APP_SERVICE_ID),
@@ -121,9 +144,9 @@ const Form = () => {
         )
         .then(
           () => {
-            console.log('SUCCESS!');
+            // console.log('SUCCESS!');
             reset();
-            setIsNotifOpen(true); 
+            setIsNotifOpen(true);
           },
           error => {
             console.log('FAILED...', error.text);
@@ -146,6 +169,7 @@ const Form = () => {
     setUserSubject('');
     setUserText('');
     setCapVal(null);
+    setUserSub(false);
   };
 
   return (
@@ -156,9 +180,11 @@ const Form = () => {
         </AnimatePresence>
       )}
 
-      <form className="space-y-6" onSubmit={sub} ref={form}>
+      <form className="space-y-8 md:space-y-6 " onSubmit={sub} ref={form}>
         <motion.div
-          className="flex items-center justify-center space-x-10 text-white"
+          className={`flex items-center justify-center space-x-10 text-white ${
+            focus.username || focus.email ? 'backdrop-blur-[3px]' : ''
+          }`}
           initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.7 }}
@@ -170,15 +196,17 @@ const Form = () => {
               onChange={e => handleChange(e, setUserName, 'username')}
               name="user_name"
               type="text"
-              className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit w-full ${
+              onFocus={() => handleFocus('username')}
+              onBlur={() => handleBlur('username')}
+              className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-primary2 transition-colors focus:outline-none peer bg-inherit w-full ${
                 errors.username ? 'border-red-500' : ''
               }`}
             />
             <label
               htmlFor="username"
               className={`absolute left-0 cursor-text transition-all ${
-                userName !== '' ? '-top-4 text-xs text-blue-700' : 'top-1'
-              } peer-focus:text-xs peer-focus:-top-4 peer-focus:text-blue-700`}
+                userName !== '' ? '-top-4 text-sm text-primary2 ' : 'top-1'
+              } peer-focus:text-sm peer-focus:-top-4 peer-focus:text-primary2 `}
             >
               Name
             </label>
@@ -194,15 +222,17 @@ const Form = () => {
               onChange={e => handleChange(e, setUserEmail, 'email')}
               name="user_email"
               type="text"
-              className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit w-full ${
+              onFocus={() => handleFocus('email')}
+              onBlur={() => handleBlur('email')}
+              className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-primary2  transition-colors focus:outline-none peer bg-inherit w-full ${
                 errors.email ? 'border-red-500' : ''
               }`}
             />
             <label
               htmlFor="email"
               className={`absolute left-0 cursor-text transition-all ${
-                userEmail !== '' ? '-top-4 text-xs text-blue-700' : 'top-1'
-              } peer-focus:text-xs peer-focus:-top-4 peer-focus:text-blue-700`}
+                userEmail !== '' ? '-top-4 text-sm text-primary2 ' : 'top-1'
+              } peer-focus:text-sm peer-focus:-top-4 peer-focus:text-primary2 `}
             >
               Email
             </label>
@@ -213,7 +243,9 @@ const Form = () => {
         </motion.div>
 
         <motion.div
-          className="flex flex-col items-center justify-center text-white"
+          className={`flex flex-col items-center justify-center text-white ${
+            focus.subject ? 'backdrop-blur-[3px]' : ''
+          }`}
           initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.7 }}
@@ -224,15 +256,17 @@ const Form = () => {
             onChange={e => handleChange(e, setUserSubject, 'subject')}
             name="user_subject"
             type="text"
-            className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit w-full ${
+            onFocus={() => handleFocus('subject')}
+            onBlur={() => handleBlur('subject')}
+            className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-primary2  transition-colors focus:outline-none peer bg-inherit w-full ${
               errors.subject ? 'border-red-500' : ''
             }`}
           />
           <label
             htmlFor="subject"
             className={`absolute left-0 cursor-text transition-all ${
-              userSubject !== '' ? '-top-4 text-xs text-blue-700' : 'top-1'
-            } peer-focus:text-xs peer-focus:-top-4 peer-focus:text-blue-700`}
+              userSubject !== '' ? '-top-4 text-sm text-primary2 ' : 'top-1'
+            } peer-focus:text-sm peer-focus:-top-4 peer-focus:text-primary2 `}
           >
             Subject
           </label>
@@ -244,7 +278,9 @@ const Form = () => {
         </motion.div>
 
         <motion.div
-          className="flex items-center justify-center flex-col text-white"
+          className={`flex items-center justify-center flex-col text-white ${
+            focus.message ? 'backdrop-blur-[3px]' : ''
+          }`}
           initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.7 }}
@@ -255,15 +291,17 @@ const Form = () => {
             rows={3}
             value={userText}
             onChange={e => handleChange(e, setUserText, 'message')}
-            className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-blue-700 transition-colors focus:outline-none peer bg-inherit w-full ${
+            onFocus={() => handleFocus('message')}
+            onBlur={() => handleBlur('message')}
+            className={`border-b border-gray-300 py-1 focus:border-b-2 focus:border-primary2  transition-colors focus:outline-none peer bg-inherit w-full ${
               errors.message ? 'border-red-500' : ''
             }`}
           ></textarea>
           <label
             htmlFor="message"
             className={`absolute left-0 cursor-text transition-all ${
-              userText !== '' ? '-top-4 text-xs text-blue-700' : 'top-1'
-            } peer-focus:text-xs peer-focus:-top-4 peer-focus:text-blue-700`}
+              userText !== '' ? '-top-4 text-sm text-primary2 ' : 'top-1'
+            } peer-focus:text-sm peer-focus:-top-4 peer-focus:text-primary2 `}
           >
             Message
           </label>
@@ -281,11 +319,11 @@ const Form = () => {
           <ReCAPTCHA
             sitekey={PUBLIC_kEY}
             onChange={capVal => setCapVal(capVal)}
+            theme="dark"
           />
         </motion.div>
-        <motion.button
-          type="submit"
-          className="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 border-primary1 shadow-shad hover:shadow-primary3 hover:border-primary5 hover:ring-2 hover:before:[box-shadow:_20px_20px_20px_30px_#a21caf] duration-500 before:duration-500 hover:duration-500 underline-offset-2 hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur origin-left hover:decoration-2 bg-transparent relative bg-neutral-800 pl-3 h-14 w-56 border-2 text-left p-1 text-gray-50 text-base font-bold rounded-lg overflow-hidden before:absolute before:w-10 before:h-10 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-red-700 before:rounded-full before:blur-lg after:absolute after:z-10 after:w-16 after:h-16 after:content[''] after:bg-primary2 hover:text-white after:right-8 after:top-3 after:rounded-full after:blur-lg"
+        <motion.div
+          className="flex justify-start space-x-7"
           initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
           whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{
@@ -293,8 +331,18 @@ const Form = () => {
             ease: [0.42, 0, 0.58, 1],
           }}
         >
-          Send Message
-        </motion.button>
+          <motion.button
+            type="submit"
+            className="backdrop-blur-md after:backdrop-blur-md before:backdrop-blur-md  group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 border-primary1 shadow-shad hover:shadow-primary3 hover:border-primary5 hover:ring-2 hover:before:[box-shadow:_20px_20px_20px_30px_#a21caf] duration-500 before:duration-500 hover:duration-500 underline-offset-2 hover:after:-right-8 hover:before:right-12 hover:before:-bottom-8 hover:before:blur origin-left hover:decoration-2 bg-transparent relative bg-neutral-800 pl-3 h-14 w-56 border-2 text-left p-1 text-gray-50 text-base font-bold rounded-lg overflow-hidden before:absolute before:w-10 before:h-10 before:content[''] before:right-1 before:top-1 before:z-10 before:bg-red-700 before:rounded-full before:blur-lg after:absolute after:z-10 after:w-16 after:h-16 after:content[''] after:bg-primary2 hover:text-white after:right-8 after:top-3 after:rounded-full after:blur-lg"
+          >
+            {send}
+          </motion.button>
+          <div className="max-w-32 hover:ring hover:ring-primary3 bg-primary2 font-bold  shadow-shad hover:shadow-primary3 rounded-lg items-center justify-center flex border-primary2 hover:bg-primary4 text-primary5 hover:text-white duration-300 cursor-pointer active:scale-[0.98]">
+            <button type="reset" onClick={reset} className="px-7 py-2">
+              Reset
+            </button>
+          </div>
+        </motion.div>
       </form>
       <FloatingNotif isOpen={isNotifOpen} setIsOpen={setIsNotifOpen} />
     </>

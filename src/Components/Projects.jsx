@@ -45,10 +45,10 @@ export default function Projects() {
       initial="hidden"
       animate="show"
       variants={staggerContainer}
-      className="border cursor-custom relative flex flex-col  mt-16 space-y-12 items-center md:w-3/5 px-10 pt-3  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 "
+      className="border cursor-custom relative flex flex-col  mt-14 space-y-12 items-center md:w-3/5 px-10 pt-24  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 "
     >
       <div className="self-start -mt-9 flex justify-center ">
-        <SecName secName="Projects">
+        <SecName secName="Projects" >
           <GrProjects />
         </SecName>
       </div>

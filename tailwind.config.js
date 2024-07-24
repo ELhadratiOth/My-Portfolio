@@ -19,17 +19,16 @@ export default {
         primary5: '#2c2a65',
       },
       backgroundImage: {
-        'bg-img': 'white',
-        'bg-bg':'url("./src/assets/imgP1.png")',
-        'bg-gadient':
-          'radial-gradient(circle at center center, rgb(80, 32, 84),rgb(62, 35, 81),rgb(44, 38, 79),rgb(26, 40, 76),rgb(8, 43, 73))',
+        'bg-img': 'url("./src/assets/img2.jpg")',
+        'bg-img2':
+          'radial-gradient(circle at center center, rgb(17,17,55),rgb(24,10,38),rgb(15,9,28),rgb(2,5,12),rgb(0,0,0))',
       },
 
       boxShadow: {
         shad: '-1px -2px 36px -1px rgba(103,38,190,0.74)',
       },
       dropShadow: {
-        back: '17px 9px 20px #6f69fd',
+        back: '0px 0px 12px #6f69fd',
       },
       fontSize: {
         me: ['2rem', '2rem'],

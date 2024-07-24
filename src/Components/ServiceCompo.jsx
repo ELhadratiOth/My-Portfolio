@@ -39,10 +39,10 @@ export default function ServiceCompo() {
     return (
       <motion.div
         key={service.id}
-        className="relative group w-full flex justify-center flex-col ring-1 ring-current  space-y-2 p-8 rounded-2xl  shadow-shad transition-shadow duration-300 hover:shadow-primary1  hover:ring-primary4 hover:ring-2 text-white md:w-4/5"
+        className="relative backdrop-blur-[3px] group w-full flex justify-center flex-col ring-1 ring-current  space-y-2 p-8 rounded-2xl  shadow-shad transition-shadow duration-300 hover:shadow-primary1  hover:ring-primary4 hover:ring-2 text-white md:w-4/5"
         initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
         whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        transition={{ duration: 0.7, delay: 0.2 }}
+        transition={{ duration: 0.7, delay: 0.3 }}
       >
         <div className="font-bold text-xl group-hover:scale-105 group-hover:ml-2 group-hover:ml-t  transition-all">
           {service.serviceName}

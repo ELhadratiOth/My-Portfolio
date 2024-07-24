@@ -14,6 +14,7 @@ const staggerContainer = {
     y: 0,
     transition: {
       staggerChildren: 0.2,
+      delay: 0.2
     },
   },
 };

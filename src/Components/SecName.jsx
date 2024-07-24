@@ -2,10 +2,13 @@
 import { motion, AnimatePresence } from 'framer-motion';
 
 export default function SecName({ secName, children, service = false }) {
+  console.log(secName);
   return (
     <AnimatePresence>
       <motion.div
-        className="self-start hover:text-primary1  transition-colors ease-in-out font-semibold  border border-white px-7 py-1 rounded-full flex justify-around items-center  space-x-2 text-white "
+        className={`self-start backdrop-blur-[3px] hover:text-primary1 transition-colors ease-in-out font-semibold  border border-white px-7  rounded-full flex justify-around items-center  space-x-2 text-white  ${
+          secName === 'Projects' ? 'py-1.5' : 'py-1'
+        }`}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
