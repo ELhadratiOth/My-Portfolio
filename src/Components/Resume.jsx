@@ -1,6 +1,6 @@
 import { stagger, useAnimate } from 'framer-motion';
 import MyCV from '../assets/docs/MyCV.pdf';
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion';
 
 export default function Resume() {
   const [scope, animate] = useAnimate(true);
@@ -24,9 +24,9 @@ export default function Resume() {
     <motion.div
       className="w-full md:-32"
       ref={scope}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: 'easeInOut' }}
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 1, delay: 0.4, ease: 'easeInOut' }}
     >
       <a onClick={handleClick}>
         <button

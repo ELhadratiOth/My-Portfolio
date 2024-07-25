@@ -4,10 +4,10 @@ import styles from '../static/bubble.module.css';
 import { Link } from 'react-router-dom';
 const Header = () => {
 
-          const Me = () => 'El Hadrati Othman'.split(''); 
+          const Me = () => 'EL HADRATI Othman'.split(''); 
           return (
             <Link to="/">
-              <div className="fixed z-20 top-0 left-0 h-14 md:h-20 w-full flex justify-center items-center md:justify-start border-b-2 border-primary3 backdrop-blur-[2px]  md:backdrop-blur-sm shadow-shad shadow-primary3 md:border-0 md:shadow-none">
+              <div className="fixed z-20 top-0 left-0 h-14 md:h-20 w-full flex justify-center items-center md:justify-start border-b-2 border-primary3 backdrop-blur-md  md:backdrop-blur-[3px] bg-black/10 md:bg-transparent shadow-shad shadow-primary3 md:border-0 md:shadow-none">
                 <div className="flex justify-center items-center">
                   <motion.h2
                     initial={{ opacity: 0, y: -100 }}

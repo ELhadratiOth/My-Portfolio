@@ -2,10 +2,12 @@
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
+// Import the PDF file
+import CodSofPDF from '../assets/docs/CodSoft.pdf';
+
 const dataCerifs = [
   {
-    id: 3,
-
+    id: 1,
     nameCertif: 'Introduction to Databases',
     link: 'https://www.coursera.org/account/accomplishments/verify/JFVKGT43NWH3',
     date: '2023',
@@ -20,7 +22,6 @@ const dataCerifs = [
   },
   {
     id: 3,
-
     nameCertif: 'Database Structures and Management with MySQL',
     link: 'https://www.coursera.org/account/accomplishments/verify/RY2L6TDC8CPS',
     date: '2024',
@@ -28,7 +29,6 @@ const dataCerifs = [
   },
   {
     id: 4,
-
     nameCertif: 'Introduction to Linux Commands and Shell Scripting',
     link: 'https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA',
     date: '2024',
@@ -36,7 +36,6 @@ const dataCerifs = [
   },
   {
     id: 5,
-
     nameCertif: 'Getting Started with Git and GitHub',
     link: 'https://www.coursera.org/account/accomplishments/verify/C9GZALZCQ7XT',
     date: '2024',
@@ -44,36 +43,41 @@ const dataCerifs = [
   },
   {
     id: 6,
-
     nameCertif: 'Python for Beginners',
     link: 'https://simpli-web.app.link/e/6AcNpCdPhLb',
     date: '2024',
     provider: 'Simplilearn',
   },
+  {
+    id: 7,
+    nameCertif: 'Python Certificate',
+    link: CodSofPDF, 
+    date: '2024',
+    provider: 'CodSoft',
+  },
 ];
 
 const Certificate = ({ nameCertif, link, date, provider }) => (
   <motion.div
-    className="flex flex-col md:space-y-2  w-max text-purple-100"
+    className="flex flex-col md:space-y-2 w-max text-purple-100"
     initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
     transition={{ duration: 0.7, delay: 0.2 }}
   >
     <div className="flex flex-col lg:flex-row space-y-1 lg:space-y-0 mb-3 lg:mb-0 text-purple-100">
-      <div className="font-semibold mr-1 ">{nameCertif} : </div>
-      <div className="flex  md:justify-center items-center">
+      <div className="font-semibold mr-1">{nameCertif}:</div>
+      <div className="flex md:justify-center items-center">
         <div>
-          {' '}
           {provider} - {date}
         </div>
-
         <a
           title="Check it"
           className="inline-block text-primary3 ml-3 text-xl transition-colors duration-300 hover:text-primary5"
           href={link}
           target="_blank"
+          rel="noopener noreferrer"
         >
-          <FaExternalLinkAlt />{' '}
+          <FaExternalLinkAlt />
         </a>
       </div>
     </div>

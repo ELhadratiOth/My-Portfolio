@@ -20,8 +20,10 @@ export default {
       },
       backgroundImage: {
         'bg-img': 'url("./src/assets/img2.jpg")',
+        'bg-img3': 'url("./src/assets/FooterImg.png")',
+
         'bg-img2':
-          'radial-gradient(circle at center center, rgb(17,17,55),rgb(24,10,38),rgb(15,9,28),rgb(2,5,12),rgb(0,0,0))',
+          'radial-gradient(circle at center center, rgb(17,17,55),rgb(18,6,34),rgb(9,6,18),rgb(2,5,12),rgb(0,0,0))',
       },
 
       boxShadow: {

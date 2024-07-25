@@ -1,7 +1,7 @@
-import { useRef, useState,  } from 'react';
+import { useRef, useState, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial, Preload } from '@react-three/drei';
-// import Loader from './Loader';
+import Loader from './Loader';
 
 const generateGalaxyPoints = (count, radius) => {
   const positions = new Float32Array(count * 3);
@@ -43,11 +43,11 @@ const GalaxyShape = props => {
 
 const StyledStarsCanvas = () => {
   return (
-    <div className="w-full h-full absolute inset-0">
+    <div className="w-full h-full absolute inset-0 ">
       <Canvas camera={{ position: [0, 0, 1.5] }}>
-        {/* <Suspense fallback={<Loader />}> */}
+        <Suspense fallback={<Loader />}>
           <GalaxyShape />
-        {/* </Suspense> */}
+        </Suspense>
         <Preload all />
       </Canvas>
     </div>

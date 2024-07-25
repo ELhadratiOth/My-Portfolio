@@ -1,92 +1,53 @@
 import { Drawer } from 'vaul';
+import { FiSend } from 'react-icons/fi';
+import myLogo from '../assets/avatar.png';
+import SocialMediaIcon from './SocialMediaIcon';
 
 const ScrollerVaul = () => {
   return (
-    <Drawer.Root>
+    <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger asChild>
-        <button>Open Drawer</button>
+        <button>
+          {' '}
+          <NeumorphismButton />
+        </button>
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 bg-black/40 " />
-        <Drawer.Content className="bg-zinc-100 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 z-40">
-          <div className="p-4 bg-white rounded-t-[10px] flex-1">
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-zinc-300 mb-8" />
-            <div className="max-w-md mx-auto">
-              <Drawer.Title className="font-medium mb-4">
-                Unstyled drawer for React.
-              </Drawer.Title>
-              <p className="text-zinc-600 mb-2">
-                This component can be used as a replacement for a Dialog on
-                mobile and tablet devices.
-              </p>
-              <p className="text-zinc-600 mb-8">
-                It uses{' '}
-                <a
-                  href="https://www.radix-ui.com/docs/primitives/components/dialog"
-                  className="underline"
-                  target="_blank"
-                >
-                  Radix&rsquo;s Dialog primitive
-                </a>{' '}
-                under the hood and is inspired by{' '}
-                <a
-                  href="https://twitter.com/devongovett/status/1674470185783402496"
-                  className="underline"
-                  target="_blank"
-                >
-                  this tweet.
-                </a>
-              </p>
-            </div>
+        <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+        <Drawer.Content
+          aria-describedby={undefined}
+          className="bg-zinc-100 z-50 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0"
+        >
+          <div className="p-4 bg-white/80 backdrop-blur-md rounded-t-[10px] flex-1">
+            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300  mb-5" />
+
+            <Drawer.Title className="font-bold text-xl text-center uppercase">
+              Get In Touch
+            </Drawer.Title>
           </div>
           <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
-            <div className="flex gap-6 justify-end max-w-md mx-auto">
-              <a
-                className="text-xs text-zinc-600 flex items-center gap-0.25"
-                href="https://github.com/emilkowalski/vaul"
-                target="_blank"
-              >
-                GitHub
-                <svg
-                  fill="none"
-                  height="16"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width="16"
-                  aria-hidden="true"
-                  className="w-3 h-3 ml-1"
-                >
-                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                  <path d="M15 3h6v6"></path>
-                  <path d="M10 14L21 3"></path>
-                </svg>
-              </a>
-              <a
-                className="text-xs text-zinc-600 flex items-center gap-0.25"
-                href="https://twitter.com/emilkowalski_"
-                target="_blank"
-              >
-                Twitter
-                <svg
-                  fill="none"
-                  height="16"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  viewBox="0 0 24 24"
-                  width="16"
-                  aria-hidden="true"
-                  className="w-3 h-3 ml-1"
-                >
-                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                  <path d="M15 3h6v6"></path>
-                  <path d="M10 14L21 3"></path>
-                </svg>
-              </a>
+            <div className="flex flex-col space-y-5 justify-center items-center pt-1">
+              <div className="w-full flex justify-around items-center ">
+                {' '}
+                <div className="-ml-12 ">
+                  {' '}
+                  <img src={myLogo} className="w-44" alt="Logo" />
+                </div>
+                <div className="flex flex-col justify-center self-center space-y-4">
+                  {' '}
+                  <SocialMediaIcon />
+                </div>
+              </div>
+              <div className="font-semibold text-center space-y-2">
+                <div >
+                  Email :{' '}
+                  <span className="md:text-lg font-bold">OthmanElhadrati@gmail.com</span>
+                </div>
+                <div>
+                  {' '}
+                  &copy; 2024 Othman El Hadrati . All&nbsp;Rights&nbsp;Reserved{' '}
+                </div>
+              </div>
             </div>
           </div>
         </Drawer.Content>
@@ -96,3 +57,31 @@ const ScrollerVaul = () => {
 };
 
 export default ScrollerVaul;
+
+const NeumorphismButton = () => {
+  return (
+    <div
+      className={`
+        px-4 py-2 rounded-full 
+        flex items-center gap-2 
+        text-black
+        font-bold
+        shadow-shad
+        shadow-primary5
+        ring 
+        ring-primary4
+        
+        transition-all
+
+        hover:shadow-[-1px_-1px_5px_rgba(255,_255,_255,_0.6),_1px_1px_5px_rgba(0,_0,_0,_0.3),inset_-2px_-2px_5px_rgba(255,_255,_255,_1),inset_2px_2px_4px_rgba(0,_0,_0,_0.3)]
+        hover:text-violet-500
+        bg-white
+    `}
+    >
+      <span className='text-2xl'>
+        <FiSend />
+      </span>
+      <span>Let&apos;s Connext</span>
+    </div>
+  );
+};
