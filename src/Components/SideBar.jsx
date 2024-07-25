@@ -70,7 +70,7 @@ const Header = () => {
           &copy; 2024 Othman El Hadrati All&nbsp;Rights&nbsp;Reserved
         </motion.div>
 
-        <SocialMediaIcon />
+        <SocialMediaIcon text="white" />
 
         <motion.div
           initial={{ opacity: 0 }}

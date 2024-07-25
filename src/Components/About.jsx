@@ -17,8 +17,8 @@ const staggerContainer = {
 };
 
 const staggerItem = {
-  hidden: { x: 100, opacity: 0 },
-  show: { x: 0, opacity: 1, transition: { duration: 1, ease: 'easeInOut' , delay:0.2 } },
+  hidden: { x: 200, opacity: 0 },
+  show: { x: 0, opacity: 1, transition: { duration: 1, ease: 'easeOut' , delay:0.3 } },
 };
 
 export default function About() {

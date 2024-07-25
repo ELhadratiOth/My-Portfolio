@@ -31,7 +31,7 @@ export default function Resume() {
       <a onClick={handleClick}>
         <button
           onClick={onButtonClick}
-          className="button border-4 border-primary3 px-9 py-1 pt-2 font-semibold rounded-full text-primary3 bg-primary5 transition-colors hover:border-primary4 hover:bg-primary2 hover:text-primary5"
+          className="button border-4 border-primary3 px-9 py-1 pt-2 font-semibold rounded-full text-white bg-primary5 transition-colors hover:border-primary4 hover:bg-primary2 hover:text-primary5"
         >
           <span className="sr-only">RESUME</span>
           <span className="overflow-hidden block text-xl h-[33px]" aria-hidden>

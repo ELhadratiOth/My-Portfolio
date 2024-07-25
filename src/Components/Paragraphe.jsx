@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {motion} from 'framer-motion'
+import { motion } from 'framer-motion';
 export default function Paragraphe({ partie }) {
   if (partie == 0)
     return (
@@ -13,20 +13,22 @@ export default function Paragraphe({ partie }) {
         and make that vision a reality.
       </motion.div>
     );
-  else if (partie == 1) return (
-    <motion.div
-      className="text-start w-5/6 font-customFont text-base md:text-base text-purple-100  backdrop-blur-[3px]"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, ease: 'easeInOut' }}
-    >
-      I&apos;m a first-year engineering student at The National School of
-      Applied Sciences in Al Hoceima (<strong>ENSAH</strong>) , specializing in
-      Data Engineering. With a passion for both Data Engineering and Web
-      Development, I focus on crafting polished, precise code. My main drive as
-      a programmer is to use technology to create positive impacts for people.
-    </motion.div>
-  );
+  else if (partie == 1)
+    return (
+      <motion.div
+        className="text-start w-5/6 font-customFont text-sm md:text-base text-purple-100  backdrop-blur-[3px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: 'easeInOut' }}
+      >
+        I&apos;m a first-year engineering student at The National School of
+        Applied Sciences in Al Hoceima (<strong>ENSAH</strong>) , specializing
+        in Data Engineering. With a passion for both Data Engineering and Web
+        Development, I focus on crafting polished, precise code. My main
+        motivation as a programmer is to make a positive impact by helping
+        people .
+      </motion.div>
+    );
   else
     return (
       <motion.div

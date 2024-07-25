@@ -31,15 +31,12 @@ export default function Service() {
         </div>
 
         <motion.div
-          className="text-white self-start text-4xl uppercase "
+          className="text-white self-start text-4xl uppercase backdrop-blur-[3px] "
           initial="hidden"
           animate="show"
           variants={staggerContainer}
         >
-          My{' '}
-          <span className="inline-block text-primary1 backdrop-blur-[3px]">
-            Specialities
-          </span>
+          My <span className="inline-block text-primary1">Specialities</span>
         </motion.div>
         <ServiceCompo />
       </div>

@@ -16,32 +16,35 @@ const ScrollerVaul = () => {
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
         <Drawer.Content
           aria-describedby={undefined}
-          className="bg-zinc-100 z-50 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0"
+          className="bg-zinc-100 z-50 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 border-t-2 border-l-2 border-r-2 border-primary5"
         >
-          <div className="p-4 bg-white/80 backdrop-blur-md rounded-t-[10px] flex-1">
-            <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-gray-300  mb-5" />
+          <div className="p-4  backdrop-blur-md rounded-t-[10px] w-full bg-white ">
+            <div className="mx-auto w-12 h-1.5  rounded-full bg-gray-500  mb-5" />
 
             <Drawer.Title className="font-bold text-xl text-center uppercase">
               Get In Touch
             </Drawer.Title>
           </div>
-          <div className="p-4 bg-zinc-100 border-t border-zinc-200 mt-auto">
+          <div className="p-4 border-t w-full border-black mt-auto">
             <div className="flex flex-col space-y-5 justify-center items-center pt-1">
               <div className="w-full flex justify-around items-center ">
                 {' '}
                 <div className="-ml-12 ">
                   {' '}
-                  <img src={myLogo} className="w-44" alt="Logo" />
+                  <img src={myLogo} className="w-48" alt="Logo" />
                 </div>
                 <div className="flex flex-col justify-center self-center space-y-4">
                   {' '}
-                  <SocialMediaIcon />
+                  <SocialMediaIcon text="black" />
+                  
                 </div>
               </div>
               <div className="font-semibold text-center space-y-2">
-                <div >
+                <div>
                   Email :{' '}
-                  <span className="md:text-lg font-bold">OthmanElhadrati@gmail.com</span>
+                  <span className="md:text-lg font-bold">
+                    OthmanElhadrati@gmail.com
+                  </span>
                 </div>
                 <div>
                   {' '}
@@ -81,7 +84,7 @@ const NeumorphismButton = () => {
       <span className='text-2xl'>
         <FiSend />
       </span>
-      <span>Let&apos;s Connext</span>
+      <span>Let&apos;s Connect</span>
     </div>
   );
 };

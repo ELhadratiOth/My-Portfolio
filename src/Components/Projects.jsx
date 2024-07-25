@@ -1,7 +1,8 @@
 import SecName from './SecName';
 import { motion } from 'framer-motion';
 import { GrProjects } from 'react-icons/gr';
-import GridB from './GridB'
+import { AnimatePresence } from 'framer-motion';
+import Transition from './Transition';
 const data = [
   {
     id: 1,
@@ -35,26 +36,36 @@ const staggerContainer = {
     x: 0,
     transition: {
       duration: 0.9,
+      deley:0.4
     },
   },
 };
 
 export default function Projects() {
   return (
-    <motion.div
-      initial="hidden"
-      animate="show"
-      variants={staggerContainer}
-      className="border cursor-custom relative flex flex-col  mt-14 space-y-12 items-center md:w-3/5 px-10 pt-24  md:pl-0 w-full h-full md:h-full md:pt-32 md:pb-16 "
-    >
-      <div className="self-start -mt-9 flex justify-center ">
-        <SecName secName="Projects" >
+    <AnimatePresence mode="wait">
+      <Transition key={1} />
+      <motion.div
+        key={2}
+        initial="hidden"
+        animate="show"
+        variants={staggerContainer}
+        className="cursor-custom relative flex flex-col space-y-4 items-center md:w-3/5 w-full h-full md:h-screen mt-16 md:mt-0 pt-12 md:pt-24 ml-20"
+      >
+        <SecName secName="Projects">
           <GrProjects />
         </SecName>
-      </div>
-        {' '}
-        <GridB data={data} />
-    </motion.div>
+        <motion.div
+          variants={staggerContainer}
+          className="space-y-3 self-start flex justify-center flex-col items-start "
+        >
+          <div className="text-white self-start text-4xl uppercase backdrop-blur-[3px] ">
+            Take a look at
+            <span className="text-primary3"> My Work</span>
+          </div>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
 
