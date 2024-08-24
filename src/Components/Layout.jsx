@@ -23,7 +23,7 @@ export default function Layout() {
   }, []);
 
   return (
-    <>
+    <div className="w-full h-full font-myFont">
       <div className="fixed -z-30 w-screen  h-screen  bg-bg-img2 flex bg-no-repeat bg-center bg-cover justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
         <BackGround />
       </div>
@@ -31,7 +31,11 @@ export default function Layout() {
         <Loader />
       ) : (
         <>
-            <img  className='fixed -right-24 md:right-0 top-0 h-full w-auto ' src={Fragment1} alt="error" />
+          <img
+            className="fixed -right-24 md:right-0 top-0 h-full w-auto "
+            src={Fragment1}
+            alt="error"
+          />
           <div className="relative w-full h-full flex justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
             <Router>
               <Header />
@@ -63,6 +67,6 @@ export default function Layout() {
           </div>
         </>
       )}
-    </>
+    </div>
   );
 }

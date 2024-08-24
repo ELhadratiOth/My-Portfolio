@@ -4,7 +4,7 @@ export default function Paragraphe({ partie }) {
   if (partie == 0)
     return (
       <motion.div
-        className="text-start self-start w-4/5 font-customFont text-1xl text-purple-100 backdrop-blur-[3px]"
+        className="text-start self-start w-[75%] font-customFont text-1xl text-purple-100 backdrop-blur-[3px]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: 'easeInOut' }}
@@ -32,7 +32,7 @@ export default function Paragraphe({ partie }) {
   else
     return (
       <motion.div
-        className="text-start md:text-left font-customFont text-1xl backdrop-blur-[3px]"
+        className="text-start md:text-left font-customFont text-1xl backdrop-blur-[3px] "
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}
@@ -40,7 +40,7 @@ export default function Paragraphe({ partie }) {
         <p>
           I&apos;m currently a first-year engineering student specializing in
           Data Engineering at the National School of Applied Sciences in Al
-          Hoceima (ENSAH).
+          Hoceima (<strong>ENSAH</strong>).
         </p>
       </motion.div>
     );

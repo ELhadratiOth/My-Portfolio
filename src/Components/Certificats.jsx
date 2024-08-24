@@ -64,18 +64,17 @@ const Certificate = ({ nameCertif, link, date, provider }) => (
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
     transition={{ duration: 0.7, delay: 0.2 }}
   >
-    <div className="flex flex-col lg:flex-row space-y-1 lg:space-y-0 mb-3 lg:mb-0 text-purple-100">
+    <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center space-y-1 lg:space-y-1 mb-3 lg:mb-0 text-purple-100">
       <div className="font-semibold mr-1">{nameCertif}:</div>
-      <div className="flex md:justify-center items-center">
+      <div className="flex md:justify-center items-center font-normal text-base ">
         <div>
           {provider} - {date}
         </div>
         <a
           title="Check it"
-          className="inline-block text-primary3 ml-3 text-xl transition-colors duration-300 hover:text-primary5"
+          className="inline-block text-primary3 ml-3 mb-0.5 text-xl transition-colors duration-300 hover:text-primary5"
           href={link}
           target="_blank"
-          rel="noopener noreferrer"
         >
           <FaExternalLinkAlt />
         </a>

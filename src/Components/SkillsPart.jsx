@@ -6,7 +6,11 @@ import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
 import { SiFlask, SiOracle, SiMysql } from 'react-icons/si';
 import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
+import { SiFastapi } from 'react-icons/si';
+import { SiShadcnui } from 'react-icons/si';
+
 import { motion } from 'framer-motion';
+import CIcon from './Ccompo';
 
 const SkillCategory = ({ category, skills }) => (
   <motion.div
@@ -15,35 +19,35 @@ const SkillCategory = ({ category, skills }) => (
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
     transition={{ duration: 0.7, delay: 0.2 }}
   >
-    <div className="flex flex-col  justify-center md:w-3/3 md:w-max md:flex-row  space-y-2 mb-3 md:mb-0 text-white font-semibold ">
-      <div className=" md:text-lg  md:pt-2 md:mr-2 ">{category} : </div>
-      <div className="text-purple-100 space-x-9 md:space-y-0 md:space-x-5 flex items-center text-3xl w-max">
+    <div className="flex flex-col justify-center md:w-3/3 md:w-max md:flex-row space-y-2 mb-3 md:mb-0 text-white font-semibold">
+      <div className="md:text-lg md:pt-2 md:mr-2">{category} :</div>
+      <div className="text-purple-100 space-x-5 md:space-y-0 md:space-x-3 xl:space-x-6 flex items-center text-2xl w-max">
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            className="relative flex flex-col items-center  hover:text-primary1 transition-colors duration-300 "
+            className="relative flex flex-col items-center hover:text-primary1 transition-colors duration-300"
             whileHover={{
               scale: 1.1,
-              textShadow: '1px 2px 9px rgba(111, 105, 253, 1)',
+              textShadow: '1px 2px 9px #000',
             }}
           >
             <skill.icon />
 
-            <motion.div
-              className="absolute font-bold -top-1 w-7 h-9 flex justify-start flex-col items-center  "
+            <motion.div 
+              className="absolute font-bold -top-1 w-7 h-9 flex justify-start flex-col items-center"
               initial={{ opacity: 0, y: 0 }}
               whileHover={{ opacity: 1, y: -19, height: 53 }}
               transition={{
                 duration: 0.3,
                 ease: 'easeInOut',
                 type: 'spring',
-                stiffness: 200,
+                stiffness: 60,
               }}
             >
-              <div className="px-3 w-max h-6 rounded-md bg-white text-sm text-primary4 shadow-lg shadow-black ">
+              <div className="px-3 w-max h-6 pt-0.5 rounded-md bg-white text-sm text-primary4 shadow-lg">
                 {skill.name}
               </div>
-              <div className="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 "></div>
+              <div className="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4"></div>
             </motion.div>
           </motion.div>
         ))}
@@ -63,6 +67,7 @@ export default function SkillsPart() {
           { icon: IoLogoJavascript, name: 'JavaScript' },
           { icon: FaJava, name: 'Java' },
           { icon: FaPython, name: 'Python' },
+          { icon: CIcon, name: 'C' },
         ]}
       />
       <SkillCategory
@@ -70,8 +75,10 @@ export default function SkillsPart() {
         skills={[
           { icon: FaReact, name: 'React' },
           { icon: TbBrandFramerMotion, name: 'Framer-Motion' },
+          { icon: SiFastapi, name: 'FastAPI' },
           { icon: RiTailwindCssFill, name: 'Tailwind CSS' },
           { icon: SiFlask, name: 'Flask' },
+          { icon: SiShadcnui, name: 'Shadcn UI' },
           { icon: DiBootstrap, name: 'Bootstrap' },
         ]}
       />

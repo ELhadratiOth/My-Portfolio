@@ -31,12 +31,15 @@ const ScrollerVaul = () => {
                 {' '}
                 <div className="-ml-12 ">
                   {' '}
-                  <img src={myLogo} className="w-48" alt="Logo" />
+                  <img
+                    src={myLogo}
+                    className="w-48 drop-shadow-back2 "
+                    alt="Logo"
+                  />
                 </div>
                 <div className="flex flex-col justify-center self-center space-y-4">
                   {' '}
                   <SocialMediaIcon text="black" />
-                  
                 </div>
               </div>
               <div className="font-semibold text-center space-y-2">

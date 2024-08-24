@@ -23,7 +23,7 @@ const SocialMediaIcon = ({text}) => {
       {SocialMedias.map(socialMedia => (
         <motion.div
           key={socialMedia.id}
-          className={`hover:text-${text} text-primary2 backdrop-blur-[3px] hover:shadow-shad shadow-sm hover:shadow-primary1  p-2 rounded-md hover:scale-110 relative overflow-hidden ring-2 ring-offset-0 ring-primary3 hover:ring-primary3 transition-all duration-500 cursor-pointer `}
+          className={`hover:text-${text} hover:shadow-primary1 text-primary2 backdrop-blur-[3px] hover:shadow-shad shadow-sm   p-2 rounded-md hover:scale-110 relative overflow-hidden ring-2 ring-offset-0 ring-primary3 hover:ring-primary3 transition-all duration-500 cursor-pointer `}
           whileHover="visible"
         >
           <a href={socialMedia.url}>{socialMedia.icon}</a>

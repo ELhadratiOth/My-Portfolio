@@ -32,7 +32,7 @@ const Header = () => {
     <>
       <motion.div
         ref={divRef}
-        className="hidden backdrop-blur-sm md:flex cursor-custom ring-1 ring-primary3 border-slate-300 flex-col justify-between space-y-5 items-center rounded-3xl shadow-shad md:fixed px-9 py-4 mt-24 mb-8 md:top-20 md:left-5 md:px-3 md:w-2/6 lg:w-1/3 lg:px-2 lg:left-7 xl:w-1/4 xl:left-28 xl:py-6"
+        className="hidden backdrop-blur-sm md:flex cursor-custom ring-1 ring-primary3 border-slate-300 flex-col justify-between space-y-5 items-center rounded-3xl shadow-shad md:fixed px-9 py-4 mt-24 mb-8 md:top-16 md:left-5 md:px-3 md:w-2/6 lg:w-1/3  lg:left-7 xl:w-1/4 xl:left-28 xl:py-6"
         initial={{ x: -400, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{
@@ -47,7 +47,7 @@ const Header = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
         >
-          <img src={myLogo} className="w-80" alt="Logo" />
+          <img src={myLogo} className="w-80 drop-shadow-back" alt="Logo" />
         </motion.div>
 
         <motion.div
@@ -56,7 +56,7 @@ const Header = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          Email : <span className="md:text-lg">OthmanElhadrati@gmail.com</span>
+          My Email : <span className="md:text-lg">OthmanElhadrati@gmail.com</span>
           <br />
           Based in Kenitra, Morocco
         </motion.div>

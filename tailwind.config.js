@@ -10,6 +10,7 @@ export default {
       },
       fontFamily: {
         customFont: ['Exo 2', 'sans-serif'],
+        myFont: ['Fira Code', 'sans-serif'],
       },
       colors: {
         primary1: '#6f69fd',
@@ -31,6 +32,7 @@ export default {
       },
       dropShadow: {
         back: '0px 0px 12px #6f69fd',
+        back2: '3px 5px 9px #000000',
       },
       fontSize: {
         me: ['2rem', '2rem'],

@@ -35,7 +35,7 @@ export default function Resume() {
         >
           <span className="sr-only">RESUME</span>
           <span className="overflow-hidden block text-xl h-[33px]" aria-hidden>
-            {['R', 'E', 'S', 'U', 'M', 'E'].map((letter, index) => (
+            {[  'R', 'E', 'S', 'U', 'M', 'E'].map((letter, index) => (
               <span
                 data-letter={letter}
                 className="letter inline-block relative h-[33px] after:absolute after:h-[33px] after:right-0 after:top-full after:content-[attr(data-letter)]"

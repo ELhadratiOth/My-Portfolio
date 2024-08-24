@@ -17,7 +17,6 @@ export default function Menu() {
   useEffect(() => {
     const handleVisibility = () => {
       if (divRef.current) {
-        console.log(divRef.current.getBoundingClientRect());
         const rect = divRef.current.getBoundingClientRect();
         setOkay(
           rect.top + rect.height == 0 
