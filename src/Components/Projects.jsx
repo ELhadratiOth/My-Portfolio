@@ -95,7 +95,7 @@ export default function Projects() {
       <Transition key={1} />
       <div
         key={2}
-        className="cursor-custom relative flex flex-col mb-20 space-y-12 items-center md:w-3/5 md:pr-28 w-full h-full md:h-full mt-16 md:mt-0 pt-12 md:pt-24 ml-20"
+        className="cursor-custom relative  flex flex-col mb-10 md:mb-20 space-y-14 items-center md:w-3/5 md:pr-28 w-full h-full md:h-full mt-16 md:mt-0 pt-12 md:pt-24 ml-20"
       >
         <SecName secName="Projects">
           <GrProjects />

@@ -29,6 +29,7 @@ export default {
 
       boxShadow: {
         shad: '-1px -2px 36px -1px rgba(103,38,190,0.74)',
+        shad2: '-1px -2px 20px -1px #37347e',
       },
       dropShadow: {
         back: '0px 0px 12px #6f69fd',

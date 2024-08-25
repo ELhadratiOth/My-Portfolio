@@ -39,9 +39,9 @@ const Header = () => {
             duration: 0.5,
             delay: 0.4 + Me().length * 0.15,
           }}
-          className="text-red-700 self-end text-sm"
+          className="text-red-700 self-end text-sm mb-1"
         >
-          <VscDebugBreakpointLog />
+          <VscDebugBreakpointLog  />
         </motion.h2>
       </div>
     </div>

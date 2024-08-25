@@ -18,7 +18,7 @@ const Header = () => {
       }
     };
 
-    checkVisibility(); // Check visibility initially
+    checkVisibility(); 
     window.addEventListener('resize', checkVisibility);
     window.addEventListener('scroll', checkVisibility);
 

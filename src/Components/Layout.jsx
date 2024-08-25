@@ -26,7 +26,7 @@ export default function Layout() {
     <div className="w-full h-full font-myFont">
       <div className="fixed -z-30 w-screen h-screen bg-bg-img2 flex bg-no-repeat bg-center bg-cover justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
         <BackGround />
-      </div> 
+      </div>
       {loader ? (
         <Loader />
       ) : (
@@ -48,7 +48,13 @@ export default function Layout() {
                 <Route
                   path="/projects"
                   element={
-                    <Suspense fallback={<Loader />}>
+                    <Suspense
+                      fallback={
+                        <div className="pl-20">
+                          <Loader />
+                        </div>
+                      }
+                    >
                       <Projects />
                     </Suspense>
                   }
@@ -56,7 +62,13 @@ export default function Layout() {
                 <Route
                   path="/contactme"
                   element={
-                    <Suspense fallback={<Loader />}>
+                    <Suspense
+                      fallback={
+                        <div className=" pl-20">
+                          <Loader />
+                        </div>
+                      }
+                    >
                       <ContactMe />
                     </Suspense>
                   }

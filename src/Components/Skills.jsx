@@ -36,7 +36,7 @@ export default function Skills() {
       );
     } else if (active === 'Certificates') {
       return (
-        <motion.div>
+        <motion.div className='pb-7 md:pb-2 '>
           <Certificats />
         </motion.div>
       );
