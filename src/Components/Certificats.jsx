@@ -65,9 +65,9 @@ const Certificate = ({ nameCertif, link, date, provider }) => (
     transition={{ duration: 0.7, delay: 0.2 }}
   >
     <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center space-y-1 lg:space-y-1 mb-3 lg:mb-0 text-purple-100">
-      <div className="font-semibold mr-1">{nameCertif}:</div>
+      <div className="font-semibold text-lg mr-1">{nameCertif}:</div>
       <div className="flex md:justify-center items-center font-normal text-base ">
-        <div>
+        <div className='mb-0.5 text-purple-50'>
           {provider} - {date}
         </div>
         <a
@@ -85,7 +85,7 @@ const Certificate = ({ nameCertif, link, date, provider }) => (
 
 export default function SkillsPart() {
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       {dataCerifs.map(elem => (
         <Certificate
           key={elem.id}

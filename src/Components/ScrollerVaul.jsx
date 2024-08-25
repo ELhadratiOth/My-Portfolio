@@ -13,19 +13,19 @@ const ScrollerVaul = () => {
         </button>
       </Drawer.Trigger>
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 bg-black/40" />
+        <Drawer.Overlay className="fixed inset-0 bg-black/50" />
         <Drawer.Content
           aria-describedby={undefined}
-          className="bg-zinc-100 z-50 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 border-t-2 border-l-2 border-r-2 border-primary5"
+          className="bg-[#191836] z-50 flex flex-col rounded-t-[10px] mt-24 fixed bottom-0 left-0 right-0 border-t-2 border-l-2 border-r-2 border-primary5"
         >
-          <div className="p-4  backdrop-blur-md rounded-t-[10px] w-full bg-white ">
-            <div className="mx-auto w-12 h-1.5  rounded-full bg-gray-500  mb-5" />
+          <div className="p-4  backdrop-blur-md rounded-t-[10px] w-full bg-[#1d1b3d] ">
+            <div className="mx-auto w-20 h-1.5  rounded-full bg-primary5 mb-5" />
 
-            <Drawer.Title className="font-bold text-xl text-center uppercase">
+            <Drawer.Title className="font-bold text-xl text-white text-center uppercase">
               Get In Touch
             </Drawer.Title>
           </div>
-          <div className="p-4 border-t w-full border-black mt-auto">
+          <div className="p-4 border-t w-full border-primary5 mt-auto">
             <div className="flex flex-col space-y-5 justify-center items-center pt-1">
               <div className="w-full flex justify-around items-center ">
                 {' '}
@@ -33,16 +33,16 @@ const ScrollerVaul = () => {
                   {' '}
                   <img
                     src={myLogo}
-                    className="w-48 drop-shadow-back2 "
+                    className="w-48 drop-shadow-back3  "
                     alt="Logo"
                   />
                 </div>
-                <div className="flex flex-col justify-center self-center space-y-4">
+                <div className="flex flex-col justify-center self-center  space-y-4">
                   {' '}
                   <SocialMediaIcon text="black" />
                 </div>
               </div>
-              <div className="font-semibold text-center space-y-2">
+              <div className="font-semibold text-center text-white space-y-2">
                 <div>
                   Email :{' '}
                   <span className="md:text-lg font-bold">

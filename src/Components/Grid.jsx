@@ -4,7 +4,7 @@ import { FaGithub } from 'react-icons/fa6';
 
 const BouncyCardsFeatures = ({ data }) => {
   return (
-    <section className="w-full py-12 text-slate-800">
+    <section className="w-full  text-slate-800">
       <div className="mb-4 grid grid-cols-12 gap-4">
         {data.map((item, index) => (
           <BounceCard
@@ -26,11 +26,11 @@ const BounceCard = ({ className, data }) => {
   return (
     <motion.div
       whileHover={{ scale: 0.95, rotate: '-2deg' }}
-      transition={{duration: 0.3}}
+      transition={{ duration: 0.3 }}
       className={`group relative space-y-4 text-white h-48 cursor-pointer overflow-hidden rounded-2xl backdrop-blur-[2px] bg-primary3/35 py-8 px-5 ${className}`}
     >
       <div className="mx-auto text-center text-3xl md:text-2xl font-semibold">
-        <h1 >{data.serviceName}</h1>
+        <h1>{data.serviceName}</h1>
       </div>
       <div className="flex flex-col items-center">
         <div className="flex w-fit self-center space-x-3">
@@ -42,7 +42,7 @@ const BounceCard = ({ className, data }) => {
           ))}
         </div>
         {data.link && (
-          <div className="self-start opacity-0 group-hover:opacity-100   duration-700 transition-all bottom-2 w-max z-20">
+          <div className="self-start absolute bottom-2 left-6 opacity-0 group-hover:opacity-100   duration-700 transition-all w-max z-20 rotate-[1deg]">
             <a
               href={data.link}
               target="_blank"
@@ -62,7 +62,7 @@ const BounceCard = ({ className, data }) => {
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat',
         }}
-        className="absolute bottom-0 z-10 left-4 right-4 top-24 translate-y-8 rounded-xl h-full p-4 transition-transform duration-[500ms] group-hover:-translate-y-5 group-hover:rotate-[3deg]"
+        className="absolute bottom-0 z-10 left-4 right-4 top-24 translate-y-8 rounded-xl h-full p-4 transition-transform duration-[500ms] group-hover:-translate-y-5 group-hover:rotate-[3deg] rotate-[-3deg]"
       ></div>
     </motion.div>
   );

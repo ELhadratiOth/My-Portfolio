@@ -33,6 +33,7 @@ export default {
       dropShadow: {
         back: '0px 0px 12px #6f69fd',
         back2: '3px 5px 9px #000000',
+        back3: '3px 5px 6px #fff',
       },
       fontSize: {
         me: ['2rem', '2rem'],

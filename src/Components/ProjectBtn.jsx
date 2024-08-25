@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import ProjectsImg from '../assets/projects.png';
-import LestConn from './LetsConnect';
+import LetsConn from './LetsConnect';
 import { Link } from 'react-router-dom';
 
 export default function ProjectBtn() {
@@ -13,7 +13,7 @@ export default function ProjectBtn() {
         transition={{ duration: 1, delay: 0.4, ease: 'easeInOut' }}
       >
         <div className=" backdrop-blur-[3px] relative group border-2 border-dashed w-40 h-40 md:mr-12  p-3 rounded-full flex justify-center items-center cursor-pointer">
-          <LestConn />
+          <LetsConn />
           <motion.img
             className="w-96"
             animate={{ rotate: 360 }}

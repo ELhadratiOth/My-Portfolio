@@ -106,7 +106,7 @@ export default function Projects() {
           variants={staggerContainer}
           className="space-y-3  self-start flex justify-center flex-col items-start"
         >
-          <div className="text-white self-start text-4xl uppercase backdrop-blur-[3px]">
+          <div className="text-white self-start text-4xl w-80 md:w-full md:text-4xl uppercase backdrop-blur-[3px]">
             Take a look at
             <span className="text-primary3"> My Work</span>
           </div>

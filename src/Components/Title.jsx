@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 
 const Title = () => {
-  const WORDS = ['DATA ENGINEER.', 'FRONT-END DEV.', 'MACHINE LEARNING.'];
+  const WORDS = ['DATA ENGINEER.', 'FULLSTACK DEV', 'ML ENGINEER.'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [displayText, setDisplayText] = useState('');
