@@ -22,6 +22,7 @@ import YoutubeVideoDownloaderImg from '../assets/YoutubeVideoDownloader.png';
 import WeatherAppImg from '../assets/WeatherApp.png';
 import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
+import { SiPostman } from 'react-icons/si';
 
 const data = [
   {
@@ -71,7 +72,7 @@ const data = [
   {
     id: 7,
     serviceName: 'Medical Office ',
-    tools: [FaReact, RiTailwindCssFill, SiFastapi, SiShadcnui],
+    tools: [FaReact, RiTailwindCssFill, SiFastapi, SiShadcnui, SiPostman],
     link: '',
     imgUrl: PurchasingManagementImg,
   },
