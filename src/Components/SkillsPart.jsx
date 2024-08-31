@@ -1,17 +1,26 @@
 /* eslint-disable react/prop-types */
-import { FaHtml5, FaReact, FaJava, FaPython, FaWindows } from 'react-icons/fa';
+import {
+  FaHtml5,
+  FaReact,
+  FaJava,
+  FaPython,
+  FaWindows,
+  FaDocker,
+} from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
-import { SiFlask, SiOracle, SiMysql } from 'react-icons/si';
+import {
+  SiFlask,
+  SiOracle,
+  SiMysql,
+  SiFastapi,
+  SiShadcnui,
+  SiPostman,
+} from 'react-icons/si';
 import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
 import { BiLogoPostgresql } from 'react-icons/bi';
-import { BiLogoPostgresql } from 'react-icons/bi';
-import { SiFastapi } from 'react-icons/si';
-import { SiShadcnui } from 'react-icons/si';
-import { SiPostman } from 'react-icons/si';
-import { FaDocker } from 'react-icons/fa';
 
 import { motion } from 'framer-motion';
 import CIcon from './Ccompo';
@@ -23,7 +32,7 @@ const SkillCategory = ({ category, skills }) => (
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
     transition={{ duration: 0.7, delay: 0.2 }}
   >
-    <div className="flex flex-col justify-center md:w-3/3 md:w-full md:justify-start  md:flex-row space-y-2 mb-3 md:mb-0 text-white font-semibold">
+    <div className="flex flex-col justify-center md:w-3/3 md:w-full md:justify-start md:flex-row space-y-2 mb-3 md:mb-0 text-white font-semibold">
       <div className="md:text-lg md:pt-4 md:mr-2 md:w-auto text-nowrap ">
         {category} :
       </div>
@@ -54,17 +63,14 @@ const SkillCategory = ({ category, skills }) => (
               }}
               transition={{
                 duration: 0.35,
-                duration: 0.35,
                 ease: 'easeInOut',
                 type: 'spring',
                 stiffness: 60,
               }}
             >
               <div className="px-3 group-hover:block hidden w-max h-6 pt-0.5 rounded-md bg-white text-sm text-primary4 shadow-lg">
-              <div className="px-3 group-hover:block hidden w-max h-6 pt-0.5 rounded-md bg-white text-sm text-primary4 shadow-lg">
                 {skill.name}
               </div>
-              <div className="w-0 h-0 group-hover:block hidden border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4" />
               <div className="w-0 h-0 group-hover:block hidden border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4" />
             </motion.div>
           </motion.div>
@@ -85,8 +91,7 @@ export default function SkillsPart() {
           { icon: IoLogoJavascript, name: 'JavaScript' },
           { icon: FaJava, name: 'Java' },
           { icon: FaPython, name: 'Python' },
-          { icon: CIcon, name: 'C'},
-          
+          { icon: CIcon, name: 'C' },
         ]}
       />
       <SkillCategory
@@ -110,24 +115,13 @@ export default function SkillsPart() {
         ]}
       />
       <SkillCategory
-        category="Databases ( SQL / PlSql )"
-        skills={[
-          { icon: SiOracle, name: 'Oracle' },
-          { icon: SiMysql, name: 'MySQL' },
-          { icon: BiLogoPostgresql, name: 'PostgreSQL' },
-        ]}
-      />
-      <SkillCategory
         category="Operating Systems"
         skills={[
           { icon: DiLinux, name: 'Linux' },
           { icon: FaWindows, name: 'Windows' },
         ]}
       />
-
-
       <SkillCategory
-        category="Version Control & Tools"
         category="Version Control & Tools"
         skills={[
           { icon: DiGit, name: 'Git' },
