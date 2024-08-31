@@ -1,24 +1,10 @@
 /* eslint-disable react/prop-types */
-import {
-  FaHtml5,
-  FaReact,
-  FaJava,
-  FaPython,
-  FaWindows,
-  FaDocker,
-} from 'react-icons/fa';
+import { FaHtml5, FaReact, FaJava, FaPython, FaWindows, FaDocker } from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
-import {
-  SiFlask,
-  SiOracle,
-  SiMysql,
-  SiFastapi,
-  SiShadcnui,
-  SiPostman,
-} from 'react-icons/si';
+import { SiFlask, SiOracle, SiMysql, SiFastapi, SiShadcnui, SiPostman } from 'react-icons/si';
 import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
 import { BiLogoPostgresql } from 'react-icons/bi';
 
