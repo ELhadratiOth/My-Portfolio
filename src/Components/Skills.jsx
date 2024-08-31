@@ -30,7 +30,7 @@ export default function Skills() {
   const Compo = () => {
     if (active === 'Skills') {
       return (
-        <motion.div>
+        <motion.div className='md:w-[90%] '>
           <SkillsPart />
         </motion.div>
       );
@@ -46,7 +46,7 @@ export default function Skills() {
   };
 
   return (
-    <div className="cursor-custom pt-8 self-start flex flex-col space-y-8 items-center md:w-3/5 md:pl-0 w-full h-full ">
+    <div className="cursor-custom pt-8 self-start flex flex-col space-y-8 items-center md:w-full md:pl-0 w-full h-full ">
       <SecName secName="Skills & Certificates">
         <div className="flex items-center">
           <SiHyperskill />
@@ -57,7 +57,7 @@ export default function Skills() {
         initial="hidden"
         animate="show"
         variants={staggerContainer}
-        className="text-white space-y-5 self-start flex justify-center flex-col items-start"
+        className="text-white space-y-5 self-start flex justify-center  w-full flex-col items-start"
       >
         <div className="flex justify-start space-x-16">
           {Categories.map(category => (

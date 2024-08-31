@@ -45,8 +45,8 @@ export default function Menu() {
         <Link
           className={`${
             location.pathname === elem.path
-              ? 'text-primary1 hover:text-primary1'
-              : 'text-slate-300 md:text-white hover:text-primary1'
+              ? 'text-primary1 hover:text-primary1 '
+              : 'text-slate-300 md:text-white hover:text-primary1 transition-all duration-300'
           } md:drop-shadow-back flex`}
           to={elem.path}
         >
@@ -55,9 +55,9 @@ export default function Menu() {
           <div
             className={`${
               location.pathname === elem.path
-                ? 'text-white '
-                : 'text-slate-300 '
-            } md:hidden md:absolute right-12 top-0 w-max md:text-black font-bold px-3 py-0.5 capitalize md:bg-slate-300 text-xl rounded-md md:group-hover:block`}
+                ? 'text-primary1'
+                : 'text-slate-300'
+            } md:hidden md:absolute  right-12 top-0 w-max md:text-black font-bold px-3 py-0.5 capitalize md:bg-slate-300 text-xl rounded-md md:group-hover:block`}
           >
             {elem.name}
           </div>

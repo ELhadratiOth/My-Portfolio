@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function SecName({ secName, children, service = false }) {
+export default function SecName({ secName, children }) {
   console.log(secName);
   return (
     <AnimatePresence>
@@ -18,7 +18,7 @@ export default function SecName({ secName, children, service = false }) {
         <motion.div
           whileHover={{ textShadow: '1px 2px 9px rgba(111, 105, 253, 1)' }}
         >
-          <span className={`inline-flex   ${service && ' inline-flex  mb-1'}`}>
+          <span className={`inline-flex`}>
             {secName}
           </span>
         </motion.div>{' '}

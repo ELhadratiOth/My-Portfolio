@@ -13,16 +13,20 @@ import { SiFlask } from 'react-icons/si';
 import { SiFastapi } from 'react-icons/si';
 import { SiShadcnui } from 'react-icons/si';
 import { SiStreamlit } from 'react-icons/si';
+import { FaDocker } from 'react-icons/fa';
+import { SiMysql } from 'react-icons/si';
+import { BiLogoPostgresql } from 'react-icons/bi';
 
 import Ccompo from './Ccompo';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import PurchasingManagementImg from '../assets/PurshasingManagement.png';
+import JumiaPipelineImg from '../assets/JumiaPipeline.png';
+
 import YoutubeVideoDownloaderImg from '../assets/YoutubeVideoDownloader.png';
 import WeatherAppImg from '../assets/WeatherApp.png';
 import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
-import { SiPostman } from 'react-icons/si';
 
 const data = [
   {
@@ -55,6 +59,20 @@ const data = [
     imgUrl: YoutubeVideoDownloaderImg,
   },
   {
+    id: 7,
+    serviceName: 'Medical Office',
+    tools: [
+      FaReact,
+      RiTailwindCssFill,
+      SiFastapi,
+      SiShadcnui,
+      SiMysql,
+      FaDocker,
+    ],
+    link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
+    imgUrl: PurchasingManagementImg,
+  },
+  {
     id: 6,
     serviceName: 'Hotel Landing Page',
     tools: [FaHtml5, IoLogoCss3],
@@ -70,11 +88,11 @@ const data = [
   },
 
   {
-    id: 7,
-    serviceName: 'Medical Office ',
-    tools: [FaReact, RiTailwindCssFill, SiFastapi, SiShadcnui, SiPostman],
-    link: '',
-    imgUrl: PurchasingManagementImg,
+    id: 8,
+    serviceName: 'Jumia Pipline',
+    tools: [BiLogoPostgresql, FaPython],
+    link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
+    imgUrl: JumiaPipelineImg,
   },
 ];
 

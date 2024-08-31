@@ -33,7 +33,7 @@ export default function About() {
         className="cursor-custom relative flex flex-col space-y-12 items-center md:w-3/5 w-full h-full md:mb-16  mt-16 md:mt-0 pt-12 md:pt-24 ml-20"
       >
         <SecName secName="About">
-          <FaRegUserCircle />
+          <FaRegUserCircle className='text-xl' />
         </SecName>
 
         <motion.div

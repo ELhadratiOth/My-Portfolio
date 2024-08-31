@@ -1,6 +1,8 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 import FloatingNotif from './FloatingNotif';
+import { BiCommentError } from 'react-icons/bi';
 
 import { PiWarningCircleFill } from 'react-icons/pi';
 import { FiX } from 'react-icons/fi';
@@ -26,6 +28,7 @@ const Form = () => {
   const [capVal, setCapVal] = useState(null);
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [send, setSend] = useState('Send Message!');
+  const [errorNotif, setErrorNotif] = useState(false);
 
   const [focus, setFocus] = useState({
     username: false,
@@ -34,7 +37,7 @@ const Form = () => {
     message: false,
   });
 
-  const Notification = () => {
+  const Notification = ({ children }) => {
     useEffect(() => {
       const timeoutRef = setTimeout(() => {
         setUserSub(false);
@@ -45,30 +48,20 @@ const Form = () => {
 
     return (
       <motion.div
-        initial={{ y: -40 }}
-        animate={{ y: 0 }}
-        exit={{ opacity: 0, y: -100 }}
+        initial={{ x: 80 }}
+        animate={{ x: 0 }}
+        exit={{ opacity: 0, x: 100 }}
         transition={{
-          duration: 0.5,
+          duration: 0.9,
           ease: 'easeOut',
           type: 'spring',
-          stiffness: 100,
+          stiffness: 40,
         }}
-        className="px-2 py-3 fixed top-3 right-2 z-50 flex space-x-2 items-start rounded text-sm shadow-lg text-white bg-primary3 pointer-events-auto"
+        className={`px-2 py-3 fixed top-3 right-2 z-50 flex space-x-2 items-start rounded text-sm shadow-lg text-white  pointer-events-auto ${
+          !errorNotif ? 'bg-primary3' : 'bg-red-500'
+        }`}
       >
-        <div className="inline-block text-xl">
-          <PiWarningCircleFill />
-        </div>
-
-        <div>Please fill in all the required fields</div>
-        <div>
-          <button
-            onClick={() => setUserSub(false)}
-            className="ml-auto mt-0.5 hover:text-gray-950 hover:scale-150 transition-all duration-200"
-          >
-            <FiX />
-          </button>
-        </div>
+        {children}
       </motion.div>
     );
   };
@@ -147,8 +140,10 @@ const Form = () => {
             // console.log('SUCCESS!');
             reset();
             setIsNotifOpen(true);
+            setErrorNotif(false);
           },
           error => {
+            setErrorNotif(true);
             console.log('FAILED...', error.text);
           },
         );
@@ -176,7 +171,40 @@ const Form = () => {
     <>
       {userSub && (
         <AnimatePresence>
-          <Notification />
+          <Notification>
+            <div className="inline-block text-xl">
+              <PiWarningCircleFill />
+            </div>
+
+            <div>Please fill in all the required fields</div>
+            <div>
+              <button
+                onClick={() => setUserSub(false)}
+                className="ml-auto mt-0.5 transition-all duration-300  hover:text-gray-950 hover:scale-150 "
+              >
+                <FiX className="duration-500" />
+              </button>
+            </div>
+          </Notification>
+        </AnimatePresence>
+      )}
+      {errorNotif && (
+        <AnimatePresence>
+          <Notification>
+            <div className="inline-block text-xl">
+              <BiCommentError />
+            </div>
+
+            <div>Email not sent , please try later</div>
+            <div>
+              <button
+                onClick={() => setErrorNotif(false)}
+                className="ml-auto mt-0.5 transition-all duration-300  hover:text-gray-950 hover:scale-150 "
+              >
+                <FiX className="duration-500" />
+              </button>
+            </div>
+          </Notification>
         </AnimatePresence>
       )}
 

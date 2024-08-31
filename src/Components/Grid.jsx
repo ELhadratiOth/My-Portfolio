@@ -34,7 +34,6 @@ const BounceCard = ({ className, data }) => {
       }}
       whileHover={{
         scale: 0.95,
-        rotate: '-2deg',
         transition: { duration: 0.4 },
       }}
       className={`group hover:shadow-shad2  relative space-y-4 text-white h-48 cursor-pointer overflow-hidden rounded-2xl backdrop-blur-[2px] bg-primary3/35  md:py-8 px-5 ${className}`}

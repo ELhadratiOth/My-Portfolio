@@ -1,44 +1,48 @@
 /* eslint-disable react/prop-types */
 // import { useState } from 'react';
-import { MotionConfig, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const BurgerIcon = ({ active }) => {
   return (
-    <div className="fixed top-24 bg-primary4 ring ring-primary5 z-50  px-1 pt-1 transition-colors   rounded-full right-7 ">
-      <MotionConfig
-        transition={{
-          duration: 0.5,
-          ease: 'easeInOut',
-        }}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{
+        delay: 0.6,
+        duration: 0.5,
+        ease: 'easeInOut',
+      }}
+      className={`fixed top-24 z-50 transition-colors rounded-full right-7 ${
+        !active ? '' : ''
+      }`}
+    >
+      <motion.button
+        initial={false}
+        animate={active ? 'open' : 'closed'}
+        className="relative h-12 w-12 rounded-full bg-primary3 ring-1  transition-colors "
       >
-        <motion.button
-          initial={false}
-          animate={active ? 'open' : 'closed'}
-          className="relative h-12 w-12 rounded-full bg-white/0 transition-colors hover:bg-white/20"
-        >
-          <motion.span
-            variants={VARIANTS.top}
-            className="absolute h-1 w-8 bg-white"
-            style={{ y: '-50%', left: '50%', x: '-50%', top: '35%' }}
-          />
-          <motion.span
-            variants={VARIANTS.middle}
-            className="absolute h-1 w-8 bg-white"
-            style={{ left: '50%', x: '-50%', top: '50%', y: '-50%' }}
-          />
-          <motion.span
-            variants={VARIANTS.bottom}
-            className="absolute h-1 w-4 bg-white"
-            style={{
-              x: '-78%',
-              y: '50%',
-              bottom: '35%',
-              left: 'calc(50% + 10px)',
-            }}
-          />
-        </motion.button>
-      </MotionConfig>
-    </div>
+        <motion.span
+          variants={VARIANTS.top}
+          className="absolute h-1 w-7 bg-white"
+          style={{ y: '-50%', left: '50%', x: '-50%', top: '35%' }}
+        />
+        <motion.span
+          variants={VARIANTS.middle}
+          className="absolute h-1 w-7 bg-white"
+          style={{ left: '50%', x: '-50%', top: '50%', y: '-50%' }}
+        />
+        <motion.span
+          variants={VARIANTS.bottom}
+          className="absolute h-1 w-4 bg-white"
+          style={{
+            x: '-90%',
+            y: '50%',
+            bottom: '10%',
+            left: 'calc(50% + 10px)',
+          }}
+        />
+      </motion.button>
+    </motion.div>
   );
 };
 
@@ -67,7 +71,7 @@ const VARIANTS = {
     open: {
       rotate: ['0deg', '0deg', '45deg'],
       bottom: ['37%', '50%', '50%'],
-      opacity: [1, 1, 0],
+      opacity: [1, 0.5, 0],
 
       left: '50%',
     },
