@@ -81,7 +81,7 @@ export default function SkillsPart() {
           { icon: IoLogoJavascript, name: 'JavaScript' },
           { icon: FaJava, name: 'Java' },
           { icon: FaPython, name: 'Python' },
-          { icon: CIcon, name: 'C' },
+          { icon: CIcon, name: 'C'},
           
         ]}
       />
