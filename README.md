@@ -39,22 +39,22 @@ This portfolio website is a single-page application (SPA) designed to present my
 To get a local copy up and running, follow these simple steps:
 
 1. **Clone the repository:**
-   ```sh
+   ```bash
    https://github.com/ELhadratiOth/My-PortFolio.git
    ```
 
 2. **Navigate to the project directory:**
-   ```sh
+   ```bash
    cd My-PortFolio
    ```
 
 3. **Install dependencies:**
-   ```sh
+   ```bash
    npm install
    ```
 
 4. **Start the development server:**
-   ```sh
+   ```bash
    npm run dev
    ```
 
