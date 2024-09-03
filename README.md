@@ -62,5 +62,5 @@ To get a local copy up and running, follow these simple steps:
 
 
 ## **Contact**
-- **Email:** [youremail@example.com](mailto:othmanelhadrari@gmail.com)
+- **Email:** [othmanelhadrati@gmail.com](mailto:othmanelhadrari@gmail.com)
 - **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/othman-el-hadrati-91aa98243)
