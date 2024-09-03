@@ -2,7 +2,7 @@
 
 Welcome to my portfolio ! This project showcases my work, skills, and experiences in data science, web development.
 
-![Portfolio Screenshot](path/to/screenshot.png)
+![Portfolio Screenshot](public/PortFolio.png)
 
 ## **Table of Contents**
 
