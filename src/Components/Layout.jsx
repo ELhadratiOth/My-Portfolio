@@ -3,7 +3,6 @@ import SideBar from './SideBar';
 import Home from './Home';
 import About from './About';
 import Service from './Service';
-import PageNotFound from './PageNotFound';
 import Menu from './Menu';
 import Header from './Header';
 import { useState, useEffect, Suspense, lazy } from 'react';
@@ -12,13 +11,14 @@ import BackGround from './BackGround';
 import Fragment1 from '../assets/pngegg.png'
 const ContactMe = lazy(() => import('./Contactme'));
 const Projects = lazy(() => import('./Projects'));
+const PageNotFound = lazy(() => import('./PageNotFound'));
 
 export default function Layout() {
   const [loader, setLoader] = useState(false);
 
   useEffect(() => {
     setLoader(true);
-    setTimeout(() => setLoader(false), 2500);
+    setTimeout(() => setLoader(false), 2800);
   }, []);
 
   return (
