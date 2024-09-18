@@ -20,9 +20,6 @@ export default {
         primary5: '#2c2a65',
       },
       backgroundImage: {
-        'bg-img': 'url("./src/assets/img2.jpg")',
-        'bg-img3': 'url("./src/assets/FooterImg.png")',
-
         'bg-img2':
           'radial-gradient(circle at center center, rgb(17,17,55),rgb(18,6,34),rgb(9,6,18),rgb(2,5,12),rgb(0,0,0))',
       },

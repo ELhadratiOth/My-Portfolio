@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import myLogo from '../assets/avatar.png';
 import SocialMediaIcon from './SocialMediaIcon';
 import ScrollerVaul from './ScrollerVaul';
+import FooterImg from '../assets/FooterImg.png';
 
 const Header = () => {
   const [isDivVisible, setIsDivVisible] = useState(true);
@@ -56,7 +57,8 @@ const Header = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
         >
-          My Email : <span className="md:text-lg">OthmanElhadrati@gmail.com</span>
+          My Email :{' '}
+          <span className="md:text-lg">OthmanElhadrati@gmail.com</span>
           <br />
           Based in Kenitra, Morocco
         </motion.div>
@@ -91,8 +93,13 @@ const Header = () => {
       </motion.div>
 
       {isDivVisible && (
-        <div className="fixed flex justify-center z-30 bottom-0 w-full text-center left-1/2 transform -translate-x-1/2 pb-4 bg-bg-img3 h-36 pt-20 bg-center bg-no-repeat bg-cover  ">
-          <ScrollerVaul/>
+        <div
+          className="fixed flex justify-center z-30 bottom-0 w-full text-center left-1/2 transform -translate-x-1/2 pb-4 h-36 pt-20 bg-center bg-no-repeat bg-cover"
+          style={{
+            backgroundImage: `url(${FooterImg})`,
+          }}
+        >
+          <ScrollerVaul />
         </div>
       )}
     </>
