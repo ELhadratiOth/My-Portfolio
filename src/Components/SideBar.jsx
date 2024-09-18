@@ -92,7 +92,7 @@ const Header = () => {
 
       {isDivVisible && (
         <div className="fixed flex justify-center z-30 bottom-0 w-full text-center left-1/2 transform -translate-x-1/2 pb-4 bg-bg-img3 h-36 pt-20 bg-center bg-no-repeat bg-cover  ">
-          <ScrollerVaul />
+          <ScrollerVaul/>
         </div>
       )}
     </>
