@@ -43,7 +43,7 @@ const Loader = ({ hiddenText  }) => {
                 width={140}
               />
             </div>
-            <div data-glitch="Loading..." className="glitch">
+            <div data-glitch="Welcome..." className="glitch">
               Welcome...
             </div>
           </motion.div>
