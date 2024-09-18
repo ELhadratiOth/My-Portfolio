@@ -9,7 +9,8 @@
           background-repeat: no-repeat;
           position: relative;
           box-sizing: border-box;
-          
+          animation: shift 1.5s cubic-bezier(0.2, 0, 0.2, 0.3) reverse both infinite;
+
 }
 
 .loader2::before {
@@ -22,7 +23,7 @@
           border-radius: 50%;
           background-repeat: no-repeat;
           box-sizing: border-box;
-          animation: rotationBack 3s linear infinite;
+          animation: shift 1.5s cubic-bezier(0.2, 0, 0.2, 0.3) reverse both infinite;
 }
 
 .loader2::after {
@@ -36,18 +37,9 @@
 
           background-repeat: no-repeat;
           box-sizing: border-box;
-          animation: rotationBack 4s linear infinite reverse;
+          animation: shift 1.5s cubic-bezier(0.2, 0, 0.2, 0.3) reverse both infinite;
 }
 
-@keyframes rotationBack {
-          0% {
-                    transform: rotate(0deg);
-          }
-
-          100% {
-                    transform: rotate(-360deg);
-          }
-}
 
 /* Glitch */
 
