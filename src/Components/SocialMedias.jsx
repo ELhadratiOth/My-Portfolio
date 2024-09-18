@@ -1,5 +1,7 @@
-import { FaLinkedin, FaFacebookF, FaInstagram } from 'react-icons/fa';
+/* eslint-disable react-refresh/only-export-components */
+import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { VscGithub } from 'react-icons/vsc';
+import { SiCredly } from 'react-icons/si';
 
 export const SocialMedias = [
   {
@@ -7,12 +9,12 @@ export const SocialMedias = [
     icon: <FaLinkedin />,
     url: 'https://www.linkedin.com//in/othman-el-hadrati-91aa98243/',
   },
-  {
-    id: 2,
-    icon: <FaFacebookF />,
-    url: 'https://www.facebook.com//othman.el.14606936',
-  },
   { id: 3, icon: <FaInstagram />, url: 'https://www.instagram.com/otnox_' },
   { id: 4, icon: <VscGithub />, url: 'https://www.github.com/ELhadratiOth' },
+  {
+    id: 5,
+    icon: <SiCredly />,
+    url: 'https://www.credly.com/users/othman-elhadrati',
+  },
 ];
 export default SocialMedias;

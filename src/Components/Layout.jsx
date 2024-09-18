@@ -6,7 +6,6 @@ import Service from './Service';
 import PageNotFound from './PageNotFound';
 import Menu from './Menu';
 import Header from './Header';
-import 'ldrs/helix';
 import { useState, useEffect, Suspense, lazy } from 'react';
 import Loader from './Loader';
 import BackGround from './BackGround';
@@ -19,7 +18,7 @@ export default function Layout() {
 
   useEffect(() => {
     setLoader(true);
-    setTimeout(() => setLoader(false), 2000);
+    setTimeout(() => setLoader(false), 2500);
   }, []);
 
   return (
@@ -51,7 +50,7 @@ export default function Layout() {
                     <Suspense
                       fallback={
                         <div className="pl-20">
-                          <Loader />
+                          <Loader hiddenText={true} />
                         </div>
                       }
                     >
@@ -65,7 +64,7 @@ export default function Layout() {
                     <Suspense
                       fallback={
                         <div className=" pl-20">
-                          <Loader />
+                          <Loader hiddenText={true} />
                         </div>
                       }
                     >
@@ -73,7 +72,20 @@ export default function Layout() {
                     </Suspense>
                   }
                 />
-                <Route path="*" element={<PageNotFound />} />
+                <Route
+                  path="*"
+                  element={
+                    <Suspense
+                      fallback={
+                        <div className=" pl-20">
+                          <Loader hiddenText={true} />
+                        </div>
+                      }
+                    >
+                      <PageNotFound /> 
+                    </Suspense>
+                  }
+                />
               </Routes>
             </Router>
           </div>
