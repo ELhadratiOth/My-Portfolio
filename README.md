@@ -1,7 +1,7 @@
 ## **Portfolio**
 
 Welcome to my portfolio ! This project showcases my work, skills, and experiences in data science, web development.
-
+## **TVisit my portfolio :** www.0thman.tech
 ![Portfolio Screenshot](public/PortFolio.png)
 
 ## **Table of Contents**
@@ -63,4 +63,4 @@ To get a local copy up and running, follow these simple steps:
 
 ## **Contact**
 - **Email:** [othmanelhadrati@gmail.com](mailto:othmanelhadrari@gmail.com)
-- **LinkedIn:** [Your LinkedIn Profile](https://www.linkedin.com/in/othman-el-hadrati-91aa98243)
+- **LinkedIn:** [LinkedIn Profile](https://www.linkedin.com/in/othman-el-hadrati-91aa98243)
