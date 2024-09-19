@@ -58,20 +58,20 @@ const data = [
     link: 'https://github.com/ELhadratiOth/Youtube-video-Downloader',
     imgUrl: YoutubeVideoDownloaderImg,
   },
-  {
-    id: 7,
-    serviceName: 'Medical Office',
-    tools: [
-      FaReact,
-      RiTailwindCssFill,
-      SiFastapi,
-      SiShadcnui,
-      SiMysql,
-      FaDocker,
-    ],
-    link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
-    imgUrl: PurchasingManagementImg,
-  },
+  // {
+  //   id: 7,
+  //   serviceName: 'Medical Office',
+  //   tools: [
+  //     FaReact,
+  //     RiTailwindCssFill,
+  //     SiFastapi,
+  //     SiShadcnui,
+  //     SiMysql,
+  //     FaDocker,
+  //   ],
+  //   link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
+  //   imgUrl: PurchasingManagementImg,
+  // },
   {
     id: 6,
     serviceName: 'Hotel Landing Page',
@@ -87,13 +87,13 @@ const data = [
     imgUrl: WeatherAppImg,
   },
 
-  {
-    id: 8,
-    serviceName: 'Jumia Pipline',
-    tools: [BiLogoPostgresql, FaPython],
-    link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
-    imgUrl: JumiaPipelineImg,
-  },
+  // {
+  //   id: 8,
+  //   serviceName: 'Jumia Pipline',
+  //   tools: [BiLogoPostgresql, FaPython],
+  //   link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
+  //   imgUrl: JumiaPipelineImg,
+  // },
 ];
 
 const staggerContainer = {
