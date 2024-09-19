@@ -2,7 +2,7 @@
 
 Welcome to my portfolio ! This project showcases my work, skills, and experiences in data science, web development.
 ## **TVisit my portfolio :** www.0thman.tech
-![Portfolio Screenshot](public/PortFolio.png)
+![Portfolio Screenshot](public/Desktop.png)
 
 ## **Table of Contents**
 
