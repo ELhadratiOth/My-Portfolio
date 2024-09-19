@@ -15,7 +15,6 @@ const PageNotFound = lazy(() => import('./PageNotFound'));
 
 export default function Layout() {
   const [loader, setLoader] = useState(false);
-
   useEffect(() => {
     setLoader(true);
     setTimeout(() => setLoader(false), 2800);
