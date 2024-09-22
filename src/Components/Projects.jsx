@@ -10,18 +10,18 @@ import { IoLogoJavascript } from 'react-icons/io5';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
 import { SiFlask } from 'react-icons/si';
-// import { SiFastapi } from 'react-icons/si';
-// import { SiShadcnui } from 'react-icons/si';
+import { SiFastapi } from 'react-icons/si';
+import { SiShadcnui } from 'react-icons/si';
 import { SiStreamlit } from 'react-icons/si';
-// import { FaDocker } from 'react-icons/fa';
-// import { SiMysql } from 'react-icons/si';
-// import { BiLogoPostgresql } from 'react-icons/bi';
+import { FaDocker } from 'react-icons/fa';
+import { SiMysql } from 'react-icons/si';
+import { BiLogoPostgresql } from 'react-icons/bi';
 
 import Ccompo from './Ccompo';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
-// import PurchasingManagementImg from '../assets/PurshasingManagement.png';
-// import JumiaPipelineImg from '../assets/JumiaPipeline.png';
+import PurchasingManagementImg from '../assets/PurshasingManagement.png';
+import JumiaPipelineImg from '../assets/JumiaPipeline.png';
 
 import YoutubeVideoDownloaderImg from '../assets/YoutubeVideoDownloader.png';
 import WeatherAppImg from '../assets/WeatherApp.png';
@@ -58,20 +58,20 @@ const data = [
     link: 'https://github.com/ELhadratiOth/Youtube-video-Downloader',
     imgUrl: YoutubeVideoDownloaderImg,
   },
-  // {
-  //   id: 7,
-  //   serviceName: 'Medical Office',
-  //   tools: [
-  //     FaReact,
-  //     RiTailwindCssFill,
-  //     SiFastapi,
-  //     SiShadcnui,
-  //     SiMysql,
-  //     FaDocker,
-  //   ],
-  //   link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
-  //   imgUrl: PurchasingManagementImg,
-  // },
+  {
+    id: 7,
+    serviceName: 'Medical Office',
+    tools: [
+      FaReact,
+      RiTailwindCssFill,
+      SiFastapi,
+      SiShadcnui,
+      SiMysql,
+      FaDocker,
+    ],
+    link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
+    imgUrl: PurchasingManagementImg,
+  },
   {
     id: 6,
     serviceName: 'Hotel Landing Page',
@@ -87,13 +87,13 @@ const data = [
     imgUrl: WeatherAppImg,
   },
 
-  // {
-  //   id: 8,
-  //   serviceName: 'Jumia Pipline',
-  //   tools: [BiLogoPostgresql, FaPython],
-  //   link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
-  //   imgUrl: JumiaPipelineImg,
-  // },
+  {
+    id: 8,
+    serviceName: 'Jumia Pipline',
+    tools: [BiLogoPostgresql, FaPython],
+    link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
+    imgUrl: JumiaPipelineImg,
+  },
 ];
 
 const staggerContainer = {
