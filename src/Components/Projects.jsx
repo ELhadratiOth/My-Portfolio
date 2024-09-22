@@ -86,7 +86,6 @@ const data = [
     link: 'https://github.com/ELhadratiOth/WeatherApp',
     imgUrl: WeatherAppImg,
   },
-
   {
     id: 8,
     serviceName: 'Jumia Pipline',
