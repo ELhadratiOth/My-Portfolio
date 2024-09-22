@@ -7,11 +7,11 @@ import CodSofPDF from '../assets/docs/CodSoft.pdf';
 
 const dataCerifs = [
   {
-    id: 1,
-    nameCertif: 'Introduction to Databases',
-    link: 'https://www.coursera.org/account/accomplishments/verify/JFVKGT43NWH3',
-    date: '2023',
-    provider: 'Meta - Coursera',
+    id: 0,
+    nameCertif: 'Machine Learning Specialization',
+    link: 'https://www.coursera.org/account/accomplishments/specialization/KIZAQJBAYH54',
+    date: '2024',
+    provider: 'Stanford University - Coursera',
   },
   {
     id: 2,
@@ -51,9 +51,16 @@ const dataCerifs = [
   {
     id: 7,
     nameCertif: 'Python Certificate',
-    link: CodSofPDF, 
+    link: CodSofPDF,
     date: '2024',
     provider: 'CodSoft',
+  },
+  {
+    id: 1,
+    nameCertif: 'Introduction to Databases',
+    link: 'https://www.coursera.org/account/accomplishments/verify/JFVKGT43NWH3',
+    date: '2023',
+    provider: 'Meta - Coursera',
   },
 ];
 
