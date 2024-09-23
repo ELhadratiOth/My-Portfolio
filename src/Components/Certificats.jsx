@@ -14,25 +14,18 @@ const dataCerifs = [
     provider: 'Stanford University - Coursera',
   },
   {
+    id: 6,
+    nameCertif: 'Python for Beginners',
+    link: 'https://simpli-web.app.link/e/6AcNpCdPhLb',
+    date: '2024',
+    provider: 'Simplilearn',
+  },
+  {
     id: 2,
     nameCertif: 'Java Programming: Solving Problems',
     link: 'https://www.coursera.org/account/accomplishments/verify/THZP9WU2S58X',
     date: '2024',
     provider: 'Duke University - Coursera',
-  },
-  {
-    id: 3,
-    nameCertif: 'Database Structures and Management with MySQL',
-    link: 'https://www.coursera.org/account/accomplishments/verify/RY2L6TDC8CPS',
-    date: '2024',
-    provider: 'Meta - Coursera',
-  },
-  {
-    id: 4,
-    nameCertif: 'Introduction to Linux Commands and Shell Scripting',
-    link: 'https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA',
-    date: '2024',
-    provider: 'IBM - Coursera',
   },
   {
     id: 5,
@@ -42,11 +35,11 @@ const dataCerifs = [
     provider: 'IBM - Coursera',
   },
   {
-    id: 6,
-    nameCertif: 'Python for Beginners',
-    link: 'https://simpli-web.app.link/e/6AcNpCdPhLb',
+    id: 4,
+    nameCertif: 'Introduction to Linux Commands and Shell Scripting',
+    link: 'https://www.coursera.org/account/accomplishments/verify/SKDEERGMFMXA',
     date: '2024',
-    provider: 'Simplilearn',
+    provider: 'IBM - Coursera',
   },
   {
     id: 7,
@@ -54,6 +47,13 @@ const dataCerifs = [
     link: CodSofPDF,
     date: '2024',
     provider: 'CodSoft',
+  },
+  {
+    id: 3,
+    nameCertif: 'Database Structures and Management with MySQL',
+    link: 'https://www.coursera.org/account/accomplishments/verify/RY2L6TDC8CPS',
+    date: '2024',
+    provider: 'Meta - Coursera',
   },
   {
     id: 1,
@@ -66,26 +66,44 @@ const dataCerifs = [
 
 const Certificate = ({ nameCertif, link, date, provider }) => (
   <motion.div
-    className="flex flex-col md:space-y-2 w-max text-purple-100"
+    className="flex flex-col md:space-y-2 w-full text-purple-100"
     initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
     transition={{ duration: 0.7, delay: 0.2 }}
   >
-    <div className="flex flex-col lg:flex-row lg:justify-center lg:items-center space-y-1 lg:space-y-1 mb-3 lg:mb-0 text-purple-100">
-      <div className="font-semibold text-lg mr-1">{nameCertif}:</div>
-      <div className="flex md:justify-center items-center font-normal text-base ">
-        <div className='mb-0.5 text-purple-50'>
-          {provider} - {date}
-        </div>
-        <a
-          title="Check it"
-          className="inline-block text-primary3 ml-3 mb-0.5 text-xl transition-colors duration-300 hover:text-primary5"
-          href={link}
-          target="_blank"
-        >
-          <FaExternalLinkAlt />
-        </a>
+    <div className="flex flex-col lg:flex-row lg:justify-start lg:items-center space-y-1 lg:space-x-1 mb-3 lg:mb-0 text-purple-100">
+      <div className="font-semibold text-base md:text-lg mr-1 w-[87%] md:w-auto">
+        {nameCertif}:
       </div>
+      {provider.length < 25 ? (
+        <div className="flex md:justify-center items-center font-normal text-sm md:text-base  ">
+          <div className="mb-0.5 text-purple-50">
+            {provider} - {date}
+          </div>
+          <a
+            title="Check it"
+            className="inline-block text-primary3 ml-3 mb-0.5 text-xl transition-colors duration-300 hover:text-primary5"
+            href={link}
+            target="_blank"
+          >
+            <FaExternalLinkAlt />
+          </a>
+        </div>
+      ) : (
+        <div className="flex md:justify-center items-center font-normal text-[0.82rem] md:text-base ">
+          <div className="mb-0.5 text-purple-50">
+            {provider} - {date}
+          </div>
+          <a
+            title="Check it"
+            className="inline-block text-primary3 ml-3 mb-0.5 text-xl transition-colors duration-300 hover:text-primary5"
+            href={link}
+            target="_blank"
+          >
+            <FaExternalLinkAlt />
+          </a>
+        </div>
+      )}
     </div>
   </motion.div>
 );

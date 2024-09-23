@@ -7,6 +7,8 @@ import { RiTailwindCssFill } from 'react-icons/ri';
 import { SiFlask, SiOracle, SiMysql, SiFastapi, SiShadcnui, SiPostman } from 'react-icons/si';
 import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
 import { BiLogoPostgresql } from 'react-icons/bi';
+import { SiTensorflow } from 'react-icons/si';
+import { SiScikitlearn } from 'react-icons/si';
 
 import { motion } from 'framer-motion';
 import CIcon from './Ccompo';
@@ -78,6 +80,13 @@ export default function SkillsPart() {
           { icon: FaJava, name: 'Java' },
           { icon: FaPython, name: 'Python' },
           { icon: CIcon, name: 'C' },
+        ]}
+      />
+      <SkillCategory
+        category="ML / DL"
+        skills={[
+          { icon: SiScikitlearn, name: 'Scikit-learn' },
+          { icon: SiTensorflow, name: 'Tensorflow' },
         ]}
       />
       <SkillCategory

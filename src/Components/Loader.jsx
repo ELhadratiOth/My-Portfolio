@@ -4,10 +4,10 @@ import Avatar from '../assets/avatar.png';
 import {motion} from 'framer-motion';
 const Loader = ({ hiddenText  }) => {
   return (
-    <div className="w-screen h-screen flex justify-center items-center">
+    <div className="w-screen h-screen flex justify-center items-center ">
       <div className="flex flex-col space-y-8 justify-center items-center">
         {hiddenText ? (
-          <div className="loader">
+          <div className="loader pr-28 md:pr-0 md:pl-[25rem] ">
             <div className="loader__balls">
               <div className="loader__balls__group">
                 <div className="ball item1"></div>
