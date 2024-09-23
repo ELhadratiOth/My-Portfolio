@@ -1,0 +1,25 @@
+{
+  "version": 2,
+  "routes": [
+    {
+      "src": "/service",
+      "dest": "/Service"
+    },
+    {
+      "src": "/projects",
+      "dest": "/Projects"
+    },
+    {
+      "src": "/contactme",
+      "dest": "/ContactMe"
+    },
+    {
+      "src": "/about",
+      "dest": "/About"
+    },
+    {
+      "src": "/.*",
+      "dest": "/"
+    }
+  ]
+}
