@@ -2,7 +2,6 @@
 import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
-// Import the PDF file
 import CodSofPDF from '../assets/docs/CodSoft.pdf';
 
 const dataCerifs = [
