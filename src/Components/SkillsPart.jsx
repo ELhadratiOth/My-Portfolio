@@ -82,13 +82,13 @@ export default function SkillsPart() {
           { icon: CIcon, name: 'C' },
         ]}
       />
-      <SkillCategory
+      {/* <SkillCategory
         category="ML / DL"
         skills={[
           { icon: SiScikitlearn, name: 'Scikit-learn' },
           { icon: SiTensorflow, name: 'Tensorflow' },
         ]}
-      />
+      /> */}
       <SkillCategory
         category="Frameworks and Libraries"
         skills={[
