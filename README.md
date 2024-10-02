@@ -63,4 +63,6 @@ To get a local copy up and running, follow these simple steps:
 
 ## **Contact**
 - **Email:** [othmanelhadrati@gmail.com](mailto:othmanelhadrari@gmail.com)
-- **LinkedIn:** [LinkedIn Profile](https://www.linkedin.com/in/othman-el-hadrati-91aa98243)
+- **LinkedIn :** [LinkedIn Profile](https://www.linkedin.com/in/othman-el-hadrati-91aa98243)
+- **My website:** [ Contact me](https://www.0thman.tech/contactme )
+ 
