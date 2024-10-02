@@ -7,8 +7,8 @@ import { RiTailwindCssFill } from 'react-icons/ri';
 import { SiFlask, SiOracle, SiMysql, SiFastapi, SiShadcnui, SiPostman } from 'react-icons/si';
 import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
 import { BiLogoPostgresql } from 'react-icons/bi';
-import { SiTensorflow } from 'react-icons/si';
-import { SiScikitlearn } from 'react-icons/si';
+// import { SiTensorflow } from 'react-icons/si';
+// import { SiScikitlearn } from 'react-icons/si';
 
 import { motion } from 'framer-motion';
 import CIcon from './Ccompo';

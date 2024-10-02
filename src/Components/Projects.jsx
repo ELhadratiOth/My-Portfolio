@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { GrProjects } from 'react-icons/gr';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
-import Grid from './Grid'
+import Grid from './Grid';
 import { FaHtml5, FaReact, FaPython } from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
@@ -20,7 +20,7 @@ import { BiLogoPostgresql } from 'react-icons/bi';
 import Ccompo from './Ccompo';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
-import PurchasingManagementImg from '../assets/PurshasingManagement.png';
+import MedicalOffice from '../assets/MedicalOffice.png';
 import JumiaPipelineImg from '../assets/JumiaPipeline.png';
 
 import YoutubeVideoDownloaderImg from '../assets/YoutubeVideoDownloader.png';
@@ -29,35 +29,6 @@ import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
 
 const data = [
-  {
-    id: 1,
-    serviceName: 'PortFolio',
-    tools: [FaReact, TbBrandFramerMotion, RiTailwindCssFill],
-    link: 'https://github.com/ELhadratiOth/My-PortFolio',
-    imgUrl: PortFolioImg,
-  },
-  {
-    id: 2,
-    serviceName: 'GitHub Analyser',
-    tools: [FaPython, SiStreamlit],
-    link: 'https://github.com/ELhadratiOth/GitTrendAnalyz',
-    imgUrl: GitHubAnalyserImg,
-  },
-
-  {
-    id: 5,
-    serviceName: 'Purchasing Management',
-    tools: [Ccompo],
-    link: 'https://github.com/ELhadratiOth/C-Project',
-    imgUrl: PurshaseApp,
-  },
-  {
-    id: 4,
-    serviceName: 'Youtube Video Downloader',
-    tools: [FaHtml5, IoLogoCss3, IoLogoJavascript, SiFlask],
-    link: 'https://github.com/ELhadratiOth/Youtube-video-Downloader',
-    imgUrl: YoutubeVideoDownloaderImg,
-  },
   {
     id: 7,
     serviceName: 'Medical Office',
@@ -70,8 +41,39 @@ const data = [
       FaDocker,
     ],
     link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
-    imgUrl: PurchasingManagementImg,
+    imgUrl: MedicalOffice,
   },
+
+  {
+    id: 2,
+    serviceName: 'GitHub Analyser',
+    tools: [FaPython, SiStreamlit],
+    link: 'https://github.com/ELhadratiOth/GitTrendAnalyz',
+    imgUrl: GitHubAnalyserImg,
+  },
+
+  {
+    id: 8,
+    serviceName: 'Jumia Pipline',
+    tools: [BiLogoPostgresql, FaPython],
+    link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
+    imgUrl: JumiaPipelineImg,
+  },
+  {
+    id: 4,
+    serviceName: 'Youtube Video Downloader',
+    tools: [FaHtml5, IoLogoCss3, IoLogoJavascript, SiFlask],
+    link: 'https://github.com/ELhadratiOth/Youtube-video-Downloader',
+    imgUrl: YoutubeVideoDownloaderImg,
+  },
+  {
+    id: 1,
+    serviceName: 'PortFolio',
+    tools: [FaReact, TbBrandFramerMotion, RiTailwindCssFill],
+    link: 'https://github.com/ELhadratiOth/My-PortFolio',
+    imgUrl: PortFolioImg,
+  },
+
   {
     id: 6,
     serviceName: 'Hotel Landing Page',
@@ -86,12 +88,13 @@ const data = [
     link: 'https://github.com/ELhadratiOth/WeatherApp',
     imgUrl: WeatherAppImg,
   },
+
   {
-    id: 8,
-    serviceName: 'Jumia Pipline',
-    tools: [BiLogoPostgresql, FaPython],
-    link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
-    imgUrl: JumiaPipelineImg,
+    id: 5,
+    serviceName: 'Purchasing Management',
+    tools: [Ccompo],
+    link: 'https://github.com/ELhadratiOth/C-Project',
+    imgUrl: PurshaseApp,
   },
 ];
 
