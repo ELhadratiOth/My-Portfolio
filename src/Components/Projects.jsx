@@ -16,13 +16,14 @@ import { SiStreamlit } from 'react-icons/si';
 import { FaDocker } from 'react-icons/fa';
 import { SiMysql } from 'react-icons/si';
 import { BiLogoPostgresql } from 'react-icons/bi';
+import { FaAws } from 'react-icons/fa6';
 
 import Ccompo from './Ccompo';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import MedicalOffice from '../assets/MedicalOffice.png';
 import JumiaPipelineImg from '../assets/JumiaPipeline.png';
-
+import SpotifyPipelineImg from '../assets/SpotifyPipeline.png';
 import YoutubeVideoDownloaderImg from '../assets/YoutubeVideoDownloader.png';
 import WeatherAppImg from '../assets/WeatherApp.png';
 import HotelLandingPageImg from '../assets/HotelLandingPage.png';
@@ -65,6 +66,13 @@ const data = [
     tools: [FaHtml5, IoLogoCss3, IoLogoJavascript, SiFlask],
     link: 'https://github.com/ELhadratiOth/Youtube-video-Downloader',
     imgUrl: YoutubeVideoDownloaderImg,
+  },
+  {
+    id: 9,
+    serviceName: 'SpotiFy Pipeline',
+    tools: [FaAws, FaPython],
+    link: 'https://github.com/ELhadratiOth/Spotify-ETL-AWS-.git',
+    imgUrl: SpotifyPipelineImg,
   },
   {
     id: 1,
