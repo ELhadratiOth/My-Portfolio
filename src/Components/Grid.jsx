@@ -58,7 +58,7 @@ const BounceCard = ({ className, data }) => {
               href={data.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-primary5 to-primary3 px-5 py-1 mt-4 rounded-full border border-white hover:scale-105 hover:border-gray-800 hover:from-primary3 hover:to-primary5 transition-all duration-500"
+              className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-primary5 to-primary3 px-5 py-1.5 mt-4 rounded-full border border-white hover:scale-105 hover:border-gray-800 hover:from-primary3 hover:to-primary5 transition-all duration-500"
             >
               <FaGithub className="font-bold  text-base md:text-xl" />
               Check it
