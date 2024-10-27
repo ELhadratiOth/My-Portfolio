@@ -17,6 +17,7 @@ import { FaDocker } from 'react-icons/fa';
 import { SiMysql } from 'react-icons/si';
 import { BiLogoPostgresql } from 'react-icons/bi';
 import { FaAws } from 'react-icons/fa6';
+import { SiApachekafka } from 'react-icons/si';
 
 import Ccompo from './Ccompo';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
@@ -28,8 +29,16 @@ import YoutubeVideoDownloaderImg from '../assets/YoutubeVideoDownloader.png';
 import WeatherAppImg from '../assets/WeatherApp.png';
 import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
+import CreditCardPipline from '../assets/CreditCardPipline.png';
 
 const data = [
+  {
+    id: 8,
+    serviceName: 'Credit Card Fraud Detection Pipline',
+    tools: [SiApachekafka, FaAws, FaReact],
+    link: 'https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git',
+    imgUrl: CreditCardPipline,
+  },
   {
     id: 7,
     serviceName: 'Medical Office',
