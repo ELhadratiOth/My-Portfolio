@@ -21,7 +21,7 @@ export default function Paragraphe({ partie }) {
         animate={{ opacity: 1 }}
         transition={{ duration: 1, ease: 'easeInOut' }}
       >
-        I&apos;m a first-year engineering student at The National School of
+        I&apos;m a scond-year engineering student at The National School of
         Applied Sciences in Al Hoceima (<strong>ENSAH</strong>) , specializing
         in Data Engineering. With a passion for both Data Engineering and Web
         Development, I focus on crafting polished, precise code. My main

@@ -1,19 +1,36 @@
 /* eslint-disable react/prop-types */
-import { FaHtml5, FaReact, FaJava, FaPython, FaWindows, FaDocker } from 'react-icons/fa';
+import {
+  FaHtml5,
+  FaReact,
+  FaJava,
+  FaPython,
+  FaWindows,
+  FaDocker,
+} from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
-import { SiFlask, SiOracle, SiMysql, SiFastapi, SiShadcnui, SiPostman } from 'react-icons/si';
+import {
+  SiFlask,
+  SiOracle,
+  SiMysql,
+  SiFastapi,
+  SiShadcnui,
+  SiPostman,
+} from 'react-icons/si';
 import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
 import { BiLogoPostgresql } from 'react-icons/bi';
 import { SiTensorflow } from 'react-icons/si';
 import { SiScikitlearn } from 'react-icons/si';
 import { SiOpenaigym } from 'react-icons/si';
-// import { SiApachekafka } from 'react-icons/si';
+import { SiApachekafka } from 'react-icons/si';
+import { SiApachehive } from 'react-icons/si';
+import Scoop from './SVGs/Sqoop';
+import { FaAws } from 'react-icons/fa';
 
 import { motion } from 'framer-motion';
-import CIcon from './Ccompo';
+import CIcon from './SVGs/Ccompo';
 
 const SkillCategory = ({ category, skills }) => (
   <motion.div
@@ -92,12 +109,14 @@ export default function SkillsPart() {
           { icon: SiOpenaigym, name: 'OpenAI Gym' },
         ]}
       />
-      {/* <SkillCategory
+      <SkillCategory
         category="Big Data"
         skills={[
           { icon: SiApachekafka, name: 'Kafka' },
+          { icon: Scoop, name: 'Sqoop' },
+          { icon: SiApachehive, name: 'Hive' },
         ]}
-      /> */}
+      />
       <SkillCategory
         category="Frameworks and Libraries"
         skills={[
@@ -117,6 +136,10 @@ export default function SkillsPart() {
           { icon: SiMysql, name: 'MySQL' },
           { icon: BiLogoPostgresql, name: 'PostgreSQL' },
         ]}
+      />
+      <SkillCategory
+        category="Cloud Platforms"
+        skills={[{ icon: FaAws, name: 'Aws' }]}
       />
       <SkillCategory
         category="Operating Systems"

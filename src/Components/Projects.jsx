@@ -18,8 +18,13 @@ import { SiMysql } from 'react-icons/si';
 import { BiLogoPostgresql } from 'react-icons/bi';
 import { FaAws } from 'react-icons/fa6';
 import { SiApachekafka } from 'react-icons/si';
+import { SiApachehive } from 'react-icons/si';
+import { SiApachehadoop } from 'react-icons/si';
 
-import Ccompo from './Ccompo';
+
+import Ccompo from './SVGs/Ccompo';
+import Scoop from './SVGs/Sqoop';
+
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import MedicalOffice from '../assets/MedicalOffice.png';
@@ -30,6 +35,8 @@ import WeatherAppImg from '../assets/WeatherApp.png';
 import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
 import CreditCardPipline from '../assets/CreditCardPipline.png';
+import Sqooparchi from '../assets/sqooparchi.png'; 
+
 
 const data = [
   {
@@ -38,6 +45,13 @@ const data = [
     tools: [SiApachekafka, FaAws, FaReact],
     link: 'https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git',
     imgUrl: CreditCardPipline,
+  },
+  {
+    id: 10,
+    serviceName: 'Movies Pipeline',
+    tools: [FaAws, Scoop, SiApachehadoop, SiApachehive, SiMysql],
+    link: 'https://github.com/ELhadratiOth/Movies-Pipeline.git',
+    imgUrl: Sqooparchi,
   },
   {
     id: 7,

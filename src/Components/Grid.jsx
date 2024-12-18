@@ -12,7 +12,7 @@ const BouncyCardsFeatures = ({ data }) => {
             className={`col-span-10 md:col-span-12 bg-black/20 ${
               (index + Math.floor(index / 2)) % 2 === 0
                 ? 'xl:col-span-7'
-                : 'xl:col-span-5'
+                : 'xl:col-span-5 '
             }`}
             data={item}
           />

@@ -2,6 +2,8 @@ import { SiDailydotdev } from 'react-icons/si';
 import { GrHost } from 'react-icons/gr';
 import { TbJumpRope } from 'react-icons/tb';
 import { FiDatabase } from 'react-icons/fi';
+import { FaCloudsmith } from 'react-icons/fa';
+
 import { motion } from 'framer-motion';
 
 const services = [
@@ -11,6 +13,13 @@ const services = [
     description:
       'Transforming ideas into engaging digital experiences. From intuitive interfaces to robust functionalities, each project is designed to captivate and align with your business goals.',
     icone: <SiDailydotdev />,
+  },
+  {
+    id: 5,
+    serviceName: 'Cloud Solutions',
+    description:
+      'Specializing in AWS, I leverage its services like EC2, RDS, Lambda, and S3 to build secure, and cost-effective cloud solutions. With deep knowledge of AWS tools, I ensure efficient, reliable, and secure cloud environments.',
+    icone: <FaCloudsmith />,
   },
   {
     id: 2,
