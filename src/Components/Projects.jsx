@@ -20,7 +20,9 @@ import { FaAws } from 'react-icons/fa6';
 import { SiApachekafka } from 'react-icons/si';
 import { SiApachehive } from 'react-icons/si';
 import { SiApachehadoop } from 'react-icons/si';
-
+import { DiRedis } from "react-icons/di";
+import { SiMongodb } from "react-icons/si";
+import { SiScikitlearn } from 'react-icons/si';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
@@ -36,15 +38,30 @@ import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
 import CreditCardPipline from '../assets/CreditCardPipline.png';
 import Sqooparchi from '../assets/sqooparchi.png'; 
-
+import DarijaUI from '../assets/DarijaUI.png';
+import ShardedDB from '../assets/ShardedDB.png';
 
 const data = [
+  {
+    id: 12,
+    serviceName: 'Darija Sentiment Analysis',
+    tools: [SiFastapi, FaAws, FaReact , SiScikitlearn ],
+    link: 'https://github.com/ELhadratiOth/BlaBla-BDarija-Sentiment-Analysis.git',
+    imgUrl: DarijaUI,
+  },
   {
     id: 8,
     serviceName: 'Credit Card Fraud Detection Pipline',
     tools: [SiApachekafka, FaAws, FaReact],
     link: 'https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git',
     imgUrl: CreditCardPipline,
+  },
+  {
+    id: 11,
+    serviceName: 'MongoDB Shared Project',
+    tools: [SiApachekafka, FaReact ,SiFastapi , DiRedis , SiMongodb],
+    link: 'https://github.com/ELhadratiOth/MongoDB_Sharded.git',
+    imgUrl: ShardedDB,
   },
   {
     id: 10,

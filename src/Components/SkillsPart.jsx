@@ -11,6 +11,12 @@ import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
+import { DiBootstrap } from "react-icons/di";
+import { DiLinux } from "react-icons/di";
+import { BiLogoPostgresql } from "react-icons/bi";
+import { DiGithubBadge } from "react-icons/di";
+import { DiGit } from "react-icons/di";
+
 import {
   SiFlask,
   SiOracle,
@@ -18,9 +24,9 @@ import {
   SiFastapi,
   SiShadcnui,
   SiPostman,
+  SiMongodb,
 } from 'react-icons/si';
-import { DiGit, DiGithubBadge, DiLinux, DiBootstrap } from 'react-icons/di';
-import { BiLogoPostgresql } from 'react-icons/bi';
+
 import { SiTensorflow } from 'react-icons/si';
 import { SiScikitlearn } from 'react-icons/si';
 import { SiOpenaigym } from 'react-icons/si';
@@ -28,7 +34,8 @@ import { SiApachekafka } from 'react-icons/si';
 import { SiApachehive } from 'react-icons/si';
 import Scoop from './SVGs/Sqoop';
 import { FaAws } from 'react-icons/fa';
-
+import HuggingFaceIcon from './SVGs/HuggingFaceIcon';
+import PowerBIIcon from './SVGs/PowerAutomateIcon';
 import { motion } from 'framer-motion';
 import CIcon from './SVGs/Ccompo';
 
@@ -107,6 +114,7 @@ export default function SkillsPart() {
           { icon: SiScikitlearn, name: 'Scikit-learn' },
           { icon: SiTensorflow, name: 'Tensorflow' },
           { icon: SiOpenaigym, name: 'OpenAI Gym' },
+          { icon: HuggingFaceIcon, name: 'Hugging Face' },
         ]}
       />
       <SkillCategory
@@ -130,11 +138,12 @@ export default function SkillsPart() {
         ]}
       />
       <SkillCategory
-        category="Databases ( SQL / PlSql )"
+        category="Databases ( SQL / PlSql / NoSql )"
         skills={[
           { icon: SiOracle, name: 'Oracle' },
           { icon: SiMysql, name: 'MySQL' },
           { icon: BiLogoPostgresql, name: 'PostgreSQL' },
+          { icon: SiMongodb, name: 'MongoDB' },
         ]}
       />
       <SkillCategory
@@ -155,6 +164,7 @@ export default function SkillsPart() {
           { icon: DiGithubBadge, name: 'GitHub' },
           { icon: SiPostman, name: 'Postman' },
           { icon: FaDocker, name: 'Docker' },
+          { icon: PowerBIIcon, name: 'Power Automate' },
         ]}
       />
     </div>
