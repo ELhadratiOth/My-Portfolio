@@ -11,11 +11,11 @@ import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
 import { TbBrandFramerMotion } from 'react-icons/tb';
 import { RiTailwindCssFill } from 'react-icons/ri';
-import { DiBootstrap } from "react-icons/di";
-import { DiLinux } from "react-icons/di";
-import { BiLogoPostgresql } from "react-icons/bi";
-import { DiGithubBadge } from "react-icons/di";
-import { DiGit } from "react-icons/di";
+import { DiBootstrap } from 'react-icons/di';
+import { DiLinux } from 'react-icons/di';
+import { BiLogoPostgresql } from 'react-icons/bi';
+import { DiGithubBadge } from 'react-icons/di';
+import { DiGit } from 'react-icons/di';
 
 import {
   SiFlask,
@@ -32,6 +32,8 @@ import { SiScikitlearn } from 'react-icons/si';
 import { SiOpenaigym } from 'react-icons/si';
 import { SiApachekafka } from 'react-icons/si';
 import { SiApachehive } from 'react-icons/si';
+import { SiLangchain } from 'react-icons/si';
+
 import Scoop from './SVGs/Sqoop';
 import { FaAws } from 'react-icons/fa';
 import HuggingFaceIcon from './SVGs/HuggingFaceIcon';
@@ -109,12 +111,13 @@ export default function SkillsPart() {
         ]}
       />
       <SkillCategory
-        category="ML / DL"
+        category="ML / DL / Gen AI"
         skills={[
           { icon: SiScikitlearn, name: 'Scikit-learn' },
           { icon: SiTensorflow, name: 'Tensorflow' },
           { icon: SiOpenaigym, name: 'OpenAI Gym' },
           { icon: HuggingFaceIcon, name: 'Hugging Face' },
+          { icon: SiLangchain, name: 'LangChain' },
         ]}
       />
       <SkillCategory

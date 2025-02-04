@@ -23,6 +23,7 @@ import { SiApachehadoop } from 'react-icons/si';
 import { DiRedis } from "react-icons/di";
 import { SiMongodb } from "react-icons/si";
 import { SiScikitlearn } from 'react-icons/si';
+import { SiLangchain } from 'react-icons/si';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
@@ -40,14 +41,22 @@ import CreditCardPipline from '../assets/CreditCardPipline.png';
 import Sqooparchi from '../assets/sqooparchi.png'; 
 import DarijaUI from '../assets/DarijaUI.png';
 import ShardedDB from '../assets/ShardedDB.png';
+import ChatBot from '../assets/ChatBotArchi.png';
 
 const data = [
   {
     id: 12,
     serviceName: 'Darija Sentiment Analysis',
-    tools: [SiFastapi, FaAws, FaReact , SiScikitlearn ],
+    tools: [SiFastapi, FaAws, FaReact, SiScikitlearn],
     link: 'https://github.com/ELhadratiOth/BlaBla-BDarija-Sentiment-Analysis.git',
     imgUrl: DarijaUI,
+  },
+  {
+    id: 13,
+    serviceName: 'ENSAH Conversatunal ChatBot',
+    tools: [SiFastapi, SiLangchain, SiStreamlit, SiMongodb, FaDocker],
+    link: 'https://github.com/ELhadratiOth/ENSAH-ChatBot-RAG-APP.git',
+    imgUrl: ChatBot,
   },
   {
     id: 8,
@@ -59,7 +68,7 @@ const data = [
   {
     id: 11,
     serviceName: 'MongoDB Shared Project',
-    tools: [SiApachekafka, FaReact ,SiFastapi , DiRedis , SiMongodb],
+    tools: [SiApachekafka, FaReact, SiFastapi, DiRedis, SiMongodb],
     link: 'https://github.com/ELhadratiOth/MongoDB_Sharded.git',
     imgUrl: ShardedDB,
   },
