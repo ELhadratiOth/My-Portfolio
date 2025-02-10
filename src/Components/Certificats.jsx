@@ -3,8 +3,25 @@ import { motion } from 'framer-motion';
 import { FaExternalLinkAlt } from 'react-icons/fa';
 
 import CodSofPDF from '../assets/docs/CodSoft.pdf';
+import GenAI from '../assets/docs/GenAi.pdf';
+import Ai from '../assets/docs/Ai.pdf';
+
 
 const dataCerifs = [
+  {
+    id: 8,
+    nameCertif: 'OCI 2024 Generative AI Cerified Professional ',
+    link: GenAI,
+    date: '2025',
+    provider: 'Oracle',
+  },
+  {
+    id: 9,
+    nameCertif: 'OCI 2024 Cerified AI Foundations Associate',
+    link: Ai,
+    date: '2025',
+    provider: 'Oracle',
+  },
   {
     id: 0,
     nameCertif: 'Machine Learning Specialization',

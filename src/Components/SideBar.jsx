@@ -69,7 +69,7 @@ const Header = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.5 }}
         >
-          &copy; 2024 Othman El Hadrati All&nbsp;Rights&nbsp;Reserved
+          &copy; {new Date().getFullYear()} Othman El Hadrati All&nbsp;Rights&nbsp;Reserved
         </motion.div>
 
         <SocialMediaIcon text="white" />

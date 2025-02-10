@@ -51,7 +51,7 @@ const ScrollerVaul = () => {
                 </div>
                 <div>
                   {' '}
-                  &copy; 2024 Othman El Hadrati . All&nbsp;Rights&nbsp;Reserved{' '}
+                  &copy; {new Date().getFullYear()} Othman El Hadrati . All&nbsp;Rights&nbsp;Reserved{' '}
                 </div>
               </div>
             </div>

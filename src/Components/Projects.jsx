@@ -53,7 +53,7 @@ const data = [
   },
   {
     id: 13,
-    serviceName: 'ENSAH Conversatunal ChatBot',
+    serviceName: 'ENSAH conversational ChatBot',
     tools: [SiFastapi, SiLangchain, SiStreamlit, SiMongodb, FaDocker],
     link: 'https://github.com/ELhadratiOth/ENSAH-ChatBot-RAG-APP.git',
     imgUrl: ChatBot,
