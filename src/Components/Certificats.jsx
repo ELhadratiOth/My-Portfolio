@@ -5,7 +5,7 @@ import { FaExternalLinkAlt } from 'react-icons/fa';
 import CodSofPDF from '../assets/docs/CodSoft.pdf';
 import GenAI from '../assets/docs/GenAi.pdf';
 import Ai from '../assets/docs/Ai.pdf';
-
+import AgenticAI from '../assets/docs/HuggingFace.pdf';
 
 const dataCerifs = [
   {
@@ -14,6 +14,13 @@ const dataCerifs = [
     link: GenAI,
     date: '2025',
     provider: 'Oracle',
+  },
+  {
+    id: 9,
+    nameCertif: 'Hugging Face Agents Course ',
+    link: AgenticAI,
+    date: '2025',
+    provider: 'Hugging Face',
   },
   {
     id: 9,
