@@ -22,7 +22,8 @@ export default function Layout() {
 
   return (
     <div className="w-full h-full font-myFont">
-      <div className="fixed -z-30 w-screen h-screen bg-bg-img2 flex bg-no-repeat bg-center bg-cover justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
+      <div className="fixed -z-30 w-screen h-screen bg-bg-img2 flex bg-no-repeat bg-center
+       bg-cover justify-end flex-col-reverse md:flex-row items-center pb-24 md:pb-0 overflow-hidden cursor-custom">
         <BackGround />
       </div>
       {loader ? (

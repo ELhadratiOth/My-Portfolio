@@ -92,7 +92,7 @@ const Certificate = ({ nameCertif, link, date, provider }) => (
     className="flex flex-col md:space-y-2 w-full text-purple-100"
     initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-    transition={{ duration: 0.7, delay: 0.2 }}
+    transition={{ duration: 0.7, delay: 0.1 }}
   >
     <div className="flex flex-col lg:flex-row lg:justify-start lg:items-center space-y-1 lg:space-x-1 mb-3 lg:mb-0 text-purple-100">
       <div className="font-semibold text-base md:text-lg mr-1 w-[87%] md:w-auto">

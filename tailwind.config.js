@@ -38,7 +38,7 @@ export default {
         me: ['2rem', '2rem'],
       },
       cursor: {
-        custom: 'url(./assets/cursor.svg) 16 16, auto',
+        custom: 'url(/src/assets/cursor.svg) 16 16, auto',
       },
     },
   },

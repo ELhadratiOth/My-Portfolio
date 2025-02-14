@@ -46,7 +46,7 @@ const SkillCategory = ({ category, skills }) => (
     className="flex flex-col justify-center items-start space-y-2"
     initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
     whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-    transition={{ duration: 0.7, delay: 0.2 }}
+    transition={{ duration: 0.7, delay: 0.1 }}
   >
     <div className="flex flex-col justify-center md:w-3/3 md:w-full md:justify-start md:flex-row space-y-2 mb-3 md:mb-0 text-white font-semibold">
       <div className="md:text-lg md:pt-4 md:mr-2 md:w-auto text-nowrap ">
@@ -56,7 +56,7 @@ const SkillCategory = ({ category, skills }) => (
         {skills.map((skill, index) => (
           <motion.div
             key={index}
-            className="relative flex flex-col mt-2 items-center mr-5 md:mr-3 xl:mr-5 hover:text-primary1 transition-colors duration-300"
+            className="relative flex flex-col mt-0.5 items-center mr-5 md:mr-3 xl:mr-5 hover:text-primary1 transition-colors duration-300"
             whileHover={{
               scale: 1.1,
               textShadow: '1px 2px 9px #000',
@@ -64,7 +64,7 @@ const SkillCategory = ({ category, skills }) => (
           >
             <skill.icon
               className={
-                skill.name !== 'Postman'
+                skill.name !== 'Postman' 
                   ? 'text-3xl md:text-3xl'
                   : 'text-2xl  md:text-2xl'
               }
@@ -98,9 +98,9 @@ const SkillCategory = ({ category, skills }) => (
 
 export default function SkillsPart() {
   return (
-    <div className="space-y-2">
+    <div className="space-y-1">
       <SkillCategory
-        category="Programming Languages"
+        category="Programming / Coding Languages"
         skills={[
           { icon: FaHtml5, name: 'HTML5' },
           { icon: IoLogoCss3, name: 'CSS3' },
