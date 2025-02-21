@@ -2,15 +2,19 @@ import { Drawer } from 'vaul';
 import { FiSend } from 'react-icons/fi';
 import myLogo from '../assets/avatar.png';
 import SocialMediaIcon from './SocialMediaIcon';
-
+import { motion } from 'framer-motion';
 const ScrollerVaul = () => {
   return (
     <Drawer.Root shouldScaleBackground>
       <Drawer.Trigger asChild>
-        <button>
+        <motion.button
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 2.1, duration: 1 }}
+        >
           {' '}
           <NeumorphismButton />
-        </button>
+        </motion.button>
       </Drawer.Trigger>
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/50" />
@@ -51,7 +55,8 @@ const ScrollerVaul = () => {
                 </div>
                 <div>
                   {' '}
-                  &copy; {new Date().getFullYear()} Othman El Hadrati . All&nbsp;Rights&nbsp;Reserved{' '}
+                  &copy; {new Date().getFullYear()} Othman El Hadrati .
+                  All&nbsp;Rights&nbsp;Reserved{' '}
                 </div>
               </div>
             </div>
@@ -84,7 +89,7 @@ const NeumorphismButton = () => {
         bg-white
     `}
     >
-      <span className='text-2xl'>
+      <span className="text-2xl">
         <FiSend />
       </span>
       <span>Let&apos;s Connect</span>

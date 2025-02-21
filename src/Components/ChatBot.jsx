@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { IoMdClose } from 'react-icons/io';
 import { RiRobot3Fill } from 'react-icons/ri';
 import { LuSendHorizontal } from 'react-icons/lu';
 import { LuMessageCircle } from 'react-icons/lu';
+import { motion, AnimatePresence } from 'framer-motion';
 import API from '../API';
 import TextWithLinks from './TextWithLinks';
 
@@ -16,118 +17,221 @@ export default function ChatBot() {
     },
   ]);
   const [input, setInput] = useState('');
+  const [isSending, setIsSending] = useState(false);
+  const chatContainerRef = useRef(null);
+
   const reduceTextSize = () => {
     setIsOpening(false);
   };
 
   const chatRequest = async () => {
-    if (!input.trim()) return;
+    if (!input.trim() || isSending) return;
     setInput('');
-
+    setIsSending(true);
     setMessages(prev => [...prev, { text: input, isBot: false }]);
 
     try {
-      const response = await API.post(
-        `/chat`,
-        {
-          question: input,
-        },
-        { withCredentials: true },
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timed out')), 60000),
       );
+
+      const response = await Promise.race([
+        API.post(`/chat`, { question: input }, { withCredentials: true }),
+        timeoutPromise,
+      ]);
+
       setMessages(prev => [
         ...prev,
         { text: response.data.response, isBot: true },
       ]);
     } catch (error) {
-      console.error('Error fetching response:', error);
+      console.error('Error fetching ', error);
+      if (error.message === 'Request timed out') {
+        setMessages(prev => [
+          ...prev,
+          {
+            text: 'Sorry, the request timed out. Please try again!',
+            isBot: true,
+          },
+        ]);
+      } else {
+        setMessages(prev => [
+          ...prev,
+          {
+            text: 'Oops! Something went wrong. Please try again later.',
+            isBot: true,
+          },
+        ]);
+      }
+    } finally {
+      setIsSending(false);
     }
   };
 
   useEffect(() => {
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTo({
+        top: chatContainerRef.current.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
+  }, [messages, isSending]);
+
+  useEffect(() => {
     setTimeout(() => {
       reduceTextSize();
-    }, 3000);
+    }, 2000);
   }, []);
 
   const handleKeyPress = e => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === 'Enter' && !e.shiftKey && !isSending) {
       e.preventDefault();
       chatRequest();
     }
   };
 
+  const dotVariants = {
+    animate: custom => ({
+      y: [5, 0, -6, 0, 5],
+      transition: {
+        duration: 1.4,
+        repeat: Infinity,
+        delay: custom * 0.4,
+        ease: 'linear',
+      },
+    }),
+  };
+
   return (
-    <div className="fixed bottom-6 right-6 z-50 cursor-pointer rounded-full bg-primary1  shadow-shad  ">
+    <div className="fixed bottom-4 md:bottom-9 right-3 md:right-4 z-30 cursor-default rounded-full bg-transparent">
       {!isOpen ? (
-        <button
+        <motion.button
           onClick={() => setIsOpen(true)}
-          className={`bg-transparent flex   justify-center items-center  group hover:bg-[#3a3a6a] text-white p-4 rounded-full shadow-lg transition-all duration-300 `}
+          className={`${
+            isOpening ? ' ' : ''
+          }bg-primary3 flex justify-center items-center group hover:bg-primary5 text-white p-4 rounded-full shadow-lg transition-all duration-300`}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
         >
-          <LuMessageCircle className="w-6 h-6 transition-all duration-500 " />
+          <LuMessageCircle className="w-6 h-6 md:w-9 md:h-9 transition-all duration-500" />
           <p
             className={`${
-              isOpening ? 'text-base ml-4' : 'text-[0rem] ml-0'
-            }  transition-all duration-500 group-hover:text-base group-hover:ml-4 font-semibold`}
+              isOpening
+                ? 'text-sm md:text-base ml-3 md:ml-4'
+                : 'text-[0rem] ml-0'
+            } transition-all duration-500 md:group-hover:text-base md:group-hover:ml-4 group-hover:ml-2 group-hover:text-sm hover:md:text-base font-semibold`}
           >
             Chat With Me
           </p>
-        </button>
+        </motion.button>
       ) : (
-        <div className="bg-[#0a0a1f] border border-[#2a2a4a] rounded-2xl shadow-2xl w-[350px] h-[500px] flex flex-col">
-          <div className="flex items-center justify-between p-4 border-b border-[#2a2a4a]">
-            <div className="flex items-center space-x-3">
-              <RiRobot3Fill className="w-6 h-6 text-[#8080ff]" />
-              <span className="text-[#8080ff] font-mono">AI Assistant</span>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <IoMdClose className="w-6 h-6 hover:rotate-90 duration-200 transition-all" />
-            </button>
-          </div>
-
-          <div className="flex-1 overflow-y-auto p-4 space-y-4  scrollbar">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  message.isBot ? 'justify-start' : 'justify-end'
-                }`}
-              >
-                <div
-                  className={`max-w-[80%] p-3 rounded-2xl ${
-                    message.isBot
-                      ? 'bg-[#2a2a4a] text-white'
-                      : 'bg-[#8080ff] text-white'
-                  }`}
-                >
-                  <TextWithLinks text={message.text} />
-                </div>
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            transition={{ duration: 0.3 }}
+            className="backdrop-blur-[15px] bg-black/70 border border-[#2a2a4a] rounded-2xl shadow-shad2 w-[320px] h-[550px] md:w-[400px] md:h-[500px] flex flex-col"
+          >
+            <div className="flex items-center justify-between p-4 border-b border-[#3a3a93]">
+              <div className="flex items-center space-x-3">
+                <RiRobot3Fill className="w-6 h-6 text-[#8080ff]" />
+                <span className="text-primary1 text-lg font-semibold font-mono">
+                  AI Assistant
+                </span>
               </div>
-            ))}
-          </div>
-
-          <div className="p-4 border-t border-[#2a2a4a]">
-            <div className="flex items-center space-x-2">
-              <input
-                type="text"
-                value={input}
-                onChange={e => setInput(e.target.value)}
-                onKeyDown={handleKeyPress}
-                placeholder="Type your message..."
-                className="flex-1 bg-[#1a1a3a] text-white placeholder-gray-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8080ff]"
-              />
-              <button
-                onClick={chatRequest}
-                disabled={!input.trim()}
-                className="bg-[#8080ff] text-white p-2 rounded-full hover:bg-[#6060ff] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              <motion.button
+                onClick={() => setIsOpen(false)}
+                className="text-gray-400 hover:text-white transition-colors"
+                whileHover={{ rotate: 90 }}
+                transition={{ duration: 0.2 }}
               >
-                <LuSendHorizontal className="w-5 h-5" />
-              </button>
+                <IoMdClose className="w-7 h-7" />
+              </motion.button>
             </div>
-          </div>
-        </div>
+
+            <div
+              ref={chatContainerRef}
+              className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar"
+            >
+              <AnimatePresence>
+                {messages.map((message, index) => (
+                  <motion.div
+                    key={index}
+                    initial={{ opacity: 0, x: message.isBot ? -20 : 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: message.isBot ? -20 : 20 }}
+                    transition={{ duration: 0.4, delay: 0.2 }}
+                    className={`flex ${
+                      message.isBot ? 'justify-start' : 'justify-end'
+                    }`}
+                  >
+                    <div
+                      className={`w-max p-3 rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
+                        message.isBot
+                          ? 'bg-[#222248] text-white ring-primary5 '
+                          : 'bg-[#8080ff] text-white ring-primary3'
+                      }`}
+                    >
+                      <TextWithLinks text={message.text} />
+                    </div>
+                  </motion.div>
+                ))}
+                {isSending && (
+                  <motion.div
+                    key="typing"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.4 }}
+                    className="flex justify-start px-0.5"
+                  >
+                    <div className="max-w-[80%] p-3 rounded-2xl bg-[#222248] text-white ring-2 ring-primary5 shadow-md flex items-center space-x-2">
+                      <motion.span
+                        custom={0}
+                        variants={dotVariants}
+                        animate="animate"
+                        className="w-2 h-2 bg-gray-400 rounded-full"
+                      />
+                      <motion.span
+                        custom={1}
+                        variants={dotVariants}
+                        animate="animate"
+                        className="w-2 h-2 bg-gray-400 rounded-full"
+                      />
+                      <motion.span
+                        custom={2}
+                        variants={dotVariants}
+                        animate="animate"
+                        className="w-2 h-2 bg-gray-400 rounded-full"
+                      />
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="p-4 border-t border-[#3a3a93]">
+              <div className="flex items-center space-x-2">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={e => setInput(e.target.value)}
+                  onKeyDown={handleKeyPress}
+                  placeholder="Type your message..."
+                  className="flex-1 bg-[#1a1a3a] w-14 text-white placeholder-gray-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8080ff]"
+                />
+                <button
+                  onClick={chatRequest}
+                  disabled={!input.trim() || isSending}
+                  className="bg-primary3 text-white hover:text-primary4 p-2 rounded-full hover:bg-primary3 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <LuSendHorizontal className="w-7 h-7" />
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       )}
     </div>
   );

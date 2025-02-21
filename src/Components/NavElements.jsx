@@ -9,7 +9,7 @@ export const NavElements = [
   {
     id: 3,
     name: 'service',
-    path: '/service',
+    path: '/services',
     icon: <SiHyperskill />,
   },
   { id: 4, name: 'projects', path: '/projects', icon: <GrProjects /> },

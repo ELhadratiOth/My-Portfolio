@@ -17,7 +17,7 @@ const ScrollButton = () => {
         <motion.div
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className={
-            'fixed cursor-pointer bottom-24 right-6 bg-transparent backdrop-blur-xl text-6xl shadow-shad text-primary3 rounded-full z-30 hover:text-primary4'
+            'fixed cursor-pointer  md:bottom-28 bottom-20 right-2  md:right-6 bg-transparent backdrop-blur-xl text-6xl shadow-shad text-primary3 rounded-full z-20 hover:text-primary4'
           }
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
