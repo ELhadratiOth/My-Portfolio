@@ -13,34 +13,56 @@ const KNOWN_PATHS = {
 const TextWithLinks = ({ text }) => {
   if (!text) return null;
 
-  // Split by Markdown-style links, standalone paths, or URLs, with better tolerance for malformed input
+  // Split by Markdown-style links or standalone URLs, but not generic slashes
   const segments = text.split(
-    /(\[.*?\]\(\/[^)]*\)?|\s*\/\w+\s*|\s*https?:\/\/[^\s]+)/g,
+    /(\[.*?\]\([^)]*\)?|\s*(?:https?:\/\/)?[^\s]+(?:\.[^\s]+)+)/g,
   );
 
   return (
     <span className="inline">
       {segments.map((segment, index) => {
-        // Match Markdown-style link: [text](/path) or malformed variants like [/ ](/))
-        const markdownLinkMatch = segment.match(/^\[(.*?)\]\((\/[^)]*)\)?$/);
-        // Match standalone internal path: /word (with optional surrounding spaces or parentheses)
-        const standalonePathMatch = segment.match(
-          /^\s*(?:[(/])?\s*\/\w+\s*(?:[)/])?\s*$/,
-        );
-        // Match external URL: http://... or https://...
-        const externalUrlMatch = /^\s*https?:\/\/[^\s]+$/.test(segment);
+        // Match Markdown-style link: [text](/path) or [text](http...)
+        const markdownLinkMatch = segment.match(/^\[(.*?)\]\(([^)]*)\)?$/);
+        // Match external URL (e.g., www.example.com or http://example.com)
+        const externalUrlMatch =
+          /^\s*(?:https?:\/\/)?[^\s]+(?:\.[^\s]+)+$/.test(segment);
 
-        // Case 1: Not a link, path, or URL, render as plain text
-        if (!markdownLinkMatch && !standalonePathMatch && !externalUrlMatch) {
+        // Case 1: Plain text (including slash-separated data like "ML/AI")
+        if (!markdownLinkMatch && !externalUrlMatch) {
           return <React.Fragment key={index}>{segment}</React.Fragment>;
         }
 
-        // Case 2: Markdown-style link (e.g., [/](/) or [/ ](/))
+        // Case 2: Markdown-style link
         if (markdownLinkMatch) {
-          let [, linkText, linkPath] = markdownLinkMatch; // e.g., "/ ", "/"
-          linkText = linkText.trim(); // Clean up extra spaces
-          const cleanPath = linkPath.trim(); // e.g., "/"
-          const pathKey = cleanPath.substring(1); // e.g., ""
+          let [, linkText, linkPath] = markdownLinkMatch;
+          linkText = linkText.trim();
+          const cleanPath = linkPath.trim();
+
+          // Check if the Markdown link is an external URL
+          if (
+            cleanPath.startsWith('http') ||
+            cleanPath.match(/^[^\s]+(?:\.[^\s]+)+$/)
+          ) {
+            const url = cleanPath.startsWith('http')
+              ? cleanPath
+              : `https://${cleanPath}`; // Add https:// if protocol is missing
+            return (
+              <a
+                key={index}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center mx-1 cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
+              >
+                {linkText || url}
+              </a>
+            );
+          }
+
+          // Internal Markdown link
+          const pathKey = cleanPath.startsWith('/')
+            ? cleanPath.substring(1)
+            : cleanPath;
           const actualPath = KNOWN_PATHS[pathKey] || cleanPath;
           const displayText =
             linkText.startsWith('/') && linkText.length > 1
@@ -53,46 +75,31 @@ const TextWithLinks = ({ text }) => {
               to={actualPath}
               className="inline-flex items-center mx-1 cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
             >
-              {displayText || '/'} {/* Fallback to '/' if text is empty */}
+              {displayText || '/'}
             </Link>
           );
         }
 
-        // Case 3: External URL (http/https)
+        // Case 3: External URL (e.g., www.0thman.tech or http://example.com)
         if (externalUrlMatch) {
-          const url = segment.trim();
+          const urlText = segment.trim();
+          const url = urlText.startsWith('http')
+            ? urlText
+            : `https://${urlText}`; // Add https:// if protocol is missing
           return (
             <a
               key={index}
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center cursor-pointer mx-1 text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
+              className="inline-flex items-center mx-1 cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
             >
-              {url}
+              {urlText}
             </a>
           );
         }
 
-        // Case 4: Standalone internal path (e.g., /contactme or (/contactme))
-        const cleanSegment = segment.replace(/[()]/g, '').trim(); // Remove parentheses
-        const pathMatch = cleanSegment.match(/^\/?(\w+)$/);
-        if (pathMatch) {
-          const pathKey = pathMatch[1]; // e.g., "contactme"
-          const actualPath = KNOWN_PATHS[pathKey] || `/${pathKey}`;
-
-          return (
-            <Link
-              key={index}
-              to={actualPath}
-              className="inline-flex items-center mx-1 text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
-            >
-              {`/${pathKey}`} {/* Always show the path with leading "/" */}
-            </Link>
-          );
-        }
-
-        // Fallback: Render as plain text if nothing matches
+        // Fallback: Plain text
         return <React.Fragment key={index}>{segment}</React.Fragment>;
       })}
     </span>
