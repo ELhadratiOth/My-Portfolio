@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
-import { IoMdClose } from 'react-icons/io';
+import { IoMdClose, IoMdInformationCircle } from 'react-icons/io';
 import { RiRobot3Fill } from 'react-icons/ri';
 import { LuSendHorizontal } from 'react-icons/lu';
 import { LuMessageCircle } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion';
+import { VscDebugBreakpointConditionalUnverified } from 'react-icons/vsc';
+
 import API from '../API';
 import TextWithLinks from './TextWithLinks';
 
@@ -19,6 +21,7 @@ export default function ChatBot() {
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const chatContainerRef = useRef(null);
+  const [showCapabilities, setShowCapabilities] = useState(false);
 
   const reduceTextSize = () => {
     setIsOpening(false);
@@ -32,7 +35,7 @@ export default function ChatBot() {
 
     try {
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Request timed out')), 60000),
+        setTimeout(() => reject(new Error('Request timed out')), 120000),
       );
 
       const response = await Promise.race([
@@ -101,12 +104,63 @@ export default function ChatBot() {
       },
     }),
   };
+const capabilities = [
+  "Provide details about Othman's background, experience, and more",
+  'Share real-time updates on his projects and portfolio',
+  'Give access to his resume, certifications, and achievements',
+  'Provide professional contact info and social links',
+  'Assist in sending emails to contact Othman',
+];
+
 
   return (
     <div className="fixed bottom-4 md:bottom-9 right-3 md:right-4 z-30 cursor-default rounded-full bg-transparent">
+      {showCapabilities && isOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="absolute top-16 left-4 right-4 bg-[#1a1a3a] border border-[#3a3a93] rounded-lg p-4 shadow-lg z-50"
+        >
+          <h3 className="text-[#8080ff] font-semibold mb-2">
+            My Capabilities:
+          </h3>
+          <ul className="space-y-2 text-white text-sm">
+            {capabilities.map((capability, index) => (
+              <motion.li
+                key={index}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className="flex items-center gap-2"
+              >
+                <VscDebugBreakpointConditionalUnverified className="w-5= h-5 text-[#8080ff]" />
+                {capability}
+              </motion.li>
+            ))}
+          </ul>
+          <motion.p
+            className="text-sm text-primary2 mt-2"
+            initial={{ opacity: 0,  }}
+            animate={{ opacity: 1, }}
+            transition={{ delay:  0.6 }}
+          >
+            Check the repo for more details about it{' '}
+            <a
+              href="https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent.git"
+              target="_blank"
+              className="text-primary2 hover:text-primary4 underline duration-150 transition-all"
+            >
+              Click me
+            </a>
+          </motion.p>
+        </motion.div>
+      )}
       {!isOpen ? (
         <motion.button
-          onClick={() => setIsOpen(true)}
+          onClick={() => {
+            setShowCapabilities(false), setIsOpen(true);
+          }}
           className={`${
             isOpening ? ' ' : ''
           }bg-primary3 flex justify-center items-center group hover:bg-primary5 text-white p-4 rounded-full shadow-lg transition-all duration-300`}
@@ -140,14 +194,22 @@ export default function ChatBot() {
                   AI Assistant
                 </span>
               </div>
-              <motion.button
-                onClick={() => setIsOpen(false)}
-                className="text-gray-400 hover:text-white transition-colors"
-                whileHover={{ rotate: 90 }}
-                transition={{ duration: 0.2 }}
-              >
-                <IoMdClose className="w-7 h-7" />
-              </motion.button>
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => setShowCapabilities(!showCapabilities)}
+                  className="text-[#8080ff] hover:text-[#6060ff] transition-colors"
+                >
+                  <IoMdInformationCircle className="w-7 h-7" />
+                </button>
+                <motion.button
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors"
+                  whileHover={{ rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <IoMdClose className="w-7 h-7" />
+                </motion.button>
+              </div>
             </div>
 
             <div
@@ -167,13 +229,15 @@ export default function ChatBot() {
                     }`}
                   >
                     <div
-                      className={`w-max p-3 rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
+                      className={`w-[80%] text-wrap p-3 break-words rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
                         message.isBot
-                          ? 'bg-[#222248] text-white ring-primary5 '
-                          : 'bg-[#8080ff] text-white ring-primary3'
+                          ? 'bg-[#222248] text-white ring-primary5 whitespace-pre-wrap break-all'
+                          : 'bg-[#8080ff] text-white ring-primary3 '
                       }`}
                     >
-                      <TextWithLinks text={message.text} />
+                      <p className="text-sm ">
+                        <TextWithLinks text={message.text} />
+                      </p>
                     </div>
                   </motion.div>
                 ))}

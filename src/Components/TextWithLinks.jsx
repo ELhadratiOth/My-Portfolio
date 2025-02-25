@@ -13,97 +13,196 @@ const KNOWN_PATHS = {
 const TextWithLinks = ({ text }) => {
   if (!text) return null;
 
-  // Split by Markdown-style links or standalone URLs, but not generic slashes
-  const segments = text.split(
-    /(\[.*?\]\([^)]*\)?|\s*(?:https?:\/\/)?[^\s]+(?:\.[^\s]+)+)/g,
-  );
+  const processText = inputText => {
+    // Stage 1: Process all formatting patterns with placeholders
+    let processedText = inputText;
+    const formattedSegments = [];
+    let placeholderIndex = 0;
 
-  return (
-    <span className="inline">
-      {segments.map((segment, index) => {
-        // Match Markdown-style link: [text](/path) or [text](http...)
-        const markdownLinkMatch = segment.match(/^\[(.*?)\]\(([^)]*)\)?$/);
-        // Match external URL (e.g., www.example.com or http://example.com)
-        const externalUrlMatch =
-          /^\s*(?:https?:\/\/)?[^\s]+(?:\.[^\s]+)+$/.test(segment);
+    // Process bold text (****text**** or **text**)
+    const boldRegex = /(\*\*\*\*([^*]+)\*\*\*\*|\*\*([^*]+)\*\*)/g;
+    processedText = processedText.replace(
+      boldRegex,
+      (match, _, group1, group2) => {
+        const content = group1 || group2;
+        const placeholder = `__BOLD_${placeholderIndex}__`;
+        formattedSegments[placeholderIndex] = {
+          type: 'bold',
+          content,
+        };
+        placeholderIndex++;
+        return placeholder;
+      },
+    );
 
-        // Case 1: Plain text (including slash-separated data like "ML/AI")
-        if (!markdownLinkMatch && !externalUrlMatch) {
-          return <React.Fragment key={index}>{segment}</React.Fragment>;
-        }
+    // Process links
+    const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+    processedText = processedText.replace(linkRegex, (match, text, url) => {
+      const placeholder = `__LINK_${placeholderIndex}__`;
+      formattedSegments[placeholderIndex] = {
+        type: 'link',
+        text,
+        url,
+      };
+      placeholderIndex++;
+      return placeholder;
+    });
 
-        // Case 2: Markdown-style link
-        if (markdownLinkMatch) {
-          let [, linkText, linkPath] = markdownLinkMatch;
-          linkText = linkText.trim();
-          const cleanPath = linkPath.trim();
+    // Stage 2: Build components from processed text
+    const result = [];
+    let lastIndex = 0;
+    let currentKey = 0;
 
-          // Check if the Markdown link is an external URL
-          if (
-            cleanPath.startsWith('http') ||
-            cleanPath.match(/^[^\s]+(?:\.[^\s]+)+$/)
-          ) {
-            const url = cleanPath.startsWith('http')
-              ? cleanPath
-              : `https://${cleanPath}`; // Add https:// if protocol is missing
-            return (
-              <a
-                key={index}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center mx-1 cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
-              >
-                {linkText || url}
-              </a>
-            );
-          }
+    // Regex to match all placeholder patterns
+    const placeholderRegex = /__(?:BOLD|LINK)_(\d+)__/g;
+    let match;
 
-          // Internal Markdown link
-          const pathKey = cleanPath.startsWith('/')
-            ? cleanPath.substring(1)
-            : cleanPath;
-          const actualPath = KNOWN_PATHS[pathKey] || cleanPath;
-          const displayText =
-            linkText.startsWith('/') && linkText.length > 1
-              ? linkText.substring(1)
-              : linkText || cleanPath;
+    while ((match = placeholderRegex.exec(processedText)) !== null) {
+      // Add text before the placeholder
+      if (match.index > lastIndex) {
+        result.push(
+          <React.Fragment key={currentKey++}>
+            {processedText.substring(lastIndex, match.index)}
+          </React.Fragment>,
+        );
+      }
 
-          return (
-            <Link
-              key={index}
-              to={actualPath}
-              className="inline-flex items-center mx-1 cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
-            >
-              {displayText || '/'}
-            </Link>
-          );
-        }
+      // Get the placeholder index and corresponding segment
+      const placeholderId = parseInt(match[1], 10);
+      const segment = formattedSegments[placeholderId];
 
-        // Case 3: External URL (e.g., www.0thman.tech or http://example.com)
-        if (externalUrlMatch) {
-          const urlText = segment.trim();
-          const url = urlText.startsWith('http')
-            ? urlText
-            : `https://${urlText}`; // Add https:// if protocol is missing
-          return (
+      if (segment.type === 'bold') {
+        result.push(
+          <strong key={currentKey++} className="font-bold">
+            {segment.content}
+          </strong>,
+        );
+      } else if (segment.type === 'link') {
+        // Handle external URLs
+        if (
+          segment.url.startsWith('http') ||
+          segment.url.match(/^[^\s]+(?:\.[^\s]+)+$/)
+        ) {
+          result.push(
             <a
-              key={index}
-              href={url}
+              key={currentKey++}
+              href={segment.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center mx-1 cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
+              className="inline-flex items-center cursor-pointer text-primary5 hover:text-blue-300 underline transition-colors duration-200"
             >
-              {urlText}
-            </a>
+              {segment.text.trim()}
+            </a>,
+          );
+        } else {
+          // Handle internal links
+          const pathKey = segment.url.startsWith('/')
+            ? segment.url.substring(1)
+            : segment.url;
+          const actualPath = KNOWN_PATHS[pathKey] || segment.url;
+
+          result.push(
+            <Link
+              key={currentKey++}
+              to={actualPath}
+              className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
+            >
+              {segment.text.trim()}
+            </Link>,
           );
         }
+      }
 
-        // Fallback: Plain text
-        return <React.Fragment key={index}>{segment}</React.Fragment>;
-      })}
-    </span>
-  );
+      lastIndex = match.index + match[0].length;
+    }
+
+    // Add any remaining text after the last placeholder
+    if (lastIndex < processedText.length) {
+      result.push(
+        <React.Fragment key={currentKey++}>
+          {processedText.substring(lastIndex)}
+        </React.Fragment>,
+      );
+    }
+
+    return result;
+  };
+
+  // Parse standalone URLs that aren't in Markdown format
+  const parseStandaloneUrls = elements => {
+    return elements.map((element, index) => {
+      // Only process string content in Fragment elements
+      if (typeof element.props?.children !== 'string') {
+        return element;
+      }
+
+      const content = element.props.children;
+      const urlRegex =
+        /\b(https?:\/\/[^\s]+)|\b([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)\b/g;
+
+      const parts = [];
+      let lastIndex = 0;
+      let currentKey = 0;
+      let urlMatch;
+
+      while ((urlMatch = urlRegex.exec(content)) !== null) {
+        // Add text before the URL
+        if (urlMatch.index > lastIndex) {
+          parts.push(content.substring(lastIndex, urlMatch.index));
+        }
+
+        // Get the matched URL
+        const [matchedUrl] = urlMatch;
+        const formattedUrl = matchedUrl.startsWith('http')
+          ? matchedUrl
+          : `https://${matchedUrl}`;
+
+        // Add the URL as a link
+        parts.push(
+          <a
+            key={`url-${currentKey++}`}
+            href={formattedUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
+          >
+            {matchedUrl}
+          </a>,
+        );
+
+        lastIndex = urlMatch.index + matchedUrl.length;
+      }
+
+      // Add any remaining text
+      if (lastIndex < content.length) {
+        parts.push(content.substring(lastIndex));
+      }
+
+      // If we didn't find any URLs, return the original element
+      if (parts.length === 1 && lastIndex === 0) {
+        return element;
+      }
+
+      // Otherwise, return the mix of text and URL links
+      return (
+        <React.Fragment key={`fragment-${index}`}>
+          {parts.map((part, partIndex) =>
+            typeof part === 'string' ? (
+              <React.Fragment key={`part-${partIndex}`}>{part}</React.Fragment>
+            ) : (
+              part
+            ),
+          )}
+        </React.Fragment>
+      );
+    });
+  };
+
+  // Process the text and then handle standalone URLs
+  const processedElements = processText(text);
+  const finalElements = parseStandaloneUrls(processedElements);
+
+  return <span className="inline">{finalElements}</span>;
 };
 
 TextWithLinks.propTypes = {
