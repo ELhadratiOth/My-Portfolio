@@ -10,18 +10,20 @@ const KNOWN_PATHS = {
   home: '/',
 };
 
+// Function to detect Arabic characters
+const containsArabic = text => {
+  const arabicRegex = /[\u0600-\u06FF]/;
+  return arabicRegex.test(text);
+};
+
 const TextWithLinks = ({ text }) => {
   if (!text) return null;
 
   const processText = inputText => {
-    // Stage 0: Remove all backticks first
     let processedText = inputText.replace(/`/g, '');
-
-    // Stage 1: Process all formatting patterns with placeholders
     const formattedSegments = [];
     let placeholderIndex = 0;
 
-    // Process bold text (****text**** or **text**)
     const boldRegex = /(\*\*\*\*([^*]+)\*\*\*\*|\*\*([^*]+)\*\*)/g;
     processedText = processedText.replace(
       boldRegex,
@@ -37,7 +39,6 @@ const TextWithLinks = ({ text }) => {
       },
     );
 
-    // Process links
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     processedText = processedText.replace(linkRegex, (match, text, url) => {
       const placeholder = `__LINK_${placeholderIndex}__`;
@@ -50,17 +51,14 @@ const TextWithLinks = ({ text }) => {
       return placeholder;
     });
 
-    // Stage 2: Build components from processed text
     const result = [];
     let lastIndex = 0;
     let currentKey = 0;
 
-    // Regex to match all placeholder patterns
     const placeholderRegex = /__(?:BOLD|LINK)_(\d+)__/g;
     let match;
 
     while ((match = placeholderRegex.exec(processedText)) !== null) {
-      // Add text before the placeholder
       if (match.index > lastIndex) {
         result.push(
           <React.Fragment key={currentKey++}>
@@ -69,7 +67,6 @@ const TextWithLinks = ({ text }) => {
         );
       }
 
-      // Get the placeholder index and corresponding segment
       const placeholderId = parseInt(match[1], 10);
       const segment = formattedSegments[placeholderId];
 
@@ -80,7 +77,6 @@ const TextWithLinks = ({ text }) => {
           </strong>,
         );
       } else if (segment.type === 'link') {
-        // Handle external URLs
         if (
           segment.url.startsWith('http') ||
           segment.url.match(/^[^\s]+(?:\.[^\s]+)+$/)
@@ -97,7 +93,6 @@ const TextWithLinks = ({ text }) => {
             </a>,
           );
         } else {
-          // Handle internal links
           const pathKey = segment.url.startsWith('/')
             ? segment.url.substring(1)
             : segment.url;
@@ -118,7 +113,6 @@ const TextWithLinks = ({ text }) => {
       lastIndex = match.index + match[0].length;
     }
 
-    // Add any remaining text after the last placeholder
     if (lastIndex < processedText.length) {
       result.push(
         <React.Fragment key={currentKey++}>
@@ -130,62 +124,70 @@ const TextWithLinks = ({ text }) => {
     return result;
   };
 
-  // Parse standalone URLs that aren't in Markdown format
-  const parseStandaloneUrls = elements => {
+  const parseStandaloneUrlsAndEmails = elements => {
     return elements.map((element, index) => {
-      // Only process string content in Fragment elements
       if (typeof element.props?.children !== 'string') {
         return element;
       }
 
       const content = element.props.children;
-      const urlRegex =
-        /\b(https?:\/\/[^\s]+)|\b([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)\b/g;
+      const urlAndEmailRegex =
+        /\b(https?:\/\/[^\s]+)|\b([a-zA-Z0-9][-a-zA-Z0-9]*(\.[a-zA-Z0-9][-a-zA-Z0-9]*)+)\b|\b([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\b/g;
 
       const parts = [];
       let lastIndex = 0;
       let currentKey = 0;
-      let urlMatch;
+      let match;
 
-      while ((urlMatch = urlRegex.exec(content)) !== null) {
-        // Add text before the URL
-        if (urlMatch.index > lastIndex) {
-          parts.push(content.substring(lastIndex, urlMatch.index));
+      while ((match = urlAndEmailRegex.exec(content)) !== null) {
+        if (match.index > lastIndex) {
+          parts.push(content.substring(lastIndex, match.index));
         }
 
-        // Get the matched URL
-        const [matchedUrl] = urlMatch;
-        const formattedUrl = matchedUrl.startsWith('http')
-          ? matchedUrl
-          : `https://${matchedUrl}`;
+        const [matchedText] = match;
 
-        // Add the URL as a link
-        parts.push(
-          <a
-            key={`url-${currentKey++}`}
-            href={formattedUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-300 underline transition-colors duration-200"
-          >
-            {matchedUrl}
-          </a>,
-        );
+        // Check if it's an email
+        if (matchedText.includes('@')) {
+          parts.push(
+            <a
+              key={`email-${currentKey++}`}
+              href={`mailto:${matchedText}`}
+              className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-500 underline transition-all  duration-200"
+            >
+              {matchedText}
+            </a>,
+          );
+        }
+        // Handle URLs
+        else {
+          const formattedUrl = matchedText.startsWith('http')
+            ? matchedText
+            : `https://${matchedText}`;
 
-        lastIndex = urlMatch.index + matchedUrl.length;
+          parts.push(
+            <a
+              key={`url-${currentKey++}`}
+              href={formattedUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-500 underline transition-all duration-200 hover:scale-105"
+            >
+              {matchedText}
+            </a>,
+          );
+        }
+
+        lastIndex = match.index + matchedText.length;
       }
 
-      // Add any remaining text
       if (lastIndex < content.length) {
         parts.push(content.substring(lastIndex));
       }
 
-      // If we didn't find any URLs, return the original element
       if (parts.length === 1 && lastIndex === 0) {
         return element;
       }
 
-      // Otherwise, return the mix of text and URL links
       return (
         <React.Fragment key={`fragment-${index}`}>
           {parts.map((part, partIndex) =>
@@ -200,11 +202,25 @@ const TextWithLinks = ({ text }) => {
     });
   };
 
-  // Process the text and then handle standalone URLs
   const processedElements = processText(text);
-  const finalElements = parseStandaloneUrls(processedElements);
+  const finalElements = parseStandaloneUrlsAndEmails(processedElements);
 
-  return <span className="inline">{finalElements}</span>;
+  // Determine if text should be RTL based on Arabic content
+  const isArabic = containsArabic(text);
+  const textDirection = isArabic ? 'rtl' : 'ltr';
+
+  return (
+    <span
+      className="inline"
+      dir={textDirection}
+      style={{
+        display: 'inline-block',
+        textAlign: isArabic ? 'right' : 'left',
+      }}
+    >
+      {finalElements}
+    </span>
+  );
 };
 
 TextWithLinks.propTypes = {

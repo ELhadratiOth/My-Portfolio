@@ -35,11 +35,17 @@ export default function ChatBot() {
 
     try {
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Request timed out')), 200000),
+        setTimeout(() => reject(new Error('Request timed out')), 35000000),
       );
 
       const response = await Promise.race([
-        API.post(`/chat`, { question: input }, { withCredentials: true }),
+        API.post(
+          `/chat`,
+          {
+            question: input,
+          },
+          { withCredentials: true },
+        ),
         timeoutPromise,
       ]);
 
@@ -104,14 +110,13 @@ export default function ChatBot() {
       },
     }),
   };
-const capabilities = [
-  "Provide details about Othman's background, experience, and more",
-  'Share real-time updates on his projects and portfolio',
-  'Give access to his resume, certifications, and achievements',
-  'Provide professional contact info and social links',
-  'Assist in sending emails to contact Othman by providing a subject, body, and email address',
-];
-
+  const capabilities = [
+    "Provide details about Othman's background, experience, and more",
+    'Share real-time updates on his projects and portfolio',
+    'Give access to his resume, certifications, and achievements',
+    'Provide professional contact info and social links',
+    'Assist in sending emails to contact Othman by providing a subject, body, and email address',
+  ];
 
   return (
     <div className="fixed bottom-4 md:bottom-9 right-3 md:right-4 z-30 cursor-default rounded-full bg-transparent">
@@ -141,9 +146,9 @@ const capabilities = [
           </ul>
           <motion.p
             className="text-sm text-primary2 mt-2"
-            initial={{ opacity: 0,  }}
-            animate={{ opacity: 1, }}
-            transition={{ delay:  0.6 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
           >
             Check the repo for more details about it{' '}
             <a
