@@ -35,7 +35,7 @@ export default function ChatBot() {
 
     try {
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Request timed out')), 120000),
+        setTimeout(() => reject(new Error('Request timed out')), 200000),
       );
 
       const response = await Promise.race([
