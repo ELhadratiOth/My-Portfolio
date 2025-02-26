@@ -14,8 +14,10 @@ const TextWithLinks = ({ text }) => {
   if (!text) return null;
 
   const processText = inputText => {
+    // Stage 0: Remove all backticks first
+    let processedText = inputText.replace(/`/g, '');
+
     // Stage 1: Process all formatting patterns with placeholders
-    let processedText = inputText;
     const formattedSegments = [];
     let placeholderIndex = 0;
 
