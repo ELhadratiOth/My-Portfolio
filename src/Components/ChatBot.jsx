@@ -109,7 +109,7 @@ const capabilities = [
   'Share real-time updates on his projects and portfolio',
   'Give access to his resume, certifications, and achievements',
   'Provide professional contact info and social links',
-  'Assist in sending emails to contact Othman',
+  'Assist in sending emails to contact Othman by providing a subject, body, and email address',
 ];
 
 
