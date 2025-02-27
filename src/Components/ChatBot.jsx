@@ -35,7 +35,7 @@ export default function ChatBot() {
 
     try {
       const timeoutPromise = new Promise((_, reject) =>
-        setTimeout(() => reject(new Error('Request timed out')), 35000000),
+        setTimeout(() => reject(new Error('Request timed out')), 120000),
       );
 
       const response = await Promise.race([
@@ -44,7 +44,6 @@ export default function ChatBot() {
           {
             question: input,
           },
-          { withCredentials: true },
         ),
         timeoutPromise,
       ]);
@@ -190,7 +189,7 @@ export default function ChatBot() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             transition={{ duration: 0.3 }}
-            className="backdrop-blur-[15px] bg-black/70 border border-[#2a2a4a] rounded-2xl shadow-shad2 w-[320px] h-[550px] md:w-[400px] md:h-[500px] flex flex-col"
+            className="backdrop-blur-[15px] bg-black/70 border border-[#2a2a4a] rounded-2xl shadow-shad2 w-[320px] h-[550px] md:w-[430px] md:h-[500px] flex flex-col"
           >
             <div className="flex items-center justify-between p-4 border-b border-[#3a3a93]">
               <div className="flex items-center space-x-3">
@@ -234,10 +233,10 @@ export default function ChatBot() {
                     }`}
                   >
                     <div
-                      className={`w-[80%] text-wrap p-3 break-words rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
+                      className={` text-wrap p-3 break-words rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
                         message.isBot
-                          ? 'bg-[#222248] text-white ring-primary5 whitespace-pre-wrap break-all'
-                          : 'bg-[#8080ff] text-white ring-primary3 '
+                          ? 'bg-[#222248] w-[85%] text-white ring-primary5 whitespace-pre-wrap break-all'
+                          : 'bg-[#8080ff] w-[75%] text-white ring-primary3 '
                       }`}
                     >
                       <p className="text-sm ">
