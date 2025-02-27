@@ -160,9 +160,10 @@ const TextWithLinks = ({ text }) => {
         }
         // Handle URLs
         else {
-          const formattedUrl = matchedText.startsWith('http')
-            ? matchedText
-            : `https://${matchedText}`;
+          const formattedUrl =
+            matchedText.startsWith('http') || matchedText.startsWith('www')
+              ? `https://${matchedText.replace(/^www\./, '')}`
+              : matchedText;
 
           parts.push(
             <a
