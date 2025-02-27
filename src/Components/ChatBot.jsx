@@ -44,6 +44,7 @@ export default function ChatBot() {
           {
             question: input,
           },
+          { withCredentials: true },
         ),
         timeoutPromise,
       ]);
