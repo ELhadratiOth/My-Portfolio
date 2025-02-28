@@ -236,7 +236,7 @@ export default function ChatBot() {
                     <div
                       className={` text-wrap p-3 break-words rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
                         message.isBot
-                          ? 'bg-[#222248] w-[85%] text-white ring-primary5 whitespace-pre-wrap break-all'
+                          ? 'bg-[#222248] w-[90%] text-white ring-primary5 whitespace-pre-wrap break-all'
                           : 'bg-[#8080ff] w-[75%] text-white ring-primary3 '
                       }`}
                     >
