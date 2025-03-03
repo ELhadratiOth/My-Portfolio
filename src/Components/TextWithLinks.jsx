@@ -110,7 +110,7 @@ const TextWithLinks = ({ text }) => {
                     ? undefined
                     : 'noopener noreferrer'
                 }
-                className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-500 underline transition-colors duration-200"
+                className="whitespace-pre-wrap break-all inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-500 underline transition-colors duration-200"
               >
                 {segment.text}
               </a>,
@@ -123,7 +123,7 @@ const TextWithLinks = ({ text }) => {
               href={segment.url}
               target={segment.type === 'email' ? undefined : '_blank'}
               rel={segment.type === 'email' ? undefined : 'noopener noreferrer'}
-              className="inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-500 underline transition-colors duration-200"
+              className="whitespace-pre-wrap break-all inline-flex items-center cursor-pointer text-blue-400 hover:text-blue-500 underline transition-colors duration-200"
             >
               {segment.text}
             </a>,
