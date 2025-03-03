@@ -14,7 +14,7 @@ export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([
     {
-      text: "Ramadan Mubarak! 🌙 I'm Othman's AI assistant. How can I help you today?",
+      text: "Ramadan Mubarak! 🌙 I'm Othman's AI ChatBot assistant. How can I help you today?",
       isBot: true,
     },
   ]);
