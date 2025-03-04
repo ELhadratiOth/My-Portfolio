@@ -27,7 +27,7 @@ import { SiLangchain } from 'react-icons/si';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
-
+import CrewAI from './SVGs/CrewAI';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import MedicalOffice from '../assets/MedicalOffice.png';
@@ -42,8 +42,15 @@ import Sqooparchi from '../assets/sqooparchi.png';
 import DarijaUI from '../assets/DarijaUI.png';
 import ShardedDB from '../assets/ShardedDB.png';
 import ChatBot from '../assets/ChatBotArchi.png';
-
+import PortfolioChatBotArchi from '../assets/PortfolioChatBotArchi.png';
 const data = [
+  {
+    id: 13,
+    serviceName: 'Portfolio Multi-Agentic ChatBot',
+    tools: [CrewAI, SiFastapi, ],
+    link: 'https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent',
+    imgUrl: PortfolioChatBotArchi,
+  },
   {
     id: 12,
     serviceName: 'Darija Sentiment Analysis',

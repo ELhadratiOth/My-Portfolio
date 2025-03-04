@@ -40,6 +40,7 @@ import HuggingFaceIcon from './SVGs/HuggingFaceIcon';
 import PowerBIIcon from './SVGs/PowerAutomateIcon';
 import { motion } from 'framer-motion';
 import CIcon from './SVGs/Ccompo';
+import CrewAI from './SVGs/CrewAI2';
 
 const SkillCategory = ({ category, skills }) => (
   <motion.div
@@ -111,13 +112,14 @@ export default function SkillsPart() {
         ]}
       />
       <SkillCategory
-        category="ML / DL / Gen AI"
+        category="ML / DL / Gen AI / Agenti AI"
         skills={[
           { icon: SiScikitlearn, name: 'Scikit-learn' },
           { icon: SiTensorflow, name: 'Tensorflow' },
           { icon: SiOpenaigym, name: 'OpenAI Gym' },
           { icon: HuggingFaceIcon, name: 'Hugging Face' },
           { icon: SiLangchain, name: 'LangChain' },
+          { icon: CrewAI, name: 'CrewAI' },
         ]}
       />
       <SkillCategory
