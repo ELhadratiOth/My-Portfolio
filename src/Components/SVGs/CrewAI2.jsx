@@ -1,12 +1,11 @@
-import CrewAI1 from '../../assets/crewai1.png';
+import CrewAI from '../../assets/CrewAI.png';
 
+// eslint-disable-next-line react/prop-types
 const CIcon = () => {
   return (
-    <div className="relative top-0  w-14 ">
-      <div
-        className={`absolute -top-0 transition-opacity duration-300 -mt-3 `}
-      >
-        <img src={CrewAI1} alt="CrewAI Default" className="w-14 h-6" />
+    <div className="relative top-0  w-8  p-0  ">
+      <div className={`absolute -top-0 transition-opacity duration-300 `}>
+        <img src={CrewAI} alt="CrewAI Default" className="w-8 h-8" />
       </div>
     </div>
   );

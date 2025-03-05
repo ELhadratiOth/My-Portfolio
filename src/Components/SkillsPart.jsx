@@ -40,7 +40,7 @@ import HuggingFaceIcon from './SVGs/HuggingFaceIcon';
 import PowerBIIcon from './SVGs/PowerAutomateIcon';
 import { motion } from 'framer-motion';
 import CIcon from './SVGs/Ccompo';
-import CrewAI from './SVGs/CrewAI2';
+import CrewAI from './SVGs/CrewAI';
 
 const SkillCategory = ({ category, skills }) => (
   <motion.div

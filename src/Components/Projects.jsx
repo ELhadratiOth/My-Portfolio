@@ -27,7 +27,9 @@ import { SiLangchain } from 'react-icons/si';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
-import CrewAI from './SVGs/CrewAI';
+import CrewAI2 from './SVGs/CrewAI2';
+import MemoAI from './SVGs/Mem0ai';
+import AgentOps from './SVGs/AgentOps';
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import MedicalOffice from '../assets/MedicalOffice.png';
@@ -47,7 +49,7 @@ const data = [
   {
     id: 13,
     serviceName: 'Portfolio Multi-Agentic ChatBot',
-    tools: [CrewAI, SiFastapi, ],
+    tools: [CrewAI2, SiFastapi, MemoAI , AgentOps],
     link: 'https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent',
     imgUrl: PortfolioChatBotArchi,
   },
