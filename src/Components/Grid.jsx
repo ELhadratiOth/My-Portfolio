@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { motion } from 'framer-motion';
-import { FaGithub } from 'react-icons/fa6';
+import { FaGithub, FaYoutube } from 'react-icons/fa6';
 
 const BouncyCardsFeatures = ({ data }) => {
   return (
-    <section className="w-full  text-slate-800 ">
+    <section className="w-full text-slate-800 ">
       <div className="grid grid-cols-12 gap-5">
         {data.map((item, index) => (
           <BounceCard
@@ -36,33 +36,45 @@ const BounceCard = ({ className, data }) => {
         scale: 0.95,
         transition: { duration: 0.4 },
       }}
-      className={`group hover:shadow-shad2  relative space-y-4 text-white h-48 cursor-pointer overflow-hidden rounded-2xl backdrop-blur-[2px] bg-primary3/35  md:py-8 px-5 ${className}`}
+      className={`group hover:shadow-shad2  relative space-y-4 text-white h-48 cursor-pointer overflow-hidden rounded-2xl backdrop-blur-[2px] bg-primary3/35  md:py-8 px-1.5 ${className}`}
     >
-      <div className="mx-auto  group-hover:md:text-2xl  group-hover:text-xl  text-xl text-center   md:text-2xl font-semibold">
-        <h1 className="group-hover:md:-translate-y-3 pt-4  md:pt-0  transition-all duration-500 ">
+      <div className="mx-auto text-xl font-semibold text-center group-hover:md:text-2xl group-hover:text-xl md:text-2xl">
+        <h1 className="pt-4 transition-all duration-500  group-hover:md:-translate-y-3 md:pt-0 ">
           {data.serviceName}
         </h1>
       </div>
       <div className="flex flex-col items-center">
-        <div className="flex w-fit self-center space-x-3">
+        <div className="flex self-center space-x-3 w-fit">
           {data.tools.map((Tool, i) => (
             <Tool
               key={`${data.serviceName}-${i}`}
-              className="text-2xl  md:text-3xl"
+              className="text-2xl md:text-3xl"
             />
           ))}
         </div>
         {data.link && (
-          <div className="self-start absolute bottom-2 left-6 opacity-0 group-hover:opacity-100   duration-700 transition-all w-max z-20 rotate-[1deg]">
-            <a
-              href={data.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-primary5 to-primary3 px-5 py-1.5 mt-4 rounded-full border border-white hover:scale-105 hover:border-gray-800 hover:from-primary3 hover:to-primary5 transition-all duration-500"
-            >
-              <FaGithub className="font-bold  text-base md:text-xl" />
-              Check it
-            </a>
+          <div className="self-start absolute bottom-2 left-6 opacity-0 group-hover:opacity-100   duration-700 transition-all w-max z-20 rotate-[1deg] ">
+            {data.link.includes('github.com') ? (
+              <a
+                href={data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-primary5 to-primary3 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-primary3 hover:to-primary5 transition-colors duration-500"
+              >
+                <FaGithub className="text-base font-bold md:text-xl" />
+                Check it
+              </a>
+            ) : (
+              <a
+                href={data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-red-800 to-red-600 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-red-600 hover:to-red-800 transition-colors duration-500"
+              >
+                <FaYoutube className="mt-0.5 text-base font-bold md:text-2xl" />
+                Check it
+              </a>
+            )}
           </div>
         )}
       </div>

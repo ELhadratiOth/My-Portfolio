@@ -20,8 +20,8 @@ import { FaAws } from 'react-icons/fa6';
 import { SiApachekafka } from 'react-icons/si';
 import { SiApachehive } from 'react-icons/si';
 import { SiApachehadoop } from 'react-icons/si';
-import { DiRedis } from "react-icons/di";
-import { SiMongodb } from "react-icons/si";
+import { DiRedis } from 'react-icons/di';
+import { SiMongodb } from 'react-icons/si';
 import { SiScikitlearn } from 'react-icons/si';
 import { SiLangchain } from 'react-icons/si';
 
@@ -30,6 +30,9 @@ import Scoop from './SVGs/Sqoop';
 import CrewAI2 from './SVGs/CrewAI2';
 import MemoAI from './SVGs/Mem0ai';
 import AgentOps from './SVGs/AgentOps';
+import Qdrant from './SVGs/Qdrant.jsx';
+import LlamaIndex from './SVGs/LlamaIndex2.jsx';
+
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import MedicalOffice from '../assets/MedicalOffice.png';
@@ -40,25 +43,19 @@ import WeatherAppImg from '../assets/WeatherApp.png';
 import HotelLandingPageImg from '../assets/HotelLandingPage.png';
 import PurshaseApp from '../assets/PurshaseApp.jfif';
 import CreditCardPipline from '../assets/CreditCardPipline.png';
-import Sqooparchi from '../assets/sqooparchi.png'; 
+import Sqooparchi from '../assets/sqooparchi.png';
 import DarijaUI from '../assets/DarijaUI.png';
 import ShardedDB from '../assets/ShardedDB.png';
 import ChatBot from '../assets/ChatBotArchi.png';
 import PortfolioChatBotArchi from '../assets/PortfolioChatBotArchi.png';
+import Hociematy from '../assets/Hociematy.png';
 const data = [
   {
     id: 13,
     serviceName: 'Portfolio Multi-Agentic ChatBot',
-    tools: [CrewAI2, SiFastapi, MemoAI , AgentOps],
+    tools: [CrewAI2, SiFastapi, MemoAI, AgentOps, Qdrant],
     link: 'https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent',
     imgUrl: PortfolioChatBotArchi,
-  },
-  {
-    id: 12,
-    serviceName: 'Darija Sentiment Analysis',
-    tools: [SiFastapi, FaAws, FaReact, SiScikitlearn],
-    link: 'https://github.com/ELhadratiOth/BlaBla-BDarija-Sentiment-Analysis.git',
-    imgUrl: DarijaUI,
   },
   {
     id: 13,
@@ -67,6 +64,21 @@ const data = [
     link: 'https://github.com/ELhadratiOth/ENSAH-ChatBot-RAG-APP.git',
     imgUrl: ChatBot,
   },
+  {
+    id: 14,
+    serviceName: 'Al Hoceima Guide AI Chatbot',
+    tools: [LlamaIndex, SiFastapi, SiMysql, Qdrant],
+    link: 'https://www.youtube.com/watch?v=B2g1hhIHui8',
+    imgUrl: Hociematy,
+  },
+  {
+    id: 12,
+    serviceName: 'Darija Sentiment Analysis',
+    tools: [SiFastapi, FaAws, FaReact, SiScikitlearn],
+    link: 'https://github.com/ELhadratiOth/BlaBla-BDarija-Sentiment-Analysis.git',
+    imgUrl: DarijaUI,
+  },
+
   {
     id: 8,
     serviceName: 'Credit Card Fraud Detection Pipline',
@@ -182,7 +194,7 @@ export default function Projects() {
       <Transition key={1} />
       <div
         key={2}
-        className="cursor-custom relative  flex flex-col mb-10 md:mb-20 space-y-14 items-center md:w-3/5 md:pr-28 w-full h-full md:h-full mt-16 md:mt-0 pt-12 md:pt-24 ml-20"
+        className="relative flex flex-col items-center w-full h-full pt-12 mt-16 mb-10 ml-20 cursor-custom md:mb-20 space-y-14 md:w-3/5 md:pr-28 md:h-full md:mt-0 md:pt-24"
       >
         <SecName secName="Projects">
           <GrProjects />
@@ -191,7 +203,7 @@ export default function Projects() {
           initial="hidden"
           animate="show"
           variants={staggerContainer}
-          className="space-y-3  self-start flex justify-center flex-col items-start"
+          className="flex flex-col items-start self-start justify-center space-y-3"
         >
           <div className="text-white self-start text-4xl w-80 md:w-full md:text-4xl uppercase backdrop-blur-[3px]">
             Take a look at
