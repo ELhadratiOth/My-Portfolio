@@ -361,10 +361,8 @@ export default function ChatBot() {
                     <div
                       className={` text-wrap p-3 rounded-2xl text-[0.8rem] ring-2 shadow-md ${
                         message.isBot
-                          ? 'bg-[#222248] w-[90%] text-white ring-primary5 '
-                          : message.isVoice
-                          ? 'bg-gradient-to-r from-purple-600 to-blue-600 w-[75%] text-white ring-purple-400 ring-2'
-                          : 'bg-gradient-to-r from-purple-600 to-blue-600 w-[75%] text-white ring-purple-400 ring-2'
+                          ? 'bg-primary5 w-[90%] text-white ring-gray-600 '
+                          : 'bg-gradient-to-r from-primary4 to-primary5 w-[75%] text-white ring-gray-500 ring-2'
                       }`}
                     >
                       {message.isVoice ? (
@@ -385,7 +383,7 @@ export default function ChatBot() {
                         </p>
                       ) : (
                         <div className="flex items-center space-x-3">
-                          <BsCardText className="w-5 h-5 text-white animate-pulse" />
+                          <BsCardText className="w-7 h-7 text-white animate-pulse" />
                           <div className="flex flex-col">
                             <p className="text-sm ">
                               <TextWithLinks text={message.text} />
