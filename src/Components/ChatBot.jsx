@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { IoMdClose, IoMdInformationCircle } from 'react-icons/io';
 import { LuSendHorizontal } from 'react-icons/lu';
-import { FaMicrophone, FaStop } from 'react-icons/fa';
+import { HiMicrophone, HiStop } from 'react-icons/hi2';
+import { BsWaveform } from 'react-icons/bs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VscDebugBreakpointConditionalUnverified } from 'react-icons/vsc';
 
@@ -89,7 +90,15 @@ export default function ChatBot() {
       setIsSending(true);
       setMessages(prev => [
         ...prev,
-        { text: '🎤 Voice message', isBot: false },
+        {
+          text: 'Voice Message',
+          isBot: false,
+          isVoice: true,
+          timestamp: new Date().toLocaleTimeString([], {
+            hour: '2-digit',
+            minute: '2-digit',
+          }),
+        },
       ]);
 
       const timeoutPromise = new Promise((_, reject) =>
@@ -339,15 +348,49 @@ export default function ChatBot() {
                     }`}
                   >
                     <div
-                      className={` text-wrap p-3 rounded-2xl text-[0.8rem] ring-2 ring-primary5 shadow-md ${
+                      className={` text-wrap p-3 rounded-2xl text-[0.8rem] ring-2 shadow-md ${
                         message.isBot
                           ? 'bg-[#222248] w-[90%] text-white ring-primary5 '
+                          : message.isVoice
+                          ? 'bg-gradient-to-r from-purple-600 to-blue-600 w-[75%] text-white ring-purple-400 ring-2'
                           : 'bg-[#8080ff] w-[75%] text-white ring-primary3 '
                       }`}
                     >
-                      <p className="text-sm ">
-                        <TextWithLinks text={message.text} />
-                      </p>
+                      {message.isVoice ? (
+                        <div className="flex items-center space-x-3">
+                          <div className="flex items-center space-x-2">
+                            <BsWaveform className="w-5 h-5 text-white animate-pulse" />
+                            <div className="flex space-x-1">
+                              {[...Array(5)].map((_, i) => (
+                                <motion.div
+                                  key={i}
+                                  className="w-1 bg-white rounded-full"
+                                  animate={{
+                                    height: [8, 16, 12, 20, 8],
+                                  }}
+                                  transition={{
+                                    duration: 1.2,
+                                    repeat: Infinity,
+                                    delay: i * 0.1,
+                                  }}
+                                />
+                              ))}
+                            </div>
+                          </div>
+                          <div className="flex flex-col">
+                            <span className="text-sm font-medium">
+                              {message.text}
+                            </span>
+                            <span className="text-xs opacity-75">
+                              {message.timestamp}
+                            </span>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="text-sm ">
+                          <TextWithLinks text={message.text} />
+                        </p>
+                      )}
                     </div>
                   </motion.div>
                 ))}
@@ -395,21 +438,66 @@ export default function ChatBot() {
                   placeholder="Type your message..."
                   className="flex-1 bg-[#1a1a3a] w-14 text-white placeholder-gray-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8080ff]"
                 />
-                <button
+                <motion.button
                   onClick={isRecording ? stopRecording : startRecording}
                   disabled={isSending}
-                  className={`p-2 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                  className={`relative p-3 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed ${
                     isRecording
-                      ? 'bg-red-600 text-white hover:bg-red-700'
-                      : 'bg-green-600 text-white hover:bg-green-700'
+                      ? 'bg-red-500 text-white shadow-lg shadow-red-500/30 hover:bg-red-600'
+                      : 'bg-gradient-to-r from-purple-600 to-blue-600 text-white shadow-lg shadow-purple-500/30 hover:from-purple-700 hover:to-blue-700'
                   }`}
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  animate={
+                    isRecording
+                      ? {
+                          boxShadow: [
+                            '0 0 0 0 rgba(239, 68, 68, 0.4)',
+                            '0 0 0 10px rgba(239, 68, 68, 0)',
+                            '0 0 0 0 rgba(239, 68, 68, 0.4)',
+                          ],
+                        }
+                      : {}
+                  }
+                  transition={{
+                    boxShadow: { duration: 1.5, repeat: Infinity },
+                    scale: { duration: 0.2 },
+                  }}
                 >
                   {isRecording ? (
-                    <FaStop className="w-7 h-7" />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0 }}
+                      className="flex items-center justify-center"
+                    >
+                      <HiStop className="w-6 h-6" />
+                    </motion.div>
                   ) : (
-                    <FaMicrophone className="w-7 h-7" />
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      exit={{ scale: 0 }}
+                      className="flex items-center justify-center"
+                    >
+                      <HiMicrophone className="w-6 h-6" />
+                    </motion.div>
                   )}
-                </button>
+
+                  {isRecording && (
+                    <motion.div
+                      className="absolute inset-0 rounded-full border-2 border-red-300"
+                      animate={{
+                        scale: [1, 1.3, 1],
+                        opacity: [1, 0, 1],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                      }}
+                    />
+                  )}
+                </motion.button>
                 <button
                   onClick={chatRequest}
                   disabled={!input.trim() || isSending}
