@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { IoMdClose, IoMdInformationCircle } from 'react-icons/io';
 import { LuSendHorizontal } from 'react-icons/lu';
+import { FaMicrophone, FaStop } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VscDebugBreakpointConditionalUnverified } from 'react-icons/vsc';
 
@@ -22,6 +23,9 @@ export default function ChatBot() {
   const [isSending, setIsSending] = useState(false);
   const chatContainerRef = useRef(null);
   const [showCapabilities, setShowCapabilities] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [mediaRecorder, setMediaRecorder] = useState(null);
+  const mediaRecorderRef = useRef(null);
 
   const reduceTextSize = () => {
     setIsOpening(false);
@@ -74,6 +78,93 @@ export default function ChatBot() {
       }
     } finally {
       setIsSending(false);
+    }
+  };
+
+  const sendVoiceMessage = async audioBlob => {
+    const formData = new FormData();
+    formData.append('audio_file', audioBlob, 'audio.wav');
+
+    try {
+      setIsSending(true);
+      setMessages(prev => [
+        ...prev,
+        { text: '🎤 Voice message', isBot: false },
+      ]);
+
+      const timeoutPromise = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Request timed out')), 120000),
+      );
+
+      const response = await Promise.race([
+        API.post(`/voice-chat`, formData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }),
+        timeoutPromise,
+      ]);
+
+      setMessages(prev => [
+        ...prev,
+        { text: response.data.response, isBot: true },
+      ]);
+    } catch (error) {
+      console.error('Error sending voice message:', error);
+      if (error.message === 'Request timed out') {
+        setMessages(prev => [
+          ...prev,
+          {
+            text: 'Sorry, the voice request timed out. Please try again!',
+            isBot: true,
+          },
+        ]);
+      } else {
+        setMessages(prev => [
+          ...prev,
+          {
+            text: 'Sorry, there was an error processing your voice message.',
+            isBot: true,
+          },
+        ]);
+      }
+    } finally {
+      setIsSending(false);
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const recorder = new MediaRecorder(stream);
+      const audioChunks = [];
+
+      recorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+      };
+
+      recorder.onstop = () => {
+        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        sendVoiceMessage(audioBlob);
+        stream.getTracks().forEach(track => track.stop());
+      };
+
+      mediaRecorderRef.current = recorder;
+      setMediaRecorder(recorder);
+      setIsRecording(true);
+      recorder.start();
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+      alert('Unable to access microphone. Please check your permissions.');
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorderRef.current && isRecording) {
+      mediaRecorderRef.current.stop();
+      setIsRecording(false);
+      setMediaRecorder(null);
     }
   };
 
@@ -304,6 +395,21 @@ export default function ChatBot() {
                   placeholder="Type your message..."
                   className="flex-1 bg-[#1a1a3a] w-14 text-white placeholder-gray-400 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#8080ff]"
                 />
+                <button
+                  onClick={isRecording ? stopRecording : startRecording}
+                  disabled={isSending}
+                  className={`p-2 rounded-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed ${
+                    isRecording
+                      ? 'bg-red-600 text-white hover:bg-red-700'
+                      : 'bg-green-600 text-white hover:bg-green-700'
+                  }`}
+                >
+                  {isRecording ? (
+                    <FaStop className="w-7 h-7" />
+                  ) : (
+                    <FaMicrophone className="w-7 h-7" />
+                  )}
+                </button>
                 <button
                   onClick={chatRequest}
                   disabled={!input.trim() || isSending}
