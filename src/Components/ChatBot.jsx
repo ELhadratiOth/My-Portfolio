@@ -383,7 +383,7 @@ export default function ChatBot() {
                         </p>
                       ) : (
                         <div className="flex items-center space-x-3">
-                          <BsCardText className="w-7 h-7 text-white animate-pulse" />
+                          <BsCardText className="w-5 h-5 text-white animate-pulse" />
                           <div className="flex flex-col">
                             <p className="text-sm ">
                               <TextWithLinks text={message.text} />
