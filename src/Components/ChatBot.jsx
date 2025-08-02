@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { IoMdClose, IoMdInformationCircle } from 'react-icons/io';
-import { RiRobot3Fill } from 'react-icons/ri';
 import { LuSendHorizontal } from 'react-icons/lu';
-import { LuMessageCircle } from 'react-icons/lu';
 import { motion, AnimatePresence } from 'framer-motion';
 import { VscDebugBreakpointConditionalUnverified } from 'react-icons/vsc';
 
 import API from '../API';
 import TextWithLinks from './TextWithLinks';
+import OrbChatButton from './OrbChatButton';
+import OrbHeader from './OrbHeader';
 
 export default function ChatBot() {
   const [isOpening, setIsOpening] = useState(true);
@@ -168,17 +168,24 @@ export default function ChatBot() {
           }}
           className={`${
             isOpening ? ' ' : ''
-          }bg-primary3 flex justify-center items-center group hover:bg-primary5 text-white p-4 rounded-full shadow-lg transition-all duration-300`}
+          }bg-primary3 flex justify-center items-center group hover:bg-primary5 text-white p-2 rounded-full shadow-lg transition-all duration-300`}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <LuMessageCircle className="w-6 h-6 md:w-9 md:h-9 transition-all duration-500" />
+          <div className="w-10 h-10 md:w-14 md:h-14  transition-all duration-500">
+            <OrbChatButton
+              size={24}
+              hoverIntensity={0.5}
+              rotateOnHover={true}
+              forceHoverState={false}
+            />
+          </div>
           <p
             className={`${
               isOpening
                 ? 'text-sm md:text-base ml-3 md:ml-4'
                 : 'text-[0rem] ml-0'
-            } transition-all duration-500 md:group-hover:text-base md:group-hover:ml-4 group-hover:ml-2 group-hover:text-sm hover:md:text-base font-semibold`}
+            } transition-all duration-500 md:group-hover:text-lg md:group-hover:ml-2 group-hover:ml-2 group-hover:text-sm hover:md:text-base font-semibold`}
           >
             Chat With Me
           </p>
@@ -193,8 +200,15 @@ export default function ChatBot() {
             className="backdrop-blur-[15px] bg-black/70 border border-[#2a2a4a] rounded-2xl shadow-shad2 w-[320px] h-[550px] md:w-[430px] md:h-[500px] flex flex-col"
           >
             <div className="flex items-center justify-between p-4 border-b border-[#3a3a93]">
-              <div className="flex items-center space-x-3">
-                <RiRobot3Fill className="w-6 h-6 text-[#8080ff]" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-11 h-11">
+                  <OrbHeader
+                    size={10}
+                    hoverIntensity={0.3}
+                    rotateOnHover={true}
+                    forceHoverState={false}
+                  />
+                </div>
                 <span className="text-primary1 text-lg font-semibold font-mono">
                   AI Assistant
                 </span>

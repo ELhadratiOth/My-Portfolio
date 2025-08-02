@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { motion } from 'framer-motion';
-import { FaGithub, FaYoutube } from 'react-icons/fa6';
+import { FaGithub, FaYoutube, FaLinkedin } from 'react-icons/fa6';
 
 const BouncyCardsFeatures = ({ data }) => {
   return (
@@ -25,10 +25,10 @@ const BouncyCardsFeatures = ({ data }) => {
 const BounceCard = ({ className, data }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 100, filter: 'blur(10px)' }}
+      initial={{ opacity: 0, y: 100, filter: 'blur(10px)' }}
       whileInView={{
         opacity: 1,
-        x: 0,
+        y: 0,
         filter: 'blur(0px)',
         transition: { duration: 0.7, delay: 0.2 },
       }}
@@ -61,7 +61,17 @@ const BounceCard = ({ className, data }) => {
                 rel="noopener noreferrer"
                 className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-primary5 to-primary3 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-primary3 hover:to-primary5 transition-colors duration-500"
               >
-                <FaGithub className="text-base font-bold md:text-xl" />
+                <FaGithub className="text-base font-bold md:text-xl mt-0.5" />
+                Check it
+              </a>
+            ) : data.link.includes('linkedin.com') ? (
+              <a
+                href={data.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-blue-600 hover:to-blue-800 transition-colors duration-500"
+              >
+                <FaLinkedin className="text-base font-bold md:text-xl mt-0.5" />
                 Check it
               </a>
             ) : (
@@ -71,7 +81,7 @@ const BounceCard = ({ className, data }) => {
                 rel="noopener noreferrer"
                 className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-red-800 to-red-600 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-red-600 hover:to-red-800 transition-colors duration-500"
               >
-                <FaYoutube className="mt-0.5 text-base font-bold md:text-2xl" />
+                <FaYoutube className=" text-base font-bold md:text-2xl mt-0" />
                 Check it
               </a>
             )}

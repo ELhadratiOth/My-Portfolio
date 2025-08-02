@@ -4,6 +4,7 @@ import { GrProjects } from 'react-icons/gr';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
 import Grid from './Grid';
+import TextType from './TextType';
 import { FaHtml5, FaReact, FaPython } from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
@@ -24,6 +25,10 @@ import { DiRedis } from 'react-icons/di';
 import { SiMongodb } from 'react-icons/si';
 import { SiScikitlearn } from 'react-icons/si';
 import { SiLangchain } from 'react-icons/si';
+import { SiSpringboot } from 'react-icons/si';
+import { SiSpringsecurity } from 'react-icons/si';
+import { DiSpark } from 'react-icons/di';
+import { IoMdAnalytics } from 'react-icons/io';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
@@ -32,6 +37,8 @@ import MemoAI from './SVGs/Mem0ai';
 import AgentOps from './SVGs/AgentOps';
 import Qdrant from './SVGs/Qdrant.jsx';
 import LlamaIndex from './SVGs/LlamaIndex2.jsx';
+import Unsloth from './SVGs/Unsloth';
+
 
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
@@ -49,132 +56,10 @@ import ShardedDB from '../assets/ShardedDB.png';
 import ChatBot from '../assets/ChatBotArchi.png';
 import PortfolioChatBotArchi from '../assets/PortfolioChatBotArchi.png';
 import Hociematy from '../assets/Hociematy.png';
-const data = [
-  {
-    id: 13,
-    serviceName: 'Portfolio Multi-Agentic ChatBot',
-    tools: [CrewAI2, SiFastapi, MemoAI, AgentOps, Qdrant],
-    link: 'https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent',
-    imgUrl: PortfolioChatBotArchi,
-  },
-  {
-    id: 13,
-    serviceName: 'ENSAH conversational ChatBot',
-    tools: [SiFastapi, SiLangchain, SiStreamlit, SiMongodb, FaDocker],
-    link: 'https://github.com/ELhadratiOth/ENSAH-ChatBot-RAG-APP.git',
-    imgUrl: ChatBot,
-  },
-  {
-    id: 14,
-    serviceName: 'Al Hoceima Guide AI Chatbot',
-    tools: [LlamaIndex, SiFastapi, SiMysql, Qdrant],
-    link: 'https://www.youtube.com/watch?v=B2g1hhIHui8',
-    imgUrl: Hociematy,
-  },
-  {
-    id: 12,
-    serviceName: 'Darija Sentiment Analysis',
-    tools: [SiFastapi, FaAws, FaReact, SiScikitlearn],
-    link: 'https://github.com/ELhadratiOth/BlaBla-BDarija-Sentiment-Analysis.git',
-    imgUrl: DarijaUI,
-  },
-
-  {
-    id: 8,
-    serviceName: 'Credit Card Fraud Detection Pipline',
-    tools: [SiApachekafka, FaAws, FaReact],
-    link: 'https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git',
-    imgUrl: CreditCardPipline,
-  },
-  {
-    id: 11,
-    serviceName: 'MongoDB Shared Project',
-    tools: [SiApachekafka, FaReact, SiFastapi, DiRedis, SiMongodb],
-    link: 'https://github.com/ELhadratiOth/MongoDB_Sharded.git',
-    imgUrl: ShardedDB,
-  },
-  {
-    id: 10,
-    serviceName: 'Movies Pipeline',
-    tools: [FaAws, Scoop, SiApachehadoop, SiApachehive, SiMysql],
-    link: 'https://github.com/ELhadratiOth/Movies-Pipeline.git',
-    imgUrl: Sqooparchi,
-  },
-  {
-    id: 7,
-    serviceName: 'Medical Office',
-    tools: [
-      FaReact,
-      RiTailwindCssFill,
-      SiFastapi,
-      SiShadcnui,
-      SiMysql,
-      FaDocker,
-    ],
-    link: 'https://github.com/ELhadratiOth/Cabinet-Medical.git',
-    imgUrl: MedicalOffice,
-  },
-
-  {
-    id: 2,
-    serviceName: 'GitHub Analyser',
-    tools: [FaPython, SiStreamlit],
-    link: 'https://github.com/ELhadratiOth/GitTrendAnalyz',
-    imgUrl: GitHubAnalyserImg,
-  },
-
-  {
-    id: 8,
-    serviceName: 'Jumia Pipline',
-    tools: [BiLogoPostgresql, FaPython],
-    link: 'https://github.com/ELhadratiOth/Jumia-Pipeline.git',
-    imgUrl: JumiaPipelineImg,
-  },
-  {
-    id: 4,
-    serviceName: 'Youtube Video Downloader',
-    tools: [FaHtml5, IoLogoCss3, IoLogoJavascript, SiFlask],
-    link: 'https://github.com/ELhadratiOth/Youtube-video-Downloader',
-    imgUrl: YoutubeVideoDownloaderImg,
-  },
-  {
-    id: 9,
-    serviceName: 'SpotiFy Pipeline',
-    tools: [FaAws, FaPython],
-    link: 'https://github.com/ELhadratiOth/Spotify-ETL-AWS-.git',
-    imgUrl: SpotifyPipelineImg,
-  },
-  {
-    id: 1,
-    serviceName: 'PortFolio',
-    tools: [FaReact, TbBrandFramerMotion, RiTailwindCssFill],
-    link: 'https://github.com/ELhadratiOth/My-PortFolio',
-    imgUrl: PortFolioImg,
-  },
-
-  {
-    id: 6,
-    serviceName: 'Hotel Landing Page',
-    tools: [FaHtml5, IoLogoCss3],
-    link: 'https://github.com/ELhadratiOth/CR7-Hotel-Project',
-    imgUrl: HotelLandingPageImg,
-  },
-  {
-    id: 3,
-    serviceName: 'Weather APP',
-    tools: [FaPython],
-    link: 'https://github.com/ELhadratiOth/WeatherApp',
-    imgUrl: WeatherAppImg,
-  },
-
-  {
-    id: 5,
-    serviceName: 'Purchasing Management',
-    tools: [Ccompo],
-    link: 'https://github.com/ELhadratiOth/C-Project',
-    imgUrl: PurshaseApp,
-  },
-];
+import AnnotationPlatform from '../assets/AnnotationPlatform.png';
+import TelecomPipeline from '../assets/TelecomPipeline.png';
+import AIPodcastGenerator from '../assets/AIPodcastGenerator.png';
+import projectsData from '../data/projects.json';
 
 const staggerContainer = {
   hidden: { opacity: 0, x: 100 },
@@ -188,7 +73,102 @@ const staggerContainer = {
   },
 };
 
+const projectTypeConfig = {
+  ai: {
+    title: 'AI & Machine Learning',
+    subtitle: 'Intelligent Solutions',
+    color: 'text-green-400',
+  },
+  data: {
+    title: 'Data Engineering',
+    subtitle: 'Pipeline & Analytics',
+    color: 'text-blue-400',
+  },
+  dev: {
+    title: 'Web Development',
+    subtitle: 'Frontend & Backend',
+    color: 'text-purple-400',
+  },
+};
+
 export default function Projects() {
+  // Tool mapping from string names to actual components
+  const toolMapping = {
+    CrewAI2,
+    SiFastapi,
+    MemoAI,
+    AgentOps,
+    Qdrant,
+    SiLangchain,
+    SiStreamlit,
+    SiMongodb,
+    FaDocker,
+    LlamaIndex,
+    SiMysql,
+    SiScikitlearn,
+    FaAws,
+    FaReact,
+    SiApachekafka,
+    DiRedis,
+    Scoop,
+    SiApachehadoop,
+    SiApachehive,
+    FaPython,
+    BiLogoPostgresql,
+    FaHtml5,
+    IoLogoCss3,
+    IoLogoJavascript,
+    SiFlask,
+    TbBrandFramerMotion,
+    RiTailwindCssFill,
+    SiShadcnui,
+    Ccompo,
+    SiSpringboot,
+    SiSpringsecurity,
+    DiSpark,
+    IoMdAnalytics,
+    Unsloth
+  };
+
+  // Image mapping from string names to actual imports
+  const imageMapping = {
+    PortfolioChatBotArchi,
+    ChatBot,
+    Hociematy,
+    DarijaUI,
+    CreditCardPipline,
+    ShardedDB,
+    Sqooparchi,
+    GitHubAnalyserImg,
+    JumiaPipelineImg,
+    SpotifyPipelineImg,
+    MedicalOffice,
+    YoutubeVideoDownloaderImg,
+    PortFolioImg,
+    HotelLandingPageImg,
+    WeatherAppImg,
+    PurshaseApp,
+    AnnotationPlatform,
+    TelecomPipeline,
+    AIPodcastGenerator,
+  };
+
+  // Transform the JSON data to use actual components and images
+  const data = projectsData.projects.map(project => ({
+    ...project,
+    tools: project.tools.map(toolName => toolMapping[toolName]).filter(Boolean),
+    imgUrl: imageMapping[project.imgUrl],
+  }));
+
+  const groupedProjects = data.reduce((acc, project) => {
+    const type = project.project_type;
+    if (!acc[type]) {
+      acc[type] = [];
+    }
+    acc[type].push(project);
+    return acc;
+  }, {});
+
   return (
     <AnimatePresence mode="wait">
       <Transition key={1} />
@@ -205,12 +185,58 @@ export default function Projects() {
           variants={staggerContainer}
           className="flex flex-col items-start self-start justify-center space-y-3"
         >
-          <div className="text-white self-start text-4xl w-80 md:w-full md:text-4xl uppercase backdrop-blur-[3px]">
+          <div className="text-white self-start text-4xl w-80 md:w-full md:text-5xl uppercase backdrop-blur-[3px] font-semibold">
             Take a look at
             <span className="text-primary3"> My Work</span>
           </div>
         </motion.div>
-        <Grid data={data} />
+
+        {/* Render sections by project type */}
+        <div className="w-full space-y-16">
+          {Object.entries(groupedProjects).map(([type, projects], index) => {
+            const config = projectTypeConfig[type];
+            return (
+              <motion.div
+                key={type}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                className="w-full space-y-6"
+              >
+                {/* Section Header */}
+                <div className="flex flex-col space-y-2">
+                  <TextType
+                    text={[config.title]}
+                    typingSpeed={75}
+                    pauseDuration={1500}
+                    showCursor={true}
+                    cursorCharacter="|"
+                    className={`text-3xl md:text-4xl font-medium ${config.color} uppercase tracking-wide`}
+                    startOnVisible={true}
+                    loop={false}
+                  />
+                  <motion.p
+                    className="text-gray-300 text-lg md:text-xl"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                  >
+                    {config.subtitle}
+                  </motion.p>
+                  <div
+                    className={`h-1 w-24 ${config.color.replace(
+                      'text-',
+                      'bg-',
+                    )} rounded-full`}
+                  ></div>
+                </div>
+
+                {/* Projects Grid for this section */}
+                <Grid data={projects} />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </AnimatePresence>
   );

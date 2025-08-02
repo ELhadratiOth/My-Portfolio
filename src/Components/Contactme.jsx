@@ -19,15 +19,18 @@ export default function Contact() {
   return (
     <AnimatePresence mode="wait">
       <Transition key={1} />
-      <div key={2} className="cursor-custom relative pt-20 flex flex-col space-y-14 mt-16 md:mt-0 items-center md:w-3/5  pl-10 pr-5 md:pl-0 w-full h-full md:h-screen md:pt-32 md:pb-0 pb-12 ">
+      <div
+        key={2}
+        className="cursor-custom relative pt-20 flex flex-col space-y-14 mt-16 md:mt-0 items-center md:w-3/5  pl-10 pr-5 md:pl-0 w-full h-full md:h-screen md:pt-32 md:pb-0 pb-12 "
+      >
         <div className="self-start -mt-9 flex justify-start ">
           <SecName secName="Contact Me">
-            <MdOutlineAlternateEmail className='text-xl' />
+            <MdOutlineAlternateEmail className="text-xl" />
           </SecName>
         </div>
 
         <motion.div
-          className="text-white self-start text-4xl uppercase "
+          className="text-white self-start text-4xl w-80 md:w-full md:text-5xl uppercase backdrop-blur-[3px] font-semibold"
           initial="hidden"
           animate="show"
           variants={staggerContainer}
