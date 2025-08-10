@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { IoMdClose, IoMdInformationCircle, IoMdSend } from 'react-icons/io';
+import { IoMdClose, IoMdInformationCircle } from 'react-icons/io';
 import { LuSendHorizontal } from 'react-icons/lu';
 import { HiMicrophone, HiStop, HiPaperClip } from 'react-icons/hi2';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -24,11 +24,10 @@ import OrbHeader from './OrbHeader';
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
-  const [hasStartedChat, setHasStartedChat] = useState(false); // New state to track if chat has started
-  const [messages, setMessages] = useState([]); // Start with empty messages
+  const [hasStartedChat, setHasStartedChat] = useState(false);
+  const [messages, setMessages] = useState([]); 
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState([]);
   const chatContainerRef = useRef(null);
   const [showCapabilities, setShowCapabilities] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -43,13 +42,11 @@ export default function ChatBot() {
     if (!input.trim() || isSending) return;
 
     const currentInput = input;
-    setInput(''); // Clear input immediately like Namecheap
+    setInput('');
     setIsSending(true);
 
-    // If this is the first message, initialize the chat
     if (!hasStartedChat) {
       setHasStartedChat(true);
-      // Add welcome message first
       setMessages([
         {
           text: "Hey 👋, I'm Othman's AI ChatBot assistant. How can I help you today?",
@@ -62,7 +59,6 @@ export default function ChatBot() {
       ]);
     }
 
-    // Add user message with sending status
     setMessages(prev => [
       ...prev,
       {
@@ -72,7 +68,7 @@ export default function ChatBot() {
           hour: '2-digit',
           minute: '2-digit',
         }),
-        isSending: true, // Add sending status
+        isSending: true, 
       },
     ]);
 
@@ -92,7 +88,6 @@ export default function ChatBot() {
         timeoutPromise,
       ]);
 
-      // Remove sending status from user message and add bot response
       setMessages(prev => {
         const updatedMessages = [...prev];
         const lastMessageIndex = updatedMessages.length - 1;
@@ -117,7 +112,6 @@ export default function ChatBot() {
     } catch (error) {
       console.error('Error fetching ', error);
 
-      // Remove sending status and add error message
       setMessages(prev => {
         const updatedMessages = [...prev];
         const lastMessageIndex = updatedMessages.length - 1;
@@ -265,17 +259,6 @@ export default function ChatBot() {
       mediaRecorderRef.current.stop();
       setIsRecording(false);
     }
-  };
-
-  // File upload handler
-  const handleFileUpload = event => {
-    const files = Array.from(event.target.files);
-    setUploadedFiles(prev => [...prev, ...files]);
-  };
-
-  // Remove file from upload list
-  const removeFile = index => {
-    setUploadedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   useEffect(() => {
@@ -489,7 +472,7 @@ export default function ChatBot() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 10 }}
-          className="absolute bottom-20 right-0 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg shadow-lg mb-2 whitespace-nowrap"
+          className="absolute bottom-20 -left-40 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg shadow-lg mb-2 whitespace-nowrap"
         >
           <div className="text-sm font-medium">Need help?</div>
           <div className="text-xs opacity-90">Chat with our AI assistant</div>
@@ -509,10 +492,8 @@ export default function ChatBot() {
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.95 }}
         >
-          {/* Namecheap-inspired design with orb integration */}
           <div className="flex items-center justify-center p-3">
             <div className="relative">
-              {/* Three dots like Namecheap but with orb background */}
               <div className="absolute inset-0 w-12 h-12 rounded-full">
                 <OrbChatButton
                   size={12}
@@ -1019,13 +1000,6 @@ export default function ChatBot() {
                   title="Attach file"
                 >
                   <HiPaperClip className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                  <input
-                    type="file"
-                    multiple
-                    onChange={handleFileUpload}
-                    className="hidden"
-                    accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png,.gif"
-                  />
                 </motion.label>
 
                 <div className="flex-1 relative">
@@ -1123,35 +1097,6 @@ export default function ChatBot() {
                   )}
                 </motion.button>
               </div>
-
-              {/* File upload preview */}
-              {uploadedFiles.length > 0 && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3 }}
-                  className="mt-3 flex flex-wrap gap-2"
-                >
-                  {uploadedFiles.map((file, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center space-x-2 bg-primary1/20 text-primary1 px-3 py-1 rounded-full text-xs border border-primary1/30 backdrop-blur-sm"
-                    >
-                      <BsPaperclip className="w-3 h-3" />
-                      <span className="truncate max-w-[120px] font-myFont">
-                        {file.name}
-                      </span>
-                      <button
-                        onClick={() => removeFile(index)}
-                        className="text-primary1 hover:text-red-400 transition-colors"
-                      >
-                        <IoMdClose className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
-                </motion.div>
-              )}
 
               {/* Professional footer */}
               <div className="mt-3 text-xs text-gray-400 text-center font-myFont">
