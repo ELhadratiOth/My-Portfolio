@@ -509,7 +509,6 @@ export default function ChatBot() {
           controls={false}
         />
 
-
         {/* Play/Pause Button */}
         <motion.button
           onClick={togglePlayPause}
@@ -594,17 +593,6 @@ export default function ChatBot() {
     );
   };
 
-  const dotVariants = {
-    animate: custom => ({
-      y: [5, 0, -6, 0, 5],
-      transition: {
-        duration: 1.4,
-        repeat: Infinity,
-        delay: custom * 0.4,
-        ease: 'linear',
-      },
-    }),
-  };
   const capabilities = [
     {
       text: "Provide details about Othman's experience, and more",
@@ -965,53 +953,6 @@ export default function ChatBot() {
                         </div>
                       </motion.div>
                     ))}
-                    {isSending && (
-                      <motion.div
-                        key="typing"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.4 }}
-                        className="flex justify-start"
-                      >
-                        <div className="max-w-[60%] p-4 rounded-2xl bg-gray-900/90 backdrop-blur-sm border border-primary4/40 text-gray-100 shadow-lg flex items-center space-x-3">
-                          <div className="w-8 h-8 bg-primary1/20 rounded-full flex items-center justify-center">
-                            <motion.div
-                              animate={{ rotate: 360 }}
-                              transition={{
-                                duration: 2,
-                                repeat: Infinity,
-                                ease: 'linear',
-                              }}
-                              className="w-4 h-4 border-2 border-primary1 border-t-transparent rounded-full"
-                            />
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <span className="text-sm text-gray-300 font-myFont">
-                              AI is typing
-                            </span>
-                            <motion.span
-                              custom={0}
-                              variants={dotVariants}
-                              animate="animate"
-                              className="w-1 h-1 bg-primary1 rounded-full"
-                            />
-                            <motion.span
-                              custom={1}
-                              variants={dotVariants}
-                              animate="animate"
-                              className="w-1 h-1 bg-primary2 rounded-full"
-                            />
-                            <motion.span
-                              custom={2}
-                              variants={dotVariants}
-                              animate="animate"
-                              className="w-1 h-1 bg-primary3 rounded-full"
-                            />
-                          </div>
-                        </div>
-                      </motion.div>
-                    )}
                   </AnimatePresence>
                 </motion.div>
               ) : (
