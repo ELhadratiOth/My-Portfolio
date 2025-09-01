@@ -913,11 +913,7 @@ export default function ChatBot() {
                                     <span className="text-xs opacity-75">
                                       {message.timestamp}
                                     </span>
-                                    {message.isSending && (
-                                      <span className="text-xs animate-pulse">
-                                        Sending...
-                                      </span>
-                                    )}
+                                  
                                   </div>
                                 </div>
                               </div>
