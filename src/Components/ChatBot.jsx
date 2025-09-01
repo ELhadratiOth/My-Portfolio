@@ -1,21 +1,20 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useRef } from 'react';
 import { IoMdClose, IoMdInformationCircle } from 'react-icons/io';
 import { LuSendHorizontal } from 'react-icons/lu';
-import { HiMicrophone, HiStop, HiPaperClip } from 'react-icons/hi2';
+import { HiMicrophone, HiStop } from 'react-icons/hi2';
 import { motion, AnimatePresence } from 'framer-motion';
-import { VscDebugBreakpointConditionalUnverified } from 'react-icons/vsc';
 import { RiVoiceprintFill } from 'react-icons/ri';
+import { FaPlay, FaPause } from 'react-icons/fa';
+import { VscActivateBreakpoints } from 'react-icons/vsc';
+import { FiExternalLink } from 'react-icons/fi';
+
 import {
-  BsCardText,
   BsThreeDotsVertical,
   BsDownload,
-  BsPerson,
-  BsBell,
   BsFullscreen,
   BsFullscreenExit,
-  BsPaperclip,
 } from 'react-icons/bs';
-import { MdLogin, MdLogout } from 'react-icons/md';
 
 import API from '../API';
 import TextWithLinks from './TextWithLinks';
@@ -25,7 +24,7 @@ import OrbHeader from './OrbHeader';
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasStartedChat, setHasStartedChat] = useState(false);
-  const [messages, setMessages] = useState([]); 
+  const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isSending, setIsSending] = useState(false);
   const chatContainerRef = useRef(null);
@@ -33,10 +32,13 @@ export default function ChatBot() {
   const [isRecording, setIsRecording] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
   const [isMaximized, setIsMaximized] = useState(false);
-  const [notifications, setNotifications] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
+  const [showTooltip, setShowTooltip] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const mediaRecorderRef = useRef(null);
+
+  // Audio playback states
+  const [currentPlayingId, setCurrentPlayingId] = useState(null);
+  const audioRefs = useRef({});
 
   const chatRequest = async () => {
     if (!input.trim() || isSending) return;
@@ -47,16 +49,7 @@ export default function ChatBot() {
 
     if (!hasStartedChat) {
       setHasStartedChat(true);
-      setMessages([
-        {
-          text: "Hey 👋, I'm Othman's AI ChatBot assistant. How can I help you today?",
-          isBot: true,
-          timestamp: new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
-        },
-      ]);
+      setMessages([]);
     }
 
     setMessages(prev => [
@@ -68,7 +61,7 @@ export default function ChatBot() {
           hour: '2-digit',
           minute: '2-digit',
         }),
-        isSending: true, 
+        isSending: true,
       },
     ]);
 
@@ -148,31 +141,28 @@ export default function ChatBot() {
     const formData = new FormData();
     formData.append('audio_file', audioBlob, 'audio.wav');
 
+    // Create URL for audio playback
+    const audioUrl = URL.createObjectURL(audioBlob);
+    const messageId = Date.now().toString();
+
     try {
       setIsSending(true);
 
       // If this is the first message, initialize the chat
       if (!hasStartedChat) {
         setHasStartedChat(true);
-        // Add welcome message first
-        setMessages([
-          {
-            text: "Hey 👋, I'm Othman's AI ChatBot assistant. How can I help you today?",
-            isBot: true,
-            timestamp: new Date().toLocaleTimeString([], {
-              hour: '2-digit',
-              minute: '2-digit',
-            }),
-          },
-        ]);
+        setMessages([]);
       }
 
       setMessages(prev => [
         ...prev,
         {
+          id: messageId,
           text: 'Voice Message',
           isBot: false,
           isVoice: true,
+          audioUrl: audioUrl,
+          duration: 0, // Will be updated when audio loads
           timestamp: new Date().toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
@@ -231,23 +221,52 @@ export default function ChatBot() {
 
   const startRecording = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          echoCancellation: false,
+          noiseSuppression: false,
+          autoGainControl: false,
+          sampleRate: 44100,
+        },
+      });
+
+      // Check for supported MIME types
+      let mimeType = 'audio/webm';
+      if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+        mimeType = 'audio/webm;codecs=opus';
+      } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
+        mimeType = 'audio/mp4';
+      } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
+        mimeType = 'audio/ogg;codecs=opus';
+      }
+
+      const recorder = new MediaRecorder(stream, {
+        mimeType: mimeType,
+        audioBitsPerSecond: 128000,
+      });
+
       const audioChunks = [];
 
       recorder.ondataavailable = event => {
-        audioChunks.push(event.data);
+        if (event.data.size > 0) {
+          audioChunks.push(event.data);
+        }
       };
 
       recorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+        const audioBlob = new Blob(audioChunks, { type: mimeType });
+        console.log('Audio blob created:', {
+          size: audioBlob.size,
+          type: audioBlob.type,
+          chunks: audioChunks.length,
+        });
         sendVoiceMessage(audioBlob);
         stream.getTracks().forEach(track => track.stop());
       };
 
       mediaRecorderRef.current = recorder;
       setIsRecording(true);
-      recorder.start();
+      recorder.start(100); // Collect data every 100ms
     } catch (error) {
       console.error('Error accessing microphone:', error);
       alert('Unable to access microphone. Please check your permissions.');
@@ -270,19 +289,53 @@ export default function ChatBot() {
     }
   }, [messages, isSending]);
 
-  // Close settings dropdown when clicking outside
+  useEffect(() => {
+    if (!isOpen) {
+      const delayTimer = setTimeout(() => {
+        setShowTooltip(true);
+        const timer = setTimeout(() => {
+          setShowTooltip(false);
+        }, 5000);
+
+        return () => clearTimeout(timer);
+      }, 1000); // 1 second delay before showing tooltip
+
+      return () => clearTimeout(delayTimer);
+    } else {
+      // Ensure tooltip is hidden when chat is open
+      setShowTooltip(false);
+      setIsHovering(false);
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     const handleClickOutside = event => {
       if (showSettings && !event.target.closest('.settings-dropdown')) {
         setShowSettings(false);
       }
+      if (showCapabilities && !event.target.closest('.capabilities-window')) {
+        setShowCapabilities(false);
+      }
+    };
+
+    const handleKeyDown = event => {
+      if (event.key === 'Escape') {
+        if (showCapabilities) {
+          setShowCapabilities(false);
+        }
+        if (showSettings) {
+          setShowSettings(false);
+        }
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [showSettings]);
+  }, [showSettings, showCapabilities]);
 
   const handleKeyPress = e => {
     if (e.key === 'Enter') {
@@ -297,7 +350,6 @@ export default function ChatBot() {
     }
   };
 
-  // New utility functions for advanced features
   const downloadTranscript = () => {
     const transcript = messages
       .map(msg => {
@@ -324,83 +376,222 @@ export default function ChatBot() {
     setIsMaximized(!isMaximized);
   };
 
-  const handleLogin = () => {
-    // Simple mock login - in real app this would integrate with auth system
-    const email = prompt('Enter your email to login:');
-    if (email && email.includes('@')) {
-      setUserEmail(email);
-      setIsLoggedIn(true);
-      setMessages(prev => [
-        ...prev,
-        {
-          text: `Welcome back ${
-            email.split('@')[0]
-          }! You're now logged in for a personalized experience.`,
-          isBot: true,
-          timestamp: new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
-        },
-      ]);
-    }
-  };
+  // VoiceMessage Component
+  const VoiceMessage = ({ message, isBot }) => {
+    const [isPlaying, setIsPlaying] = useState(false);
+    const [currentTime, setCurrentTime] = useState(0);
+    const [duration, setDuration] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+    const audioRef = useRef(null);
+    const messageId = message.id || `voice-${Date.now()}`;
 
-  const handleLogout = () => {
-    setIsLoggedIn(false);
-    setUserEmail('');
-    setMessages(prev => [
-      ...prev,
-      {
-        text: "You've been logged out. Feel free to continue our conversation!",
-        isBot: true,
-        timestamp: new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-      },
-    ]);
-  };
+    useEffect(() => {
+      const audio = audioRef.current;
+      if (!audio) return;
 
-  const provideContactDetails = () => {
-    const details = prompt('Enter your contact details (name, email, phone):');
-    if (details && details.trim()) {
-      setMessages(prev => [
-        ...prev,
-        {
-          text: `Contact details received: ${details}`,
-          isBot: false,
-          timestamp: new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
-        },
-        {
-          text: 'Thank you for providing your contact details! This will help me assist you more effectively.',
-          isBot: true,
-          timestamp: new Date().toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
-        },
-      ]);
-    }
-  };
+      const handleLoadedMetadata = () => {
+        const audioDuration = audio.duration;
+        if (isFinite(audioDuration) && audioDuration > 0) {
+          setDuration(audioDuration);
+        } else {
+          setDuration(0);
+        }
+        setIsLoading(false);
+      };
 
-  const toggleNotifications = () => {
-    setNotifications(!notifications);
-    const status = !notifications ? 'enabled' : 'disabled';
-    setMessages(prev => [
-      ...prev,
-      {
-        text: `Notifications have been ${status}.`,
-        isBot: true,
-        timestamp: new Date().toLocaleTimeString([], {
-          hour: '2-digit',
-          minute: '2-digit',
-        }),
-      },
-    ]);
+      const handleTimeUpdate = () => {
+        const currentAudioTime = audio.currentTime;
+        if (isFinite(currentAudioTime) && currentAudioTime >= 0) {
+          setCurrentTime(currentAudioTime);
+        }
+      };
+
+      const handleEnded = () => {
+        setIsPlaying(false);
+        setCurrentTime(0);
+        setCurrentPlayingId(null);
+      };
+
+      const handleError = () => {
+        setDuration(0);
+        setCurrentTime(0);
+        setIsLoading(false);
+        setIsPlaying(false);
+        console.error('Audio loading error for message:', messageId);
+      };
+
+      audio.addEventListener('loadedmetadata', handleLoadedMetadata);
+      audio.addEventListener('timeupdate', handleTimeUpdate);
+      audio.addEventListener('ended', handleEnded);
+      audio.addEventListener('error', handleError);
+
+      return () => {
+        audio.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        audio.removeEventListener('timeupdate', handleTimeUpdate);
+        audio.removeEventListener('ended', handleEnded);
+        audio.removeEventListener('error', handleError);
+      };
+    }, [message.audioUrl, messageId]);
+
+    const togglePlayPause = async () => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      if (isPlaying) {
+        audio.pause();
+        setIsPlaying(false);
+        setCurrentPlayingId(null);
+      } else {
+        // Pause any other playing audio
+        if (currentPlayingId && currentPlayingId !== messageId) {
+          const otherAudio = audioRefs.current[currentPlayingId];
+          if (otherAudio) {
+            otherAudio.pause();
+          }
+        }
+
+        try {
+          console.log('Attempting to play audio:', {
+            src: audio.src,
+            duration: audio.duration,
+            readyState: audio.readyState,
+          });
+
+          await audio.play();
+          setIsPlaying(true);
+          setCurrentPlayingId(messageId);
+          console.log('Audio started playing successfully');
+        } catch (error) {
+          console.error('Error playing audio:', error);
+          setIsPlaying(false);
+        }
+      }
+    };
+
+    const handleSeek = e => {
+      const audio = audioRef.current;
+      if (!audio) return;
+
+      const rect = e.target.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const clickRatio = clickX / rect.width;
+      const newTime = clickRatio * duration;
+
+      audio.currentTime = newTime;
+      setCurrentTime(newTime);
+    };
+
+    const formatTime = time => {
+      if (isNaN(time) || !isFinite(time) || time < 0) return '0:00';
+      const minutes = Math.floor(time / 60);
+      const seconds = Math.floor(time % 60);
+      return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    };
+
+    const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+
+    // Store audio ref for global access
+    useEffect(() => {
+      if (audioRef.current) {
+        audioRefs.current[messageId] = audioRef.current;
+      }
+      return () => {
+        delete audioRefs.current[messageId];
+      };
+    }, [messageId]);
+
+    return (
+      <div className="flex items-center space-x-3 min-w-[200px]">
+        <audio
+          ref={audioRef}
+          src={message.audioUrl}
+          preload="metadata"
+          controls={false}
+        />
+
+
+        {/* Play/Pause Button */}
+        <motion.button
+          onClick={togglePlayPause}
+          disabled={isLoading}
+          className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 ${
+            isBot
+              ? 'bg-primary1/20 hover:bg-primary1/30 text-primary1'
+              : 'bg-white/20 hover:bg-white/30 text-white'
+          } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
+          whileHover={{ scale: isLoading ? 1 : 1.05 }}
+          whileTap={{ scale: isLoading ? 1 : 0.95 }}
+        >
+          {isLoading ? (
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+              className="w-4 h-4 border-2 border-current border-t-transparent rounded-full"
+            />
+          ) : isPlaying ? (
+            <FaPause className="w-4 h-4" />
+          ) : (
+            <FaPlay className="w-4 h-4 ml-0.5" />
+          )}
+        </motion.button>
+
+        {/* Waveform/Progress Area */}
+        <div className="flex-1 flex flex-col space-y-2">
+          {/* Progress Bar */}
+          <div className="relative h-2 group">
+            <div
+              className={`h-full rounded-full cursor-pointer ${
+                isBot ? 'bg-gray-600' : 'bg-white/20'
+              }`}
+              onClick={handleSeek}
+            >
+              <motion.div
+                className={`h-full rounded-full ${
+                  isBot ? 'bg-primary1' : 'bg-white'
+                }`}
+                style={{ width: `${progress}%` }}
+                initial={false}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.1 }}
+              />
+            </div>
+
+            {/* Waveform Animation while playing */}
+            {isPlaying && (
+              <div className="absolute inset-0 flex items-center justify-center space-x-0.5">
+                {[...Array(20)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className={`w-0.5 rounded-full ${
+                      isBot ? 'bg-primary1/30' : 'bg-white/30'
+                    }`}
+                    animate={{
+                      height: [2, Math.random() * 8 + 4, 2],
+                    }}
+                    transition={{
+                      duration: 0.5,
+                      repeat: Infinity,
+                      delay: i * 0.1,
+                      ease: 'easeInOut',
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Time Display */}
+          <div
+            className={`flex justify-between text-xs ${
+              isBot ? 'text-gray-400' : 'text-white/70'
+            }`}
+          >
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(duration)}</span>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const dotVariants = {
@@ -415,68 +606,39 @@ export default function ChatBot() {
     }),
   };
   const capabilities = [
-    "Provide details about Othman's background, experience, and more",
-    'Share real-time updates on his projects and portfolio',
-    'Give access to his resume, certifications, and achievements',
-    'Provide professional contact info and social links',
-    'Assist in sending emails to contact Othman by providing a subject, body, and email address',
+    {
+      text: "Provide details about Othman's experience, and more",
+    },
+    {
+      text: 'Share real-time updates on his projects and portfolio',
+    },
+    {
+      text: 'Give access to his resume, certifications, and achievements',
+    },
+    {
+      text: 'Provide professional contact info and social links',
+    },
+    {
+      text: 'Assist in sending emails to contact Othman',
+    },
   ];
 
   return (
     <div className="fixed bottom-4 md:bottom-9 right-3 md:right-4 z-30 cursor-default">
-      {showCapabilities && isOpen && (
+      {!isOpen && (showTooltip || isHovering) && (
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          className="absolute top-16 left-4 right-4 bg-[#1a1a3a] border border-[#3a3a93] rounded-lg p-4 shadow-lg z-50"
-        >
-          <h3 className="text-[#8080ff] font-semibold mb-2">
-            My Capabilities:
-          </h3>
-          <ul className="space-y-2 text-white text-sm">
-            {capabilities.map((capability, index) => (
-              <motion.li
-                key={index}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-2"
-              >
-                <VscDebugBreakpointConditionalUnverified className="w-5= h-5 text-[#8080ff]" />
-                {capability}
-              </motion.li>
-            ))}
-          </ul>
-          <motion.p
-            className="text-sm text-primary2 mt-2"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6 }}
-          >
-            Check the repo for more details about it{' '}
-            <a
-              href="https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent.git"
-              target="_blank"
-              className="text-primary2 hover:text-primary4 underline duration-150 transition-all"
-            >
-              Click me
-            </a>
-          </motion.p>
-        </motion.div>
-      )}
-
-      {/* Help text that appears above the button */}
-      {!isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 10 }}
-          className="absolute bottom-20 -left-40 bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg shadow-lg mb-2 whitespace-nowrap"
+          initial={{ opacity: 0, x: 10 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: 10 }}
+          transition={{
+            delay: showTooltip && !isHovering ? 0.55 : 0,
+            duration: 1,
+          }}
+          className="absolute bottom-0.5 right-[5.5rem] bg-slate-400 text-black px-4  py-2 rounded-lg shadow-lg mb-2 whitespace-nowrap"
         >
           <div className="text-sm font-medium">Need help?</div>
           <div className="text-xs opacity-90">Chat with our AI assistant</div>
-          <div className="absolute -bottom-1 right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-purple-600"></div>
+          <div className="absolute -rotate-90 top-[45%] -right-2.5 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent border-t-slate-400"></div>
         </motion.div>
       )}
 
@@ -484,12 +646,14 @@ export default function ChatBot() {
         <motion.button
           onClick={() => {
             setShowCapabilities(false), setIsOpen(true);
+            setShowTooltip(true);
           }}
+          onMouseEnter={() => setIsHovering(true)}
+          onMouseLeave={() => setIsHovering(false)}
           className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group relative overflow-hidden"
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           exit={{ scale: 0 }}
-          whileHover={{ y: -2 }}
           whileTap={{ scale: 0.95 }}
         >
           <div className="flex items-center justify-center p-3">
@@ -499,49 +663,10 @@ export default function ChatBot() {
                   size={12}
                   hoverIntensity={0.3}
                   rotateOnHover={true}
-                  forceHoverState={false}
+                  forceHoverState={isHovering}
                 />
               </div>
-              <div className="relative z-10 flex items-center justify-center w-12 h-12">
-                <div className="flex space-x-1">
-                  <motion.div
-                    className="w-2 h-2 bg-white rounded-full"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.7, 1, 0.7],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: 0,
-                    }}
-                  />
-                  <motion.div
-                    className="w-2 h-2 bg-white rounded-full"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.7, 1, 0.7],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: 0.3,
-                    }}
-                  />
-                  <motion.div
-                    className="w-2 h-2 bg-white rounded-full"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      opacity: [0.7, 1, 0.7],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      delay: 0.6,
-                    }}
-                  />
-                </div>
-              </div>
+              <div className="relative z-10 flex items-center justify-center w-12 h-12"></div>
             </div>
           </div>
 
@@ -571,23 +696,32 @@ export default function ChatBot() {
           />
         </motion.button>
       ) : (
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 50 }}
-            transition={{ duration: 0.3 }}
-            className={`backdrop-blur-[15px] bg-black/70 border border-primary4/60 rounded-2xl shadow-shad2 flex flex-col overflow-hidden transition-all duration-500 ease-in-out transform ${
+            initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              y: 0,
+            }}
+            exit={{ opacity: 0, scale: 0, x: 20 }}
+            transition={{
+              duration: 0.5,
+              type: 'spring',
+              stiffness: 400,
+              damping: 25,
+            }}
+            style={{ transformOrigin: 'bottom right' }}
+            className={`backdrop-blur-[15px] bg-black/70 border border-primary4/60 rounded-2xl shadow-shad2 flex flex-col transform transition-all duration-500 ease-out ${
               isMaximized
-                ? 'fixed inset-4 w-auto h-auto z-50 scale-100'
+                ? 'fixed bottom-4 right-4 z-40 overflow-hidden w-[75vw] h-[85vh]'
                 : hasStartedChat
-                ? 'w-[350px] h-[580px] md:w-[450px] md:h-[520px] scale-100'
-                : 'w-[350px] h-auto md:w-[450px] scale-95 hover:scale-100' // Smaller initial size with hover effect
+                ? 'w-[350px] h-[580px] md:w-[430px] md:h-[70vh] overflow-hidden'
+                : 'w-[350px] h-[150px] md:w-[430px] md:h-[70vh] scale-95 hover:scale-100 overflow-hidden'
             }`}
           >
-            {/* Enhanced header with your brand gradient */}
             <div className="bg-gradient-to-r from-primary1 via-primary2 to-primary3 p-4 relative overflow-hidden">
-              {/* Animated background pattern */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary1/95 via-primary2/95 to-primary3/95">
                 <div className="absolute inset-0 opacity-20">
                   <div className="absolute top-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
@@ -597,9 +731,9 @@ export default function ChatBot() {
 
               <div className="relative z-10 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-white/20 rounded-full p-1 backdrop-blur-sm border border-white/30 shadow-lg">
+                  <div className="w-14 h-14 bg-white/20 rounded-full p-1 backdrop-blur-sm border border-white/30 shadow-lg">
                     <OrbHeader
-                      size={8}
+                      size={14}
                       hoverIntensity={0.3}
                       rotateOnHover={true}
                       forceHoverState={false}
@@ -618,7 +752,7 @@ export default function ChatBot() {
                 </div>
                 <div className="flex items-center space-x-1">
                   {hasStartedChat && (
-                    /* Settings button with dropdown */
+                    /* Settings button with dropdown  */
                     <div className="relative settings-dropdown">
                       <button
                         onClick={() => setShowSettings(!showSettings)}
@@ -636,7 +770,12 @@ export default function ChatBot() {
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: -10 }}
                             transition={{ duration: 0.2, ease: 'easeOut' }}
-                            className="absolute right-0 top-12 bg-gray-900/95 backdrop-blur-md rounded-xl shadow-2xl border border-primary4/50 py-2 min-w-[240px] z-50 overflow-hidden"
+                            className="fixed bg-gray-900/95 backdrop-blur-md rounded-xl shadow-2xl border border-primary4/50 py-2 min-w-[240px] overflow-hidden"
+                            style={{
+                              right: '1rem',
+                              top: '6rem',
+                              zIndex: 9999,
+                            }}
                           >
                             {/* Chat capabilities */}
                             <button
@@ -646,56 +785,11 @@ export default function ChatBot() {
                               }}
                               className="w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white flex items-center space-x-3 transition-all duration-200"
                             >
-                              <IoMdInformationCircle className="w-4 h-4 text-primary1" />
+                              <IoMdInformationCircle className="w-6 h-6 text-primary1" />
                               <span className="text-sm font-medium font-myFont">
                                 Chat capabilities
                               </span>
                             </button>
-
-                            <div className="border-t border-primary4/30 my-1"></div>
-
-                            {/* Provide contact details */}
-                            <button
-                              onClick={() => {
-                                provideContactDetails();
-                                setShowSettings(false);
-                              }}
-                              className="w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white flex items-center space-x-3 transition-all duration-200"
-                            >
-                              <BsPerson className="w-4 h-4 text-primary1" />
-                              <span className="text-sm font-medium font-myFont">
-                                Provide contact details
-                              </span>
-                            </button>
-
-                            {/* Login/Logout */}
-                            {!isLoggedIn ? (
-                              <button
-                                onClick={() => {
-                                  handleLogin();
-                                  setShowSettings(false);
-                                }}
-                                className="w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white flex items-center space-x-3 transition-all duration-200"
-                              >
-                                <MdLogin className="w-4 h-4 text-primary2" />
-                                <span className="text-sm font-medium font-myFont">
-                                  Log in
-                                </span>
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() => {
-                                  handleLogout();
-                                  setShowSettings(false);
-                                }}
-                                className="w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white flex items-center space-x-3 transition-all duration-200"
-                              >
-                                <MdLogout className="w-4 h-4 text-primary2" />
-                                <span className="text-sm font-medium font-myFont">
-                                  Log out ({userEmail.split('@')[0]})
-                                </span>
-                              </button>
-                            )}
 
                             <div className="border-t border-primary4/30 my-1"></div>
 
@@ -732,28 +826,6 @@ export default function ChatBot() {
                                   : 'Maximize window'}
                               </span>
                             </button>
-
-                            <div className="border-t border-primary4/30 my-1"></div>
-
-                            {/* Notifications toggle */}
-                            <button
-                              onClick={() => {
-                                toggleNotifications();
-                                setShowSettings(false);
-                              }}
-                              className="w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white flex items-center space-x-3 transition-all duration-200"
-                            >
-                              <BsBell
-                                className={`w-4 h-4 ${
-                                  notifications
-                                    ? 'text-primary1'
-                                    : 'text-gray-500'
-                                }`}
-                              />
-                              <span className="text-sm font-medium font-myFont">
-                                Notifications {notifications ? 'on' : 'off'}
-                              </span>
-                            </button>
                           </motion.div>
                         )}
                       </AnimatePresence>
@@ -761,7 +833,12 @@ export default function ChatBot() {
                   )}
 
                   <motion.button
-                    onClick={() => setIsOpen(false)}
+                    onClick={() => {
+                      setIsOpen(false);
+                      setIsMaximized(false);
+                      setShowTooltip(false);
+                      setIsHovering(false);
+                    }}
                     className="text-white/80 hover:text-white transition-colors p-2 rounded-full hover:bg-white/20"
                     whileHover={{ rotate: 90 }}
                     transition={{ duration: 0.2 }}
@@ -778,9 +855,9 @@ export default function ChatBot() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
-                  className="relative z-10 mt-4 flex flex-wrap gap-2"
+                  className="relative mt-4 flex flex-wrap gap-2"
                 >
-                  {['portfolio', 'projects', 'skills', 'contact', 'resume'].map(
+                  {['portfolio', 'projects', 'skills', 'contact'].map(
                     (topic, index) => (
                       <motion.button
                         key={topic}
@@ -788,8 +865,8 @@ export default function ChatBot() {
                         className="px-3 py-1.5 bg-white/20 hover:bg-primary1/30 text-white text-xs rounded-full transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-primary1/50 font-myFont"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
                         transition={{ duration: 0.3, delay: 0.1 + index * 0.1 }}
                       >
                         {topic}
@@ -800,146 +877,205 @@ export default function ChatBot() {
               )}
             </div>
 
-            {/* Messages area - only show if chat has started */}
-            {hasStartedChat && (
-              <div
-                ref={chatContainerRef}
-                className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar"
-              >
-                <AnimatePresence>
-                  {messages.map((message, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: message.isBot ? -20 : 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: message.isBot ? -20 : 20 }}
-                      transition={{ duration: 0.4, delay: 0.2 }}
-                      className={`flex ${
-                        message.isBot ? 'justify-start' : 'justify-end'
-                      }`}
-                    >
-                      <div
-                        className={`max-w-[85%] p-4 rounded-2xl text-sm shadow-lg transition-all duration-300 ${
-                          message.isBot
-                            ? 'bg-gray-900/90 backdrop-blur-sm border border-primary4/40 text-gray-100'
-                            : 'bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white shadow-shad'
+            {/* Messages area - show with smooth transition */}
+            <AnimatePresence mode="wait">
+              {hasStartedChat ? (
+                <motion.div
+                  key="messages-area"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: 'easeOut', delay: 0.1 }}
+                  ref={chatContainerRef}
+                  className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar"
+                >
+                  <AnimatePresence>
+                    {messages.map((message, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: message.isBot ? -20 : 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: message.isBot ? -20 : 20 }}
+                        transition={{ duration: 0.4, delay: 0.2 }}
+                        className={`flex ${
+                          message.isBot ? 'justify-start' : 'justify-end'
                         }`}
                       >
-                        {message.isVoice ? (
-                          <div className="flex items-center space-x-3">
-                            <RiVoiceprintFill className="w-5 h-5 flex-shrink-0 animate-pulse" />
-                            <div className="flex flex-col">
-                              <span className="font-medium">
-                                {message.text}
-                              </span>
-                              <div className="flex items-center space-x-2 mt-1">
-                                <span className="text-xs opacity-75">
-                                  {message.timestamp}
-                                </span>
-                                {message.isSending && (
-                                  <span className="text-xs animate-pulse">
-                                    Sending...
+                        <div
+                          className={`max-w-[85%] p-4 rounded-2xl text-sm shadow-lg transition-all duration-300 ${
+                            message.isBot
+                              ? 'bg-gray-900/90 backdrop-blur-sm border border-primary4/40 text-gray-100'
+                              : 'bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white shadow-shad'
+                          }`}
+                        >
+                          {message.isVoice ? (
+                            message.audioUrl ? (
+                              <VoiceMessage
+                                message={message}
+                                isBot={message.isBot}
+                              />
+                            ) : (
+                              <div className="flex items-start space-x-3">
+                                <RiVoiceprintFill className="w-5 h-5 flex-shrink-0 animate-pulse" />
+                                <div className="flex flex-col">
+                                  <span className="font-medium">
+                                    {message.text}
                                   </span>
-                                )}
+                                  <div className="flex items-center space-x-2 mt-1">
+                                    <span className="text-xs opacity-75">
+                                      {message.timestamp}
+                                    </span>
+                                    {message.isSending && (
+                                      <span className="text-xs animate-pulse">
+                                        Sending...
+                                      </span>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            )
+                          ) : message.isBot ? (
+                            <div>
+                              <TextWithLinks text={message.text} />
+                              {message.timestamp && (
+                                <div className="text-xs text-gray-500 mt-2">
+                                  {message.timestamp}
+                                </div>
+                              )}
+                            </div>
+                          ) : (
+                            <div className="flex items-start space-x-3">
+                              <div className="flex flex-col">
+                                <div>
+                                  <TextWithLinks text={message.text} />
+                                </div>
+                                <div className="flex items-center space-x-2 mt-2">
+                                  <span className="text-xs opacity-90">
+                                    {message.timestamp}
+                                  </span>
+                                  {message.isSending && (
+                                    <span className="text-xs animate-pulse">
+                                      Sending...
+                                    </span>
+                                  )}
+                                </div>
                               </div>
                             </div>
+                          )}
+                        </div>
+                      </motion.div>
+                    ))}
+                    {isSending && (
+                      <motion.div
+                        key="typing"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.4 }}
+                        className="flex justify-start"
+                      >
+                        <div className="max-w-[60%] p-4 rounded-2xl bg-gray-900/90 backdrop-blur-sm border border-primary4/40 text-gray-100 shadow-lg flex items-center space-x-3">
+                          <div className="w-8 h-8 bg-primary1/20 rounded-full flex items-center justify-center">
+                            <motion.div
+                              animate={{ rotate: 360 }}
+                              transition={{
+                                duration: 2,
+                                repeat: Infinity,
+                                ease: 'linear',
+                              }}
+                              className="w-4 h-4 border-2 border-primary1 border-t-transparent rounded-full"
+                            />
                           </div>
-                        ) : message.isBot ? (
-                          <div>
-                            <TextWithLinks text={message.text} />
-                            {message.timestamp && (
-                              <div className="text-xs text-gray-500 mt-2">
-                                {message.timestamp}
-                              </div>
-                            )}
+                          <div className="flex items-center space-x-1">
+                            <span className="text-sm text-gray-300 font-myFont">
+                              AI is typing
+                            </span>
+                            <motion.span
+                              custom={0}
+                              variants={dotVariants}
+                              animate="animate"
+                              className="w-1 h-1 bg-primary1 rounded-full"
+                            />
+                            <motion.span
+                              custom={1}
+                              variants={dotVariants}
+                              animate="animate"
+                              className="w-1 h-1 bg-primary2 rounded-full"
+                            />
+                            <motion.span
+                              custom={2}
+                              variants={dotVariants}
+                              animate="animate"
+                              className="w-1 h-1 bg-primary3 rounded-full"
+                            />
                           </div>
-                        ) : (
-                          <div className="flex items-start space-x-3">
-                            <BsCardText className="w-5 h-5 flex-shrink-0 mt-0.5" />
-                            <div className="flex flex-col">
-                              <div>
-                                <TextWithLinks text={message.text} />
-                              </div>
-                              <div className="flex items-center space-x-2 mt-2">
-                                <span className="text-xs opacity-90">
-                                  {message.timestamp}
-                                </span>
-                                {message.isSending && (
-                                  <span className="text-xs animate-pulse">
-                                    Sending...
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
-                  {isSending && (
-                    <motion.div
-                      key="typing"
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="flex justify-start"
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="welcome-area"
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.5, ease: 'easeOut' }}
+                  className="flex-1 flex items-center justify-center p-6"
+                >
+                  <div className="text-center">
+                    <motion.h3
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.5 }}
+                      className="text-xl font-bold text-primary1 mb-4 font-customFont"
                     >
-                      <div className="max-w-[60%] p-4 rounded-2xl bg-gray-900/90 backdrop-blur-sm border border-primary4/40 text-gray-100 shadow-lg flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-primary1/20 rounded-full flex items-center justify-center">
-                          <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{
-                              duration: 2,
-                              repeat: Infinity,
-                              ease: 'linear',
-                            }}
-                            className="w-4 h-4 border-2 border-primary1 border-t-transparent rounded-full"
-                          />
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <span className="text-sm text-gray-300 font-myFont">
-                            AI is typing
-                          </span>
-                          <motion.span
-                            custom={0}
-                            variants={dotVariants}
-                            animate="animate"
-                            className="w-1 h-1 bg-primary1 rounded-full"
-                          />
-                          <motion.span
-                            custom={1}
-                            variants={dotVariants}
-                            animate="animate"
-                            className="w-1 h-1 bg-primary2 rounded-full"
-                          />
-                          <motion.span
-                            custom={2}
-                            variants={dotVariants}
-                            animate="animate"
-                            className="w-1 h-1 bg-primary3 rounded-full"
-                          />
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )}
+                      Welcome to AI Assistant
+                    </motion.h3>
+                    <motion.p
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.2 }}
+                      className="text-gray-300 text-sm leading-relaxed font-myFont"
+                    >
+                      I&apos;m here to help you learn about Othman&apos;s
+                      background, projects, and experience. Type a message or
+                      use one of the topic buttons above to get started!
+                    </motion.p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Input area - always show */}
             <div className="bg-gradient-to-r from-gray-800/95 to-gray-900/95 backdrop-blur-md p-4 border-t border-primary4/30">
               {/* Quick capabilities pills - only show if chat hasn't started */}
-              {!hasStartedChat && showCapabilities && (
+              {showCapabilities && !hasStartedChat && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="mb-4 p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-primary4/40 overflow-hidden"
+                  className="mb-4 p-4 bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl border border-primary4/40 overflow-hidden relative capabilities-window"
                 >
-                  <div className="text-sm text-gray-200 font-medium mb-2 font-customFont">
-                    What I can help with:
+                  {/* Close button */}
+                  <motion.button
+                    onClick={() => setShowCapabilities(false)}
+                    className="absolute top-2 right-2 p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-200"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    title="Close capabilities"
+                  >
+                    <IoMdClose className="w-4 h-4" />
+                  </motion.button>
+
+                  <div className="flex items-center space-x-2 mb-3">
+                    <div className="w-6 h-6 bg-gradient-to-r from-primary1 to-primary2 rounded-full flex items-center justify-center">
+                      <IoMdInformationCircle className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="text-sm text-primary1 font-semibold font-customFont">
+                      What I can help with:
+                    </span>
                   </div>
                   <div className="grid grid-cols-2 gap-2 text-xs text-gray-300 font-myFont">
                     <div className="flex items-center space-x-2">
@@ -963,45 +1099,70 @@ export default function ChatBot() {
               )}
 
               {/* Capabilities panel for existing chats */}
-              {hasStartedChat && showCapabilities && (
+              {showCapabilities && hasStartedChat && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
                   transition={{ duration: 0.3 }}
-                  className="mb-4 p-3 bg-gray-800/80 backdrop-blur-sm rounded-xl border border-primary4/40 overflow-hidden"
+                  className="mb-4 p-4 bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-xl border border-primary4/40 overflow-hidden relative capabilities-window"
                 >
-                  <div className="text-sm text-gray-200 font-medium mb-2 font-customFont">
-                    💬 Chat capabilities:
+                  {/* Close button */}
+                  <motion.button
+                    onClick={() => setShowCapabilities(false)}
+                    className="absolute top-2 right-2 p-1.5 rounded-full hover:bg-white/10 text-gray-400 hover:text-white transition-all duration-200"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    title="Close capabilities"
+                  >
+                    <IoMdClose className="w-4 h-4" />
+                  </motion.button>
+
+                  <div className="flex items-center space-x-2 mb-3">
+                    <div className="w-6 h-6 bg-gradient-to-r from-primary1 to-primary2 rounded-full flex items-center justify-center">
+                      <IoMdInformationCircle className="w-4 h-4 text-white" />
+                    </div>
+                    <span className="text-sm text-primary1 font-semibold font-customFont">
+                      Chat capabilities:
+                    </span>
                   </div>
-                  <div className="grid grid-cols-1 gap-2 text-xs text-gray-300 font-myFont">
-                    <div className="flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-primary1 rounded-full"></span>
-                      <span>Voice messages & text responses</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-primary2 rounded-full"></span>
-                      <span>Download chat transcripts</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="w-2 h-2 bg-primary3 rounded-full"></span>
-                      <span>File attachments & contact sharing</span>
-                    </div>
+                  <div className="space-y-2">
+                    {capabilities.map((capability, index) => (
+                      <div
+                        key={index}
+                        className="flex items-start space-x-2 text-xs text-gray-300 font-myFont"
+                      >
+                        <VscActivateBreakpoints className="w-4 h-4 flex-shrink-0 text-primary2 mt-0.5" />
+                        <span>{capability.text}</span>
+                      </div>
+                    ))}
                   </div>
+
+                  {/* Footer with additional info */}
+                  <motion.div
+                    className="mt-3 pt-3 border-t border-primary4/30"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-400 font-myFont">
+                        Want to know more?
+                      </span>
+                      <a
+                        href="https://github.com/ELhadratiOth/Portfolio-AI-Chat-Agent.git"
+                        target="_blank"
+                        className="inline-flex items-center space-x-1 px-2 py-1 bg-gradient-to-r from-primary1 to-primary2 hover:from-primary2 hover:to-primary3 text-white text-xs rounded-md font-medium transition-all duration-300 hover:shadow-lg hover:shadow-primary1/25"
+                      >
+                        <span>View Repo</span>
+                        <FiExternalLink className="w-3 h-3" />
+                      </a>
+                    </div>
+                  </motion.div>
                 </motion.div>
               )}
 
-              <div className="flex items-end space-x-3">
-                {/* File attachment button */}
-                <motion.label
-                  className="text-gray-400 hover:text-primary1 transition-all duration-300 p-2 rounded-full hover:bg-primary1/10 cursor-pointer group"
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  title="Attach file"
-                >
-                  <HiPaperClip className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                </motion.label>
-
+              <div className="flex space-x-3 justify-between items-center pr-14">
                 <div className="flex-1 relative">
                   <textarea
                     value={input}
@@ -1010,15 +1171,11 @@ export default function ChatBot() {
                     placeholder={
                       hasStartedChat
                         ? 'Type your message...'
-                        : "Ask me anything about Othman's work..."
+                        : "Ask me anything about Othman's..."
                     }
                     disabled={isSending}
                     rows={1}
-                    className="w-full bg-gray-800/60 text-gray-100 placeholder-gray-400 rounded-2xl px-4 py-3 pr-16 focus:outline-none focus:ring-2 focus:ring-primary1 focus:border-transparent disabled:opacity-50 resize-none overflow-hidden border border-primary4/50 backdrop-blur-sm font-myFont transition-all duration-300 hover:border-primary1/60"
-                    style={{
-                      minHeight: '48px',
-                      maxHeight: '120px',
-                    }}
+                    className="w-full bg-gray-800/60 text-gray-100 placeholder-gray-400 placeholder:text-sm placeholder:mt-2 rounded-2xl  focus:outline-none focus:ring-2 focus:ring-primary1 focus:border-transparent disabled:opacity-50 resize-none overflow-hidden border border-primary4/50 backdrop-blur-sm  transition-all duration-300 hover:border-primary1/60 pt-3 pb-2  pl-2 "
                     onInput={e => {
                       e.target.style.height = 'auto';
                       e.target.style.height =
@@ -1030,8 +1187,7 @@ export default function ChatBot() {
                   <motion.button
                     onClick={chatRequest}
                     disabled={!input.trim() || isSending}
-                    className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white p-2 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-shad shadow-lg group"
-                    whileHover={{ scale: 1.05 }}
+                    className="absolute right-2 top-[0.30rem]   bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white p-2 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-shad shadow-lg group"
                     whileTap={{ scale: 0.95 }}
                   >
                     {isSending ? (
@@ -1042,64 +1198,62 @@ export default function ChatBot() {
                           repeat: Infinity,
                           ease: 'linear',
                         }}
-                        className="w-4 h-4 border-2 border-white border-t-transparent rounded-full"
+                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
                       />
                     ) : (
-                      <LuSendHorizontal className="w-4 h-4 group-hover:translate-x-0.5 transition-transform duration-200" />
+                      <LuSendHorizontal className="w-5 h-5" />
+                    )}
+                  </motion.button>
+
+                  <motion.button
+                    onClick={isRecording ? stopRecording : startRecording}
+                    disabled={isSending}
+                    className={`absolute p-2 -right-12 top-[0.4rem] rounded-full transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed group ${
+                      isRecording
+                        ? 'bg-red-500 text-white shadow-lg shadow-red-500/30 hover:bg-red-600'
+                        : 'bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white   hover:shadow-shad shadow-lg '
+                    }`}
+                    whileTap={{ scale: 0.95 }}
+                    animate={
+                      isRecording
+                        ? {
+                            boxShadow: [
+                              '0 0 0 0 rgba(239, 68, 68, 0.4)',
+                              '0 0 0 10px rgba(239, 68, 68, 0)',
+                              '0 0 0 0 rgba(239, 68, 68, 0.4)',
+                            ],
+                          }
+                        : {}
+                    }
+                    transition={{
+                      boxShadow: { duration: 1.5, repeat: Infinity },
+                    }}
+                  >
+                    {isRecording ? (
+                      <HiStop className="w-5 h-5" />
+                    ) : (
+                      <HiMicrophone className="w-5 h-5" />
+                    )}
+
+                    {isRecording && (
+                      <motion.div
+                        className="absolute inset-0 rounded-full border-2 border-red-300"
+                        animate={{
+                          scale: [1, 1.3, 1],
+                          opacity: [1, 0, 1],
+                        }}
+                        transition={{
+                          duration: 1.5,
+                          repeat: Infinity,
+                        }}
+                      />
                     )}
                   </motion.button>
                 </div>
-
-                {/* Voice recording button */}
-                <motion.button
-                  onClick={isRecording ? stopRecording : startRecording}
-                  disabled={isSending}
-                  className={`relative p-2 rounded-full transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed ${
-                    isRecording
-                      ? 'bg-red-500 text-white shadow-lg shadow-red-500/30 hover:bg-red-600'
-                      : 'bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white shadow-lg shadow-primary1/30 hover:shadow-shad'
-                  }`}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  animate={
-                    isRecording
-                      ? {
-                          boxShadow: [
-                            '0 0 0 0 rgba(239, 68, 68, 0.4)',
-                            '0 0 0 10px rgba(239, 68, 68, 0)',
-                            '0 0 0 0 rgba(239, 68, 68, 0.4)',
-                          ],
-                        }
-                      : {}
-                  }
-                  transition={{
-                    boxShadow: { duration: 1.5, repeat: Infinity },
-                  }}
-                >
-                  {isRecording ? (
-                    <HiStop className="w-5 h-5" />
-                  ) : (
-                    <HiMicrophone className="w-5 h-5" />
-                  )}
-
-                  {isRecording && (
-                    <motion.div
-                      className="absolute inset-0 rounded-full border-2 border-red-300"
-                      animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [1, 0, 1],
-                      }}
-                      transition={{
-                        duration: 1.5,
-                        repeat: Infinity,
-                      }}
-                    />
-                  )}
-                </motion.button>
               </div>
 
               {/* Professional footer */}
-              <div className="mt-3 text-xs text-gray-400 text-center font-myFont">
+              <div className="mt-6 text-xs text-gray-400 text-center font-myFont">
                 Press Enter to send • Shift + Enter for new line
               </div>
             </div>

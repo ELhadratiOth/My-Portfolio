@@ -3,6 +3,7 @@ import SideBar from './SideBar';
 import Home from './Home';
 import About from './About';
 import Service from './Service';
+import Experiences from './Experiences';
 import Menu from './Menu';
 import Header from './Header';
 import ChatBot from './ChatBot';
@@ -49,6 +50,7 @@ export default function Layout() {
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/services" element={<Service />} />
+                <Route path="/experiences" element={<Experiences />} />
                 <Route
                   path="/projects"
                   element={
