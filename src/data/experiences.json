@@ -3,8 +3,8 @@
     {
       "id": 1,
       "position": "Team Lead AI Developer",
-      "company": "XAI",
-      "companyType": "Internship",
+      "company": "XAI Morocco",
+      "jobType": "Internship",
       "location": "Rabat Metropolitan Area, Morocco · Remote",
       "duration": "Aug 2025 - Sep 2025",
       "durationShort": "2 months",
@@ -27,9 +27,9 @@
       "type": "ai"    },
     {
       "id": 2,
-      "position": "Artificial Intelligent Developer",
+      "position": "Artificial Intelligence Developer",
       "company": "shiftbricks",
-      "companyType": "Internship",
+      "jobType": "Internship",
       "location": "Al Hoceima, Morocco · Remote",
       "duration": "Jul 2025 - Sep 2025",
       "durationShort": "3 months",

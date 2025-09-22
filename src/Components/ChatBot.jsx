@@ -1112,7 +1112,7 @@ export default function ChatBot() {
                     }
                     disabled={isSending}
                     rows={1}
-                    className="w-full bg-gray-800/60 text-gray-100 placeholder-gray-400 placeholder:text-sm placeholder:mt-2 rounded-2xl  focus:outline-none focus:ring-2 focus:ring-primary1 focus:border-transparent disabled:opacity-50 resize-none overflow-hidden border border-primary4/50 backdrop-blur-sm  transition-all duration-300 hover:border-primary1/60 pt-3 pb-2  pl-2 "
+                    className="w-full bg-gray-800/60 text-gray-100 placeholder-gray-400 placeholder:text-sm placeholder:mt-2 rounded-2xl  focus:outline-none focus:ring-2 focus:ring-primary1 focus:border-transparent disabled:opacity-50 resize-none overflow-hidden border border-primary4/50 backdrop-blur-sm  transition-all duration-300 hover:border-primary1/60 pt-3 pb-2  pl-2 pr-12 "
                     onInput={e => {
                       e.target.style.height = 'auto';
                       e.target.style.height =
@@ -1124,7 +1124,7 @@ export default function ChatBot() {
                   <motion.button
                     onClick={chatRequest}
                     disabled={!input.trim() || isSending}
-                    className="absolute right-2 top-[0.30rem]   bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white p-2 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-shad shadow-lg group"
+                    className="absolute right-2 top-[0.30rem]    bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white p-2 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-shad shadow-lg group"
                     whileTap={{ scale: 0.95 }}
                   >
                     {isSending ? (
