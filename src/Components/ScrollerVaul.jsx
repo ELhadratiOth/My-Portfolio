@@ -25,7 +25,7 @@ const ScrollerVaul = () => {
           <div className="p-4  backdrop-blur-md rounded-t-[10px] w-full bg-[#1d1b3d] ">
             <div className="mx-auto w-20 h-1.5  rounded-full bg-primary5 mb-5" />
 
-            <Drawer.Title className="font-bold text-xl text-white text-center uppercase">
+            <Drawer.Title className="font-bold text-xl text-white text-center uppercase font-customFont">
               Get In Touch
             </Drawer.Title>
           </div>
@@ -46,7 +46,7 @@ const ScrollerVaul = () => {
                   <SocialMediaIcon text="black" />
                 </div>
               </div>
-              <div className="font-semibold text-center text-white space-y-2">
+              <div className="font-semibold text-center text-white space-y-2 font-myFont">
                 <div>
                   Email :{' '}
                   <span className="md:text-lg font-bold">
@@ -55,7 +55,7 @@ const ScrollerVaul = () => {
                 </div>
                 <div>
                   {' '}
-                  &copy; {new Date().getFullYear()} Othman El Hadrati .
+                  &copy; {new Date().getFullYear()} Othman El Hadrati
                   All&nbsp;Rights&nbsp;Reserved{' '}
                 </div>
               </div>

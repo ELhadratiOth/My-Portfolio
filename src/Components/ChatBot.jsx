@@ -18,6 +18,7 @@ import {
 
 import API from '../API';
 import TextWithLinks from './TextWithLinks';
+import MarkdownRenderer from './MarkdownRenderer';
 import OrbChatButton from './OrbChatButton';
 import OrbHeader from './OrbHeader';
 
@@ -795,13 +796,13 @@ export default function ChatBot() {
                               </span>
                             </button>
 
-                            {/* Maximize window */}
+                            {/* Maximize window - Hidden on mobile */}
                             <button
                               onClick={() => {
                                 toggleMaximize();
                                 setShowSettings(false);
                               }}
-                              className="w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white flex items-center space-x-3 transition-all duration-200"
+                              className="hidden md:flex w-full px-4 py-3 text-left text-gray-200 hover:bg-primary1/20 hover:text-white items-center space-x-3 transition-all duration-200"
                             >
                               {isMaximized ? (
                                 <BsFullscreenExit className="w-4 h-4 text-primary3" />
@@ -913,14 +914,13 @@ export default function ChatBot() {
                                     <span className="text-xs opacity-75">
                                       {message.timestamp}
                                     </span>
-                                  
                                   </div>
                                 </div>
                               </div>
                             )
                           ) : message.isBot ? (
                             <div>
-                              <TextWithLinks text={message.text} />
+                              <MarkdownRenderer content={message.text} />
                               {message.timestamp && (
                                 <div className="text-xs text-gray-500 mt-2">
                                   {message.timestamp}
