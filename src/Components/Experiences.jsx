@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
 import { useState } from 'react';
 import experiencesData from '../data/experiences.json';
+import CertifXAI from '../assets/docs/Certif-XAI.pdf';
 import {
   FaCalendarAlt,
   FaMapMarkerAlt,
@@ -40,16 +41,20 @@ const experienceCardVariants = {
 export default function Experiences() {
   const [expandedExperience, setExpandedExperience] = useState(null);
 
+  // Map certification filenames to imported PDFs
+  const certificationMap = {
+    'Certif-XAI.pdf': CertifXAI,
+    // Add more certifications here as you get them
+    // 'Other-Cert.pdf': OtherCert,
+  };
+
   const toggleExpanded = id => {
     setExpandedExperience(expandedExperience === id ? null : id);
   };
 
   const handleCertificateClick = certificationFile => {
-    if (certificationFile) {
-      window.open(
-        `http://localhost:5173/src/assets/docs/${certificationFile}`,
-        '_blank',
-      );
+    if (certificationFile && certificationMap[certificationFile]) {
+      window.open(certificationMap[certificationFile], '_blank');
     }
   };
 
