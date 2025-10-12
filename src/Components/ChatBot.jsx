@@ -707,7 +707,7 @@ export default function ChatBot() {
                 ? 'fixed bottom-4 right-4 z-40 overflow-hidden w-[75vw] h-[85vh]'
                 : hasStartedChat
                 ? 'w-[350px] h-[580px] md:w-[430px] md:h-[70vh] overflow-hidden'
-                : 'w-[350px] h-[150px] md:w-[430px] md:h-[70vh] scale-95 hover:scale-100 overflow-hidden'
+                : 'w-[350px] h-auto md:w-[430px] md:h-[70vh] scale-95 hover:scale-100 overflow-hidden'
             }`}
           >
             <div className="bg-gradient-to-r from-primary1 via-primary2 to-primary3 p-4 relative overflow-hidden">
@@ -844,14 +844,14 @@ export default function ChatBot() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.1 }}
-                  className="relative mt-4 flex flex-wrap gap-2"
+                  className="relative mt-3 flex flex-wrap gap-2"
                 >
                   {['portfolio', 'projects', 'skills', 'contact'].map(
                     (topic, index) => (
                       <motion.button
                         key={topic}
                         onClick={() => setInput(`Tell me about your ${topic}`)}
-                        className="px-3 py-1.5 bg-white/20 hover:bg-primary1/30 text-white text-xs rounded-full transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-primary1/50 font-myFont"
+                        className="px-2.5 py-1 md:px-3 md:py-1.5 bg-white/20 hover:bg-primary1/30 text-white text-[11px] md:text-xs rounded-full transition-all duration-300 backdrop-blur-sm border border-white/20 hover:border-primary1/50 font-myFont"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         initial={{ opacity: 0 }}
@@ -958,14 +958,14 @@ export default function ChatBot() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.5, ease: 'easeOut' }}
-                  className="flex-1 flex items-center justify-center p-6"
+                  className="flex-1 flex items-center justify-center p-4 md:p-6"
                 >
-                  <div className="text-center">
+                  <div className="text-center space-y-3">
                     <motion.h3
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.5 }}
-                      className="text-xl font-bold text-primary1 mb-4 font-customFont"
+                      className="text-lg md:text-xl font-bold text-primary1 mb-2 md:mb-4 font-customFont"
                     >
                       Welcome to AI Assistant
                     </motion.h3>
@@ -973,7 +973,7 @@ export default function ChatBot() {
                       initial={{ y: 20, opacity: 0 }}
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ duration: 0.5, delay: 0.2 }}
-                      className="text-gray-300 text-sm leading-relaxed font-myFont"
+                      className="text-gray-300 text-xs md:text-sm leading-relaxed font-myFont px-2"
                     >
                       I&apos;m here to help you learn about Othman&apos;s
                       background, projects, and experience. Type a message or
@@ -985,7 +985,7 @@ export default function ChatBot() {
             </AnimatePresence>
 
             {/* Input area - always show */}
-            <div className="bg-gradient-to-r from-gray-800/95 to-gray-900/95 backdrop-blur-md p-4 border-t border-primary4/30">
+            <div className="bg-gradient-to-r from-gray-800/95 to-gray-900/95 backdrop-blur-md p-3 md:p-4 border-t border-primary4/30">
               {/* Quick capabilities pills - only show if chat hasn't started */}
               {showCapabilities && !hasStartedChat && (
                 <motion.div
@@ -1099,7 +1099,7 @@ export default function ChatBot() {
                 </motion.div>
               )}
 
-              <div className="flex space-x-3 justify-between items-center pr-14">
+              <div className="flex space-x-3 justify-between items-center pr-12 md:pr-14">
                 <div className="flex-1 relative">
                   <textarea
                     value={input}
@@ -1112,7 +1112,7 @@ export default function ChatBot() {
                     }
                     disabled={isSending}
                     rows={1}
-                    className="w-full bg-gray-800/60 text-gray-100 placeholder-gray-400 placeholder:text-sm placeholder:mt-2 rounded-2xl  focus:outline-none focus:ring-2 focus:ring-primary1 focus:border-transparent disabled:opacity-50 resize-none overflow-hidden border border-primary4/50 backdrop-blur-sm  transition-all duration-300 hover:border-primary1/60 pt-3 pb-2  pl-2 pr-12 "
+                    className="w-full bg-gray-800/60 text-gray-100 placeholder-gray-400 placeholder:text-xs md:placeholder:text-sm placeholder:mt-2 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary1 focus:border-transparent disabled:opacity-50 resize-none overflow-hidden border border-primary4/50 backdrop-blur-sm transition-all duration-300 hover:border-primary1/60 pt-2.5 md:pt-3 pb-2 pl-2 pr-10 md:pr-12 text-sm md:text-base"
                     onInput={e => {
                       e.target.style.height = 'auto';
                       e.target.style.height =
@@ -1124,7 +1124,7 @@ export default function ChatBot() {
                   <motion.button
                     onClick={chatRequest}
                     disabled={!input.trim() || isSending}
-                    className="absolute right-2 top-[0.30rem]    bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white p-2 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-shad shadow-lg group"
+                    className="absolute right-2 top-[0.30rem] bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white p-1.5 md:p-2 rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-shad shadow-lg group"
                     whileTap={{ scale: 0.95 }}
                   >
                     {isSending ? (
@@ -1135,20 +1135,20 @@ export default function ChatBot() {
                           repeat: Infinity,
                           ease: 'linear',
                         }}
-                        className="w-5 h-5 border-2 border-white border-t-transparent rounded-full"
+                        className="w-4 h-4 md:w-5 md:h-5 border-2 border-white border-t-transparent rounded-full"
                       />
                     ) : (
-                      <LuSendHorizontal className="w-5 h-5" />
+                      <LuSendHorizontal className="w-4 h-4 md:w-5 md:h-5" />
                     )}
                   </motion.button>
 
                   <motion.button
                     onClick={isRecording ? stopRecording : startRecording}
                     disabled={isSending}
-                    className={`absolute p-2 -right-12 top-[0.4rem] rounded-full transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed group ${
+                    className={`absolute p-1.5 md:p-2 -right-10 md:-right-12 top-[0.4rem] rounded-full transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed group ${
                       isRecording
                         ? 'bg-red-500 text-white shadow-lg shadow-red-500/30 hover:bg-red-600'
-                        : 'bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white   hover:shadow-shad shadow-lg '
+                        : 'bg-gradient-to-r from-primary1 via-primary2 to-primary3 text-white hover:shadow-shad shadow-lg'
                     }`}
                     whileTap={{ scale: 0.95 }}
                     animate={
@@ -1167,9 +1167,9 @@ export default function ChatBot() {
                     }}
                   >
                     {isRecording ? (
-                      <HiStop className="w-5 h-5" />
+                      <HiStop className="w-4 h-4 md:w-5 md:h-5" />
                     ) : (
-                      <HiMicrophone className="w-5 h-5" />
+                      <HiMicrophone className="w-4 h-4 md:w-5 md:h-5" />
                     )}
 
                     {isRecording && (
@@ -1190,7 +1190,7 @@ export default function ChatBot() {
               </div>
 
               {/* Professional footer */}
-              <div className="mt-6 text-xs text-gray-400 text-center font-myFont">
+              <div className="mt-4 md:mt-6 text-[10px] md:text-xs text-gray-400 text-center font-myFont">
                 Press Enter to send • Shift + Enter for new line
               </div>
             </div>

@@ -10,6 +10,7 @@ import {
   FaMapMarkerAlt,
   FaChevronDown,
   FaTools,
+  FaCertificate,
 } from 'react-icons/fa';
 
 const staggerContainer = {
@@ -41,6 +42,15 @@ export default function Experiences() {
 
   const toggleExpanded = id => {
     setExpandedExperience(expandedExperience === id ? null : id);
+  };
+
+  const handleCertificateClick = certificationFile => {
+    if (certificationFile) {
+      window.open(
+        `http://localhost:5173/src/assets/docs/${certificationFile}`,
+        '_blank',
+      );
+    }
   };
 
   return (
@@ -214,7 +224,8 @@ export default function Experiences() {
 
                   {/* Expand Button */}
                   <div className="px-4 sm:px-6 md:px-8 pb-4 sm:pb-6">
-                    <div className="ml-8 sm:ml-12 flex justify-start">
+                    <div className="ml-8 sm:ml-12 flex flex-col sm:flex-row justify-start gap-3 sm:gap-4">
+                      {/* View Achievements Button */}
                       <motion.button
                         onClick={() => toggleExpanded(experience.id)}
                         whileHover={{ scale: 1.02 }}
@@ -242,6 +253,30 @@ export default function Experiences() {
                           </span>
                         </div>
                       </motion.button>
+
+                      {/* View Certificate Button */}
+                      {experience.certification && (
+                        <motion.button
+                          onClick={() =>
+                            handleCertificateClick(experience.certification)
+                          }
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                          className="relative group/cert overflow-hidden rounded-2xl"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary4 via-primary5 to-primary3 rounded-2xl"></div>
+                          <div className="absolute inset-0 bg-gradient-to-r from-primary3/20 to-primary4/20 rounded-2xl opacity-0 group-hover/cert:opacity-100 transition-opacity duration-500"></div>
+
+                          <div className="relative bg-gradient-to-r from-primary4 to-primary3 text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 rounded-2xl font-semibold text-base sm:text-lg shadow-2xl group-hover/cert:shadow-primary4/30 transition-all duration-300 flex items-center gap-3 sm:gap-4">
+                            <div className="p-1 sm:p-1.5 bg-white/15 rounded-lg backdrop-blur-sm">
+                              <FaCertificate className="text-sm sm:text-base" />
+                            </div>
+                            <span className="tracking-wide text-sm sm:text-base whitespace-nowrap">
+                              View Certificate
+                            </span>
+                          </div>
+                        </motion.button>
+                      )}
                     </div>
                   </div>
 

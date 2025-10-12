@@ -24,7 +24,9 @@
         "Grafana",
         "Prometheus"
       ],
-      "type": "ai"    },
+      "certification": "Certif-XAI.pdf",
+      "type": "ai"
+    },
     {
       "id": 2,
       "position": "Artificial Intelligence Developer",
@@ -41,6 +43,7 @@
         "Oversaw end-to-end workflow automation, delivering a fault-tolerant, step-by-step migration solution that accelerated project timelines and optimized resource utilization"
       ],
       "tools": ["MemGraph", "Docker", "SQL Server", "PostgreSQL", "CrewAI"],
+      "certification": "",
       "type": "ai"
     }
   ]
