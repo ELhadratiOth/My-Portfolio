@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 
 const Title = () => {
-  const WORDS = ['DATA ENGINEER.', 'FULLSTACK DEV.', 'ML ENGINEER.'];
+  const WORDS = ['DATA ENGINEER.', 'FULLSTACK DEV.', 'AI ENGINEER.'];
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [displayText, setDisplayText] = useState('');
