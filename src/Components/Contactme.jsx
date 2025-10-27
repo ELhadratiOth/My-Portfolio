@@ -4,6 +4,8 @@ import { MdOutlineAlternateEmail } from 'react-icons/md';
 import Form from './Form';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
+import { useEffect } from 'react';
+import { trackPageView } from '../utils/analytics';
 
 const staggerContainer = {
   hidden: { opacity: 0, x: 100 },
@@ -16,6 +18,9 @@ const staggerContainer = {
   },
 };
 export default function Contact() {
+  useEffect(() => {
+    trackPageView('Contact Me', '/contactme');
+  }, []);
   return (
     <AnimatePresence mode="wait">
       <Transition key={1} />

@@ -3,9 +3,14 @@ import { motion } from 'framer-motion';
 import { SiPaloaltonetworks } from 'react-icons/si';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import experiencesData from '../data/experiences.json';
 import CertifXAI from '../assets/docs/Certif-XAI.pdf';
+import {
+  trackExperienceExpanded,
+  trackCertificateViewed,
+  trackPageView,
+} from '../utils/analytics';
 import {
   FaCalendarAlt,
   FaMapMarkerAlt,
@@ -41,6 +46,10 @@ const experienceCardVariants = {
 export default function Experiences() {
   const [expandedExperience, setExpandedExperience] = useState(null);
 
+  useEffect(() => {
+    trackPageView('Experiences', '/experiences');
+  }, []);
+
   // Map certification filenames to imported PDFs
   const certificationMap = {
     'Certif-XAI.pdf': CertifXAI,
@@ -49,11 +58,25 @@ export default function Experiences() {
   };
 
   const toggleExpanded = id => {
+    const experience = experiencesData.experiences.find(exp => exp.id === id);
     setExpandedExperience(expandedExperience === id ? null : id);
+
+    // Track experience expanded event
+    if (expandedExperience !== id && experience) {
+      trackExperienceExpanded(experience.company, experience.position);
+    }
   };
 
   const handleCertificateClick = certificationFile => {
     if (certificationFile && certificationMap[certificationFile]) {
+      // Track certificate viewed event
+      const experience = experiencesData.experiences.find(
+        exp => exp.certification === certificationFile,
+      );
+      if (experience) {
+        trackCertificateViewed(experience.company, certificationFile);
+      }
+
       window.open(certificationMap[certificationFile], '_blank');
     }
   };

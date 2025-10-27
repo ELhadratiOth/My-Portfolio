@@ -2,10 +2,14 @@ import { motion } from 'framer-motion';
 import ProjectsImg from '../assets/projects.png';
 import LetsConn from './LetsConnect';
 import { Link } from 'react-router-dom';
+import { trackLinkClick } from '../utils/analytics';
 
 export default function ProjectBtn() {
   return (
-    <Link to={'/projects'}>
+    <Link
+      to={'/projects'}
+      onClick={() => trackLinkClick('Projects Button', '/projects')}
+    >
       <motion.div
         className="w-full  flex lg:justify-center  "
         initial={{ opacity: 0, x: 100 }}

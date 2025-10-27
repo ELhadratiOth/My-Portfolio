@@ -21,6 +21,11 @@ import TextWithLinks from './TextWithLinks';
 import MarkdownRenderer from './MarkdownRenderer';
 import OrbChatButton from './OrbChatButton';
 import OrbHeader from './OrbHeader';
+import {
+  trackChatBotOpened,
+  trackChatBotClosed,
+  trackChatBotMessage,
+} from '../utils/analytics';
 
 export default function ChatBot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,6 +52,9 @@ export default function ChatBot() {
     const currentInput = input;
     setInput('');
     setIsSending(true);
+
+    // Track chat message sent
+    trackChatBotMessage('text', currentInput.length);
 
     if (!hasStartedChat) {
       setHasStartedChat(true);
@@ -636,6 +644,7 @@ export default function ChatBot() {
           onClick={() => {
             setShowCapabilities(false), setIsOpen(true);
             setShowTooltip(true);
+            trackChatBotOpened();
           }}
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
@@ -823,6 +832,7 @@ export default function ChatBot() {
 
                   <motion.button
                     onClick={() => {
+                      trackChatBotClosed();
                       setIsOpen(false);
                       setIsMaximized(false);
                       setShowTooltip(false);

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import SocialMedias from './SocialMedias';
 import { motion } from 'framer-motion';
+import { trackSocialMediaClick } from '../utils/analytics';
 
 const beforeAnimation = {
   hidden: {
@@ -17,7 +18,7 @@ const beforeAnimation = {
     },
   },
 };
-const SocialMediaIcon = ({text}) => {
+const SocialMediaIcon = ({ text }) => {
   return (
     <div className="relative flex items-start space-x-5 text-2xl">
       {SocialMedias.map(socialMedia => (
@@ -26,7 +27,23 @@ const SocialMediaIcon = ({text}) => {
           className={`hover:text-${text} hover:shadow-primary1 text-primary2 backdrop-blur-[3px] hover:shadow-shad shadow-sm   p-2 rounded-md hover:scale-110 relative overflow-hidden ring-2 ring-offset-0 ring-primary3 hover:ring-primary3 transition-all duration-500 cursor-pointer `}
           whileHover="visible"
         >
-          <a href={socialMedia.url}>{socialMedia.icon}</a>
+          <a
+            href={socialMedia.url}
+            onClick={() => {
+              const platformName = socialMedia.url.includes('linkedin')
+                ? 'LinkedIn'
+                : socialMedia.url.includes('instagram')
+                ? 'Instagram'
+                : socialMedia.url.includes('github')
+                ? 'GitHub'
+                : socialMedia.url.includes('credly')
+                ? 'Credly'
+                : 'Unknown';
+              trackSocialMediaClick(platformName);
+            }}
+          >
+            {socialMedia.icon}
+          </a>
           <motion.div
             className="absolute -z-10 w-7 h-16 bg-primary5 -rotate-45"
             style={{ top: '1em', right: '1.9em' }}

@@ -4,6 +4,8 @@ import { SiHyperskill } from 'react-icons/si';
 import ServiceCompo from './ServiceCompo';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
+import { useEffect } from 'react';
+import { trackPageView } from '../utils/analytics';
 const staggerContainer = {
   hidden: { opacity: 0, x: 100 },
   show: {
@@ -15,8 +17,11 @@ const staggerContainer = {
   },
 };
 
-
 export default function Service() {
+  useEffect(() => {
+    trackPageView('Services', '/services');
+  }, []);
+
   return (
     <AnimatePresence mode="wait">
       <Transition key={1} />

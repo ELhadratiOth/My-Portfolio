@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { motion } from 'framer-motion';
 import { FaGithub, FaYoutube, FaLinkedin } from 'react-icons/fa6';
+import { trackButtonClick, trackLinkClick } from '../utils/analytics';
 
 const BouncyCardsFeatures = ({ data }) => {
   return (
@@ -60,6 +61,7 @@ const BounceCard = ({ className, data }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-primary5 to-primary3 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-primary3 hover:to-primary5 transition-colors duration-500"
+                onClick={() => trackLinkClick('project_github_link', data.link)}
               >
                 <FaGithub className="text-base font-bold md:text-xl mt-0.5" />
                 Check it
@@ -70,6 +72,9 @@ const BounceCard = ({ className, data }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-blue-600 hover:to-blue-800 transition-colors duration-500"
+                onClick={() =>
+                  trackLinkClick('project_linkedin_link', data.link)
+                }
               >
                 <FaLinkedin className="text-base font-bold md:text-xl mt-0.5" />
                 Check it
@@ -80,6 +85,9 @@ const BounceCard = ({ className, data }) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex gap-3 cursor-pointer text-white text-sm md:text-base font-semibold bg-gradient-to-r from-red-800 to-red-600 px-5 py-1.5 mt-4 rounded-full border border-white  hover:border-gray-800 hover:from-red-600 hover:to-red-800 transition-colors duration-500"
+                onClick={() =>
+                  trackLinkClick('project_youtube_link', data.link)
+                }
               >
                 <FaYoutube className=" text-base font-bold md:text-2xl mt-0" />
                 Check it
@@ -96,6 +104,7 @@ const BounceCard = ({ className, data }) => {
           backgroundRepeat: 'no-repeat',
         }}
         className="absolute bottom-0 z-10 left-4 right-4 top-16  md:top-24 translate-y-8 rounded-xl h-full p-4 transition-transform duration-[500ms] group-hover:md:-translate-y-14 group-hover:-translate-y-6 group-hover:rotate-[3deg] rotate-[-3deg]"
+        onClick={() => trackButtonClick('project_card', data.projectName)}
       ></div>
     </motion.div>
   );

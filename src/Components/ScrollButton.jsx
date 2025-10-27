@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { IoIosArrowDropup } from 'react-icons/io';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScroll, useMotionValueEvent } from 'framer-motion';
+import { trackScrollToSection } from '../utils/analytics';
 
 const ScrollButton = () => {
   const { scrollY } = useScroll();
@@ -15,7 +16,10 @@ const ScrollButton = () => {
     <AnimatePresence>
       {isScrolled && (
         <motion.div
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            trackScrollToSection('top');
+          }}
           className={
             'fixed cursor-pointer  md:bottom-28 bottom-24 right-5  md:right-6 bg-transparent backdrop-blur-xl text-6xl shadow-shad text-primary3 rounded-full z-20 hover:text-primary4'
           }

@@ -1,10 +1,12 @@
 import Paragraphe from './Paragraphe';
 import SecName from './SecName';
 import Skills from './Skills';
-import {  motion } from 'framer-motion';
-import {  FaRegUserCircle } from 'react-icons/fa';
+import { motion } from 'framer-motion';
+import { FaRegUserCircle } from 'react-icons/fa';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
+import { useEffect } from 'react';
+import { trackPageView } from '../utils/analytics';
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -18,10 +20,18 @@ const staggerContainer = {
 
 const staggerItem = {
   hidden: { x: 200, opacity: 0 },
-  show: { x: 0, opacity: 1, transition: { duration: 1, ease: 'easeOut' , delay:0.3 } },
+  show: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 1, ease: 'easeOut', delay: 0.3 },
+  },
 };
 
 export default function About() {
+  useEffect(() => {
+    trackPageView('About', '/about');
+  }, []);
+
   return (
     <AnimatePresence mode="wait">
       <Transition key={1} />
@@ -33,7 +43,7 @@ export default function About() {
         className="cursor-custom relative flex flex-col space-y-12 items-center md:w-3/5 w-full h-full md:mb-16  mt-16 md:mt-0 pt-12 md:pt-24 ml-20"
       >
         <SecName secName="About">
-          <FaRegUserCircle className='text-xl' />
+          <FaRegUserCircle className="text-xl" />
         </SecName>
 
         <motion.div

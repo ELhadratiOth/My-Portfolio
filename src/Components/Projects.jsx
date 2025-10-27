@@ -5,6 +5,7 @@ import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
 import Grid from './Grid';
 import TextType from './TextType';
+import { useEffect } from 'react';
 import { FaHtml5, FaReact, FaPython } from 'react-icons/fa';
 import { IoLogoCss3 } from 'react-icons/io';
 import { IoLogoJavascript } from 'react-icons/io5';
@@ -39,7 +40,6 @@ import Qdrant from './SVGs/Qdrant.jsx';
 import LlamaIndex from './SVGs/LlamaIndex2.jsx';
 import Unsloth from './SVGs/Unsloth';
 
-
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
 import MedicalOffice from '../assets/MedicalOffice.png';
@@ -60,6 +60,7 @@ import AnnotationPlatform from '../assets/AnnotationPlatform.png';
 import TelecomPipeline from '../assets/TelecomPipeline.png';
 import AIPodcastGenerator from '../assets/AIPodcastGenerator.png';
 import projectsData from '../data/projects.json';
+import { trackButtonClick, trackPageView } from '../utils/analytics';
 
 const staggerContainer = {
   hidden: { opacity: 0, x: 100 },
@@ -92,6 +93,10 @@ const projectTypeConfig = {
 };
 
 export default function Projects() {
+  useEffect(() => {
+    trackPageView('Projects', '/projects');
+  }, []);
+
   // Tool mapping from string names to actual components
   const toolMapping = {
     CrewAI2,
@@ -127,7 +132,7 @@ export default function Projects() {
     SiSpringsecurity,
     DiSpark,
     IoMdAnalytics,
-    Unsloth
+    Unsloth,
   };
 
   // Image mapping from string names to actual imports
@@ -202,6 +207,7 @@ export default function Projects() {
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 className="w-full space-y-6"
+                onClick={() => trackButtonClick('project_category', type)}
               >
                 {/* Section Header */}
                 <div className="flex flex-col space-y-2">

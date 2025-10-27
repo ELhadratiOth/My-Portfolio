@@ -4,6 +4,7 @@ import { SiHyperskill } from 'react-icons/si';
 import SkillsPart from './SkillsPart';
 import Certificats from './Certificats';
 import { useState } from 'react';
+import { trackButtonClick } from '../utils/analytics';
 
 const Categories = ['Skills', 'Certificats'];
 
@@ -14,9 +15,9 @@ const staggerContainer = {
     y: 0,
     transition: {
       duration: 1,
-      type: "spring",
+      type: 'spring',
       stiffness: 100,
-      damping: 12
+      damping: 12,
     },
   },
 };
@@ -29,7 +30,7 @@ const staggerItem = {
     transition: {
       delay: 0.5,
       duration: 1.1,
-      type: "spring",
+      type: 'spring',
     },
   },
 };
@@ -40,13 +41,13 @@ export default function Skills() {
   const Compo = () => {
     if (active === 'Skills') {
       return (
-        <motion.div className='md:w-[90%] '>
+        <motion.div className="md:w-[90%] ">
           <SkillsPart />
         </motion.div>
       );
     } else if (active === 'Certificats') {
       return (
-        <motion.div className='pb-7 md:pb-2 '>
+        <motion.div className="pb-7 md:pb-2 ">
           <Certificats />
         </motion.div>
       );
@@ -77,7 +78,10 @@ export default function Skills() {
               className={`relative text-2xl transition-colors cursor-pointer ${
                 active === category ? 'font-bold text-red-700' : 'text-white'
               }`}
-              onClick={() => setActive(category)}
+              onClick={() => {
+                setActive(category);
+                trackButtonClick('skills_category', category);
+              }}
             >
               {category}
               <span

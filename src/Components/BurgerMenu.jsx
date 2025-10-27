@@ -1,11 +1,18 @@
 /* eslint-disable react/prop-types */
 import { Drawer } from 'vaul';
 import BurgerIcon from './BurgerIcon';
+import { trackButtonClick } from '../utils/analytics';
 
 const BurgerMenu = ({ active, setActive, children }) => {
   return (
     <Drawer.Root direction="right" open={active}>
-      <Drawer.Trigger asChild onClick={() => setActive(prev => !prev)}>
+      <Drawer.Trigger
+        asChild
+        onClick={() => {
+          setActive(prev => !prev);
+          trackButtonClick('burger_menu', active ? 'close' : 'open');
+        }}
+      >
         <div>
           <BurgerIcon active={active} />
         </div>
@@ -13,7 +20,10 @@ const BurgerMenu = ({ active, setActive, children }) => {
       <Drawer.Portal>
         <Drawer.Overlay
           asChild
-          onClick={() => setActive(prev => !prev)}
+          onClick={() => {
+            setActive(prev => !prev);
+            trackButtonClick('burger_overlay_close', 'close');
+          }}
           className="fixed inset-0 bg-black/40"
         />
         <Drawer.Content className="bg-primary5/70  z-30 backdrop-blur-[10px]  flex flex-col justify-center items-center rounded-tl-3xl rounded-bl-3xl h-full w-[320px] fixed bottom-0 right-0">

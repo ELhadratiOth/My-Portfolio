@@ -1,6 +1,7 @@
 import { stagger, useAnimate } from 'framer-motion';
 import MyCV from '../assets/docs/MyCV.pdf';
 import { motion } from 'framer-motion';
+import { trackResumeDownloaded } from '../utils/analytics';
 
 export default function Resume() {
   const [scope, animate] = useAnimate(true);
@@ -15,6 +16,7 @@ export default function Resume() {
   };
 
   const handleClick = () => {
+    trackResumeDownloaded();
     setTimeout(() => {
       window.open(MyCV, '_blank');
     }, 750);
@@ -35,7 +37,7 @@ export default function Resume() {
         >
           <span className="sr-only">RESUME</span>
           <span className="overflow-hidden block text-xl h-[33px]" aria-hidden>
-            {[  'R', 'E', 'S', 'U', 'M', 'E'].map((letter, index) => (
+            {['R', 'E', 'S', 'U', 'M', 'E'].map((letter, index) => (
               <span
                 data-letter={letter}
                 className="letter inline-block relative h-[33px] after:absolute after:h-[33px] after:right-0 after:top-full after:content-[attr(data-letter)]"

@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { NavElements } from './NavElements.jsx';
 import ScrollButton from './ScrollButton.jsx';
 import BurgerMenu from './BurgerMenu';
+import { trackLinkClick, trackPageView } from '../utils/analytics';
 
 export default function Menu() {
   const [active, setActive] = useState(false);
@@ -12,15 +13,16 @@ export default function Menu() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (location.pathname) {
+      trackPageView(location.pathname, location.pathname);
+    }
   }, [location.pathname]);
 
   useEffect(() => {
     const handleVisibility = () => {
       if (divRef.current) {
         const rect = divRef.current.getBoundingClientRect();
-        setOkay(
-          rect.top + rect.height == 0 
-        );
+        setOkay(rect.top + rect.height == 0);
       }
     };
 
@@ -38,7 +40,10 @@ export default function Menu() {
     return (
       <div
         className="group relative flex "
-        onClick={() => setActive(pv => !pv)}
+        onClick={() => {
+          setActive(pv => !pv);
+          trackLinkClick(elem.name, elem.path);
+        }}
         key={elem.id}
         title={elem.name}
       >
@@ -89,11 +94,9 @@ export default function Menu() {
         </div>
       </div>
       {okay && (
-       
-          <BurgerMenu active={active} setActive={() => setActive(pv => !pv)}>
-            {mappedData}
-          </BurgerMenu>
-      
+        <BurgerMenu active={active} setActive={() => setActive(pv => !pv)}>
+          {mappedData}
+        </BurgerMenu>
       )}
     </>
   );

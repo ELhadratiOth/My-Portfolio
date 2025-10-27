@@ -4,9 +4,11 @@ import Paragraphe from './Paragraphe';
 import Resume from './Resume';
 import SecName from './SecName';
 import { FaHome } from 'react-icons/fa';
-import {  motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { AnimatePresence } from 'framer-motion';
 import Transition from './Transition';
+import { useEffect } from 'react';
+import { trackPageView } from '../utils/analytics';
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -21,10 +23,18 @@ const staggerContainer = {
 
 const staggerItem = {
   hidden: { x: 200, opacity: 0 },
-  show: { x: 0, opacity: 1, transition: { duration: 1, ease: 'easeInOut' , delay:0.7 } },
+  show: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 1, ease: 'easeInOut', delay: 0.7 },
+  },
 };
 
 export default function Home() {
+  useEffect(() => {
+    trackPageView('Home', '/');
+  }, []);
+
   return (
     <AnimatePresence mode="wait">
       <Transition key={1} />

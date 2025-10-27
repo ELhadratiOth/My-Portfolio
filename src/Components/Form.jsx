@@ -8,6 +8,7 @@ import { PiWarningCircleFill } from 'react-icons/pi';
 import { FiX } from 'react-icons/fi';
 import { AnimatePresence, motion } from 'framer-motion';
 import ReCAPTCHA from 'react-google-recaptcha';
+import { trackFormSubmitted } from '../utils/analytics';
 
 const NOTIFICATION_TTL = 5000;
 const PUBLIC_kEY = '6LenvhQqAAAAAPlAG2EoXWetFNLXhIn-jwjf3_gp';
@@ -138,6 +139,7 @@ const Form = () => {
         .then(
           () => {
             // console.log('SUCCESS!');
+            trackFormSubmitted('contact_form');
             reset();
             setIsNotifOpen(true);
             setErrorNotif(false);

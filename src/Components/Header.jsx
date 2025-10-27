@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { VscDebugBreakpointLog } from 'react-icons/vsc';
 import styles from '../static/bubble.module.css';
 import { Link } from 'react-router-dom';
+import { trackLinkClick } from '../utils/analytics';
 const Header = () => {
   const Me = () => 'EL HADRATI Othman'.split('');
   return (
@@ -18,7 +19,7 @@ const Header = () => {
           }}
           className="text-center text-3xl md:text-5xl text-indigo-300 md:ml-20 font-medium md:font-thin"
         >
-          <Link to="/">
+          <Link to="/" onClick={() => trackLinkClick('Portfolio Logo', '/')}>
             {Me().map((child, idx) => (
               <motion.span
                 key={idx}
@@ -41,7 +42,7 @@ const Header = () => {
           }}
           className="text-red-700 self-end text-sm mb-1"
         >
-          <VscDebugBreakpointLog  />
+          <VscDebugBreakpointLog />
         </motion.h2>
       </div>
     </div>
