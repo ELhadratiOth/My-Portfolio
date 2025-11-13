@@ -33,12 +33,23 @@ import { SiLangchain } from 'react-icons/si';
 import { SiSpring } from 'react-icons/si';
 import { SiSpringboot } from 'react-icons/si';
 import { DiSpark } from 'react-icons/di';
-
+import { SiGooglecloud } from 'react-icons/si';
+import { SiGithubactions } from 'react-icons/si';
+import { DiJenkins } from 'react-icons/di';
+import { SiAnsible } from 'react-icons/si';
+import { SiTerraform } from 'react-icons/si';
+import { SiJest } from 'react-icons/si';
+import { SiPytest } from 'react-icons/si';
+import { FaDigitalOcean } from 'react-icons/fa';
+import { VscAzure } from 'react-icons/vsc';
+import { SiDatabricks } from 'react-icons/si';
+import { FaRegSnowflake } from 'react-icons/fa';
 
 import Scoop from './SVGs/Sqoop';
 import { FaAws } from 'react-icons/fa';
 import HuggingFaceIcon from './SVGs/HuggingFaceIcon';
 import PowerBIIcon from './SVGs/PowerAutomateIcon';
+import PowerBIDataIcon from './SVGs/PowerBIIcon';
 import { motion } from 'framer-motion';
 import CIcon from './SVGs/Ccompo';
 import CrewAI from './SVGs/CrewAI';
@@ -126,18 +137,22 @@ export default function SkillsPart() {
         ]}
       />
       <SkillCategory
-        category="Big Data"
+        category="Big Data & Data Engineering"
         skills={[
           { icon: DiSpark, name: 'Spark' },
           { icon: SiApachekafka, name: 'Kafka' },
           { icon: Scoop, name: 'Sqoop' },
           { icon: SiApachehive, name: 'Hive' },
+          { icon: SiDatabricks, name: 'Databricks' },
+          { icon: FaRegSnowflake, name: 'Snowflake' },
+          { icon: PowerBIDataIcon, name: 'Power BI' },
         ]}
       />
       <SkillCategory
         category="Frameworks and Libraries"
         skills={[
           { icon: FaReact, name: 'React' },
+          { icon: RiTailwindCssFill, name: 'Next.js' },
           { icon: SiFastapi, name: 'FastAPI' },
           { icon: SiFlask, name: 'Flask' },
           { icon: SiSpring, name: 'Spring' },
@@ -156,22 +171,38 @@ export default function SkillsPart() {
       />
       <SkillCategory
         category="Cloud Platforms"
-        skills={[{ icon: FaAws, name: 'Aws' }]}
-      />
-      <SkillCategory
-        category="Operating Systems"
         skills={[
-          { icon: DiLinux, name: 'Linux' },
-          { icon: FaWindows, name: 'Windows' },
+          { icon: FaAws, name: 'AWS' },
+          { icon: SiGooglecloud, name: 'GCP' },
+          { icon: VscAzure, name: 'Azure' },
+          { icon: FaDigitalOcean, name: 'DigitalOcean' },
         ]}
       />
       <SkillCategory
-        category="Version Control & Tools"
+        category="CI/CD & DevOps"
         skills={[
+          { icon: SiGithubactions, name: 'GitHub Actions' },
+          { icon: DiJenkins, name: 'Jenkins' },
+          { icon: SiAnsible, name: 'Ansible' },
+          { icon: SiTerraform, name: 'Terraform' },
+          { icon: FaDocker, name: 'Docker' },
+        ]}
+      />
+      <SkillCategory
+        category="Testing Libraries"
+        skills={[
+          { icon: SiJest, name: 'Jest' },
+          { icon: SiPytest, name: 'Pytest' },
+        ]}
+      />
+      <SkillCategory
+        category="OS / Version Control and Tools"
+        skills={[
+          { icon: DiLinux, name: 'Linux' },
+          { icon: FaWindows, name: 'Windows' },
           { icon: DiGit, name: 'Git' },
           { icon: DiGithubBadge, name: 'GitHub' },
           { icon: SiPostman, name: 'Postman' },
-          { icon: FaDocker, name: 'Docker' },
           { icon: PowerBIIcon, name: 'Power Automate' },
         ]}
       />

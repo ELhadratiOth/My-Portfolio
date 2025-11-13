@@ -185,5 +185,26 @@
       "imgUrl": "AIPodcastGenerator",
       "project_type": "ai"
     }
+    ,{
+      "id": 32,
+      "serviceName": "Full Stack DevOps Pipeline",
+      "tools": [
+        "DiJenkins",
+        "SiTerraform",
+        "FaGithub",
+        "BiLogoPostgresql",
+        "SiFastapi",
+        "RiNextjsFill",
+        "FaDigitalOcean",
+        "FaDocker",
+        "SiAnsible",
+        "SiJest",
+        "SiPytest",
+        "BiLogoGmail"
+      ],
+      "link": "https://github.com/ELhadratiOth/Full-Stack-DevOps-Pipeline",
+      "imgUrl": "FullStackDevOpsPipeline",
+      "project_type": "DevOps"
+    }
   ]
 }

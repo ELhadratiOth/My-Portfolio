@@ -45,11 +45,11 @@ const BounceCard = ({ className, data }) => {
         </h1>
       </div>
       <div className="flex flex-col items-center">
-        <div className="flex self-center space-x-3 w-fit">
+        <div className="flex flex-wrap justify-center gap-3 w-full px-8">
           {data.tools.map((Tool, i) => (
             <Tool
               key={`${data.serviceName}-${i}`}
-              className="text-2xl md:text-3xl"
+              className="text-2xl md:text-3xl flex-shrink-0"
             />
           ))}
         </div>

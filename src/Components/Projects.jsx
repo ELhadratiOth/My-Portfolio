@@ -30,6 +30,15 @@ import { SiSpringboot } from 'react-icons/si';
 import { SiSpringsecurity } from 'react-icons/si';
 import { DiSpark } from 'react-icons/di';
 import { IoMdAnalytics } from 'react-icons/io';
+import { DiJenkins } from 'react-icons/di';
+import { SiTerraform } from 'react-icons/si';
+import { FaGithub } from 'react-icons/fa6';
+import { RiNextjsFill } from 'react-icons/ri';
+import { FaDigitalOcean } from 'react-icons/fa6';
+import { SiAnsible } from 'react-icons/si';
+import { SiJest } from 'react-icons/si';
+import { SiPytest } from 'react-icons/si';
+import { BiLogoGmail } from 'react-icons/bi';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
@@ -59,6 +68,7 @@ import Hociematy from '../assets/Hociematy.png';
 import AnnotationPlatform from '../assets/AnnotationPlatform.png';
 import TelecomPipeline from '../assets/TelecomPipeline.png';
 import AIPodcastGenerator from '../assets/AIPodcastGenerator.png';
+import FullStackDevOpsPipeline from '../assets/FullStackDevOpsPipeline.png';
 import projectsData from '../data/projects.json';
 import { trackButtonClick, trackPageView } from '../utils/analytics';
 
@@ -89,6 +99,11 @@ const projectTypeConfig = {
     title: 'Web Development',
     subtitle: 'Frontend & Backend',
     color: 'text-purple-400',
+  },
+  DevOps: {
+    title: 'DevOps & Infrastructure',
+    subtitle: 'CI/CD & Cloud Solutions',
+    color: 'text-orange-400',
   },
 };
 
@@ -133,6 +148,15 @@ export default function Projects() {
     DiSpark,
     IoMdAnalytics,
     Unsloth,
+    DiJenkins,
+    SiTerraform,
+    FaGithub,
+    RiNextjsFill,
+    FaDigitalOcean,
+    SiAnsible,
+    SiJest,
+    SiPytest,
+    BiLogoGmail,
   };
 
   // Image mapping from string names to actual imports
@@ -156,6 +180,7 @@ export default function Projects() {
     AnnotationPlatform,
     TelecomPipeline,
     AIPodcastGenerator,
+    FullStackDevOpsPipeline,
   };
 
   // Transform the JSON data to use actual components and images
