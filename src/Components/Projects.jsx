@@ -39,6 +39,13 @@ import { SiAnsible } from 'react-icons/si';
 import { SiJest } from 'react-icons/si';
 import { SiPytest } from 'react-icons/si';
 import { BiLogoGmail } from 'react-icons/bi';
+import { SiGooglecloud } from 'react-icons/si';
+import { SiPostgresql } from 'react-icons/si';
+import { SiDatabricks } from 'react-icons/si';
+import { SiApachespark } from 'react-icons/si';
+import { SiSnowflake } from 'react-icons/si';
+import { SiKaggle } from 'react-icons/si';
+import { SiDelta } from 'react-icons/si';
 
 import Ccompo from './SVGs/Ccompo';
 import Scoop from './SVGs/Sqoop';
@@ -48,6 +55,7 @@ import AgentOps from './SVGs/AgentOps';
 import Qdrant from './SVGs/Qdrant.jsx';
 import LlamaIndex from './SVGs/LlamaIndex2.jsx';
 import Unsloth from './SVGs/Unsloth';
+import PowerBIIcon from './SVGs/PowerBIIcon';
 
 import GitHubAnalyserImg from '../assets/GitHubAnalyser.png';
 import PortFolioImg from '../assets/PortFolio.png';
@@ -69,6 +77,7 @@ import AnnotationPlatform from '../assets/AnnotationPlatform.png';
 import TelecomPipeline from '../assets/TelecomPipeline.png';
 import AIPodcastGenerator from '../assets/AIPodcastGenerator.png';
 import FullStackDevOpsPipeline from '../assets/FullStackDevOpsPipeline.png';
+import GCPToPowerBIEcommercePipeline from '../assets/GCPToPowerBIEcommercePipeline.png';
 import projectsData from '../data/projects.json';
 import { trackButtonClick, trackPageView } from '../utils/analytics';
 
@@ -157,6 +166,14 @@ export default function Projects() {
     SiJest,
     SiPytest,
     BiLogoGmail,
+    PowerBIIcon,
+    SiGooglecloud,
+    SiPostgresql,
+    SiDatabricks,
+    SiApachespark,
+    SiSnowflake,
+    SiKaggle,
+    SiDelta,
   };
 
   // Image mapping from string names to actual imports
@@ -181,6 +198,7 @@ export default function Projects() {
     TelecomPipeline,
     AIPodcastGenerator,
     FullStackDevOpsPipeline,
+    GCPToPowerBIEcommercePipeline,
   };
 
   // Transform the JSON data to use actual components and images

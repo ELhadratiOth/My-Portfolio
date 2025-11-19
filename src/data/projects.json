@@ -22,6 +22,7 @@
       "imgUrl": "ChatBot",
       "project_type": "ai"
     },
+
     {
       "id": 15,
       "serviceName": "Al Hoceima Guide AI Chatbot",
@@ -39,11 +40,29 @@
       "project_type": "ai"
     },
     {
-      "id": 17,
-      "serviceName": "Credit Card Fraud Detection Pipline",
-      "tools": ["SiApachekafka", "FaAws", "FaReact"],
-      "link": "https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git",
-      "imgUrl": "CreditCardPipline",
+      "id": 31,
+      "serviceName": "AI-powered podcast generator by fine-tuning TTS model",
+      "tools": ["CrewAI2", "Unsloth"],
+      "link": "https://www.linkedin.com/posts/othman-el-hadrati-91aa98243_aicontent-voiceai-tts-activity-7334997034397032448-ZE9s?utm_source=share&utm_medium=member_desktop&rcm=ACoAADx-vCYByN5jr0n50heL3LUBB6CVNA7WsNY",
+      "imgUrl": "AIPodcastGenerator",
+      "project_type": "ai"
+    },
+    {
+      "id": 33,
+      "serviceName": "GCP to Power BI E-Commerce Pipeline",
+      "tools": [
+        "SiGooglecloud",
+        "SiPostgresql",
+        "SiDatabricks",
+        "SiApachespark",
+        "SiSnowflake",
+        "PowerBIIcon",
+        "SiPython",
+        "SiKaggle",
+        "SiDelta"
+      ],
+      "link": "https://github.com/ELhadratiOth/GCP-To-PowerBI-Ecommerce-Pipeline",
+      "imgUrl": "GCPToPowerBIEcommercePipeline",
       "project_type": "data"
     },
     {
@@ -66,6 +85,27 @@
       "tools": ["FaAws", "Scoop", "SiApachehadoop", "SiApachehive", "SiMysql"],
       "link": "https://github.com/ELhadratiOth/Movies-Pipeline.git",
       "imgUrl": "Sqooparchi",
+      "project_type": "data"
+    },
+    {
+      "id": 30,
+      "serviceName": "Telecom Data Processing Pipeline",
+      "tools": [
+        "SiApachekafka",
+        "DiSpark",
+        "BiLogoPostgresql",
+        "IoMdAnalytics"
+      ],
+      "link": "https://github.com/ELhadratiOth/Telecom-Data-Processing-Pipeline-with-Spark-Kafka",
+      "imgUrl": "TelecomPipeline",
+      "project_type": "data"
+    },
+    {
+      "id": 17,
+      "serviceName": "Credit Card Fraud Detection Pipline",
+      "tools": ["SiApachekafka", "FaAws", "FaReact"],
+      "link": "https://github.com/ELhadratiOth/Real-Time-CreditCard-fraudDetection.git",
+      "imgUrl": "CreditCardPipline",
       "project_type": "data"
     },
     {
@@ -105,6 +145,20 @@
       ],
       "link": "https://github.com/ELhadratiOth/Cabinet-Medical.git",
       "imgUrl": "MedicalOffice",
+      "project_type": "dev"
+    },
+    {
+      "id": 29,
+      "serviceName": "Dataset Annotation and ML Training models Platform",
+      "tools": [
+        "SiSpringboot",
+        "FaReact",
+        "SiFastapi",
+        "SiSpringsecurity",
+        "BiLogoPostgresql"
+      ],
+      "link": "https://github.com/ELhadratiOth/Gestion-Des-Annotateurs",
+      "imgUrl": "AnnotationPlatform",
       "project_type": "dev"
     },
     {
@@ -148,44 +202,6 @@
       "project_type": "dev"
     },
     {
-      "id": 29,
-      "serviceName": "Dataset Annotation and ML Training models Platform",
-      "tools": [
-        "SiSpringboot",
-        "FaReact",
-        "SiFastapi",
-        "SiSpringsecurity",
-        "BiLogoPostgresql"
-      ],
-      "link": "https://github.com/ELhadratiOth/Gestion-Des-Annotateurs",
-      "imgUrl": "AnnotationPlatform",
-      "project_type": "dev"
-    },
-    {
-      "id": 30,
-      "serviceName": "Telecom Data Processing Pipeline",
-      "tools": [
-        "SiApachekafka",
-        "DiSpark",
-        "BiLogoPostgresql",
-        "IoMdAnalytics"
-      ],
-      "link": "https://github.com/ELhadratiOth/Telecom-Data-Processing-Pipeline-with-Spark-Kafka",
-      "imgUrl": "TelecomPipeline",
-      "project_type": "data"
-    },
-    {
-      "id": 31,
-      "serviceName": "AI-powered podcast generator by fine-tuning TTS model",
-      "tools": [
-        "CrewAI2",
-        "Unsloth"
-      ],
-      "link": "https://www.linkedin.com/posts/othman-el-hadrati-91aa98243_aicontent-voiceai-tts-activity-7334997034397032448-ZE9s?utm_source=share&utm_medium=member_desktop&rcm=ACoAADx-vCYByN5jr0n50heL3LUBB6CVNA7WsNY",
-      "imgUrl": "AIPodcastGenerator",
-      "project_type": "ai"
-    }
-    ,{
       "id": 32,
       "serviceName": "Full Stack DevOps Pipeline",
       "tools": [
