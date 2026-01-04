@@ -1,7 +1,7 @@
 ## **Portfolio**
 
 Welcome to my portfolio ! This project showcases my work, skills, and experiences in data science, web development.
-## **To isit my portfolio :** www.0thman.me
+## **To isit my portfolio :** **www.0thman.me**
 ![Portfolio Screenshot](public/Desktop.png)
 
 ## **Table of Contents**
